@@ -1,0 +1,326 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Casos Clínicos: Abordaje del Paciente Neurocrítico</title>
+    <script src="https://cdn.tailwindcss.com"></script>
+    <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700&display=swap" rel="stylesheet">
+    <style>
+        body {
+            font-family: 'Inter', sans-serif;
+            background-color: #f0f4f8;
+        }
+        .card {
+            background-color: white;
+            border-radius: 12px;
+            box-shadow: 0 10px 15px -3px rgba(0, 0, 0, 0.1), 0 4px 6px -2px rgba(0, 0, 0, 0.05);
+            transition: transform 0.3s ease, box-shadow 0.3s ease;
+        }
+        .card:hover {
+            transform: translateY(-5px);
+            box-shadow: 0 20px 25px -5px rgba(0, 0, 0, 0.1), 0 10px 10px -5px rgba(0, 0, 0, 0.04);
+        }
+        .btn {
+            transition: background-color 0.3s ease, transform 0.2s ease;
+        }
+        .btn:hover {
+            transform: translateY(-2px);
+        }
+        .modal {
+            display: none;
+            animation: fadeIn 0.3s ease-out;
+        }
+        @keyframes fadeIn {
+            from { opacity: 0; transform: scale(0.95); }
+            to { opacity: 1; transform: scale(1); }
+        }
+        .infographic-pearl {
+            animation: slideInUp 0.5s ease-out forwards;
+            opacity: 0;
+        }
+        @keyframes slideInUp {
+            from {
+                opacity: 0;
+                transform: translateY(30px);
+            }
+            to {
+                opacity: 1;
+                transform: translateY(0);
+            }
+        }
+    </style>
+</head>
+<body class="text-gray-800">
+
+    <div id="app-container" class="container mx-auto p-4 md:p-8">
+
+        <!-- Vista de Casos Clínicos -->
+        <div id="casos-view">
+            <header class="text-center mb-10">
+                <h1 class="text-4xl md:text-5xl font-bold text-gray-900 mb-2">Abordaje del Paciente Neurocrítico</h1>
+                <p class="text-lg text-gray-600">Módulo 1: Casos Clínicos Interactivos</p>
+            </header>
+
+            <main id="casos-container" class="space-y-8">
+                <!-- Los casos clínicos se insertarán aquí por JS -->
+            </main>
+
+            <footer class="text-center mt-12">
+                <button id="show-infographic-btn" class="btn bg-indigo-600 text-white font-bold py-3 px-8 rounded-full shadow-lg hover:bg-indigo-700">
+                    Ver Infografía de Perlas Clínicas
+                </button>
+            </footer>
+             <div class="text-center text-sm text-gray-500 mt-8">
+                &copy; 2025 Dr. Héctor Castro. Todos los derechos reservados.
+            </div>
+        </div>
+
+        <!-- Vista de Infografía -->
+        <div id="infografia-view" class="hidden">
+            <header class="text-center mb-10">
+                <h1 class="text-4xl md:text-5xl font-bold text-gray-900 mb-2">10 Perlas Clínicas del Paciente Neurocrítico</h1>
+                <p class="text-lg text-gray-600">Conceptos Fundamentales del Módulo 1</p>
+            </header>
+
+            <main id="infografia-container" class="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-6">
+                <!-- Las perlas clínicas se insertarán aquí por JS -->
+            </main>
+            
+            <footer class="text-center mt-12">
+                <button id="show-casos-btn" class="btn bg-gray-700 text-white font-bold py-3 px-8 rounded-full shadow-lg hover:bg-gray-800">
+                    Volver a Casos Clínicos
+                </button>
+            </footer>
+             <div class="text-center text-sm text-gray-500 mt-8">
+                &copy; 2025 Dr. Héctor Castro. Todos los derechos reservados.
+            </div>
+        </div>
+
+    </div>
+
+    <!-- Modal Template -->
+    <div id="modal" class="modal fixed inset-0 bg-black bg-opacity-60 flex items-center justify-center z-50 p-4">
+        <div class="bg-white rounded-2xl shadow-2xl p-6 md:p-8 max-w-lg w-full transform">
+            <h3 id="modal-title" class="text-2xl font-bold mb-4"></h3>
+            <p id="modal-text" class="text-gray-700 mb-6"></p>
+            <button id="modal-close" class="btn w-full bg-indigo-600 text-white font-bold py-2 px-4 rounded-lg hover:bg-indigo-700">
+                Cerrar
+            </button>
+        </div>
+    </div>
+
+<script>
+    document.addEventListener('DOMContentLoaded', function () {
+        const casosContainer = document.getElementById('casos-container');
+        const infografiaContainer = document.getElementById('infografia-container');
+        const modal = document.getElementById('modal');
+        const modalTitle = document.getElementById('modal-title');
+        const modalText = document.getElementById('modal-text');
+        const modalClose = document.getElementById('modal-close');
+        
+        const casosView = document.getElementById('casos-view');
+        const infografiaView = document.getElementById('infografia-view');
+        const showInfographicBtn = document.getElementById('show-infographic-btn');
+        const showCasosBtn = document.getElementById('show-casos-btn');
+
+        const casosClinicos = [
+            {
+                caso: "Un paciente de 25 años ingresa a urgencias tras un accidente de motocicleta. A la exploración, presenta apertura ocular solo al estímulo doloroso, emite sonidos incomprensibles y muestra una postura de flexión anormal (decorticación).",
+                pregunta: "¿Cuál es la puntuación en la Escala de Coma de Glasgow (GCS) y qué clasificación de TCE corresponde?",
+                opciones: [
+                    { texto: "GCS 9 (TCE Moderado)", correcta: false, explicacion: "Incorrecto. La puntuación es menor. Apertura ocular al dolor (2) + Sonidos incomprensibles (2) + Flexión anormal (3) = GCS 7. Esto clasifica el TCE como severo." },
+                    { texto: "GCS 7 (TCE Severo)", correcta: true, explicacion: "Correcto. La puntuación se calcula así: Apertura ocular al dolor (E=2), Respuesta verbal con sonidos incomprensibles (V=2) y Respuesta motora con flexión anormal (M=3). La suma es 7. Un GCS ≤ 8 indica un Traumatismo Craneoencefálico (TCE) severo y es indicación de intubación y monitorización de la PIC." },
+                    { texto: "GCS 8 (TCE Moderado)", correcta: false, explicacion: "Incorrecto. Aunque un GCS de 8 es el límite, la suma correcta de los componentes (2+2+3) es 7. Un GCS de 8 aún se considera severo." },
+                    { texto: "GCS 6 (TCE Severo)", correcta: false, explicacion: "Incorrecto. La suma de los componentes es 2 (ojos) + 2 (verbal) + 3 (motor), lo que da un total de 7, no 6." }
+                ]
+            },
+            {
+                caso: "Una paciente de 68 años con TCE severo (GCS 6) y un Drenaje Ventricular Externo (DVE) presenta un aumento sostenido de la Presión Intracraneal (PIC) a 25 mmHg. La Presión Arterial Media (PAM) es de 90 mmHg.",
+                pregunta: "Según la doctrina de Monro-Kellie y las guías actuales, ¿cuál es la primera medida terapéutica a considerar?",
+                opciones: [
+                    { texto: "Iniciar coma barbitúrico (Nivel 3).", correcta: false, explicacion: "Incorrecto. El coma barbitúrico es una terapia de rescate (Nivel 3) y solo se considera si las medidas de Nivel 1 y 2 han fallado debido a su alto riesgo." },
+                    { texto: "Realizar una craniectomía descompresiva de inmediato.", correcta: false, explicacion: "Incorrecto. La cirugía descompresiva es una intervención de Nivel 3, reservada para HIC refractaria a tratamientos médicos menos invasivos." },
+                    { texto: "Drenar LCR a través del DVE y administrar terapia hiperosmolar (Manitol o salino hipertónico).", correcta: true, explicacion: "Correcto. El manejo de la HIC es escalonado. El Nivel 1 incluye optimizar sedoanalgesia, drenar LCR (si hay DVE) y usar terapia hiperosmolar. Estas son las primeras y menos invasivas intervenciones para reducir la PIC al disminuir el volumen de LCR y el edema cerebral." },
+                    { texto: "Iniciar hiperventilación para llevar la PaCO2 a 25 mmHg.", correcta: false, explicacion: "Incorrecto. La hiperventilación agresiva puede causar isquemia cerebral por vasoconstricción excesiva. La hiperventilación leve (PaCO2 30-35 mmHg) es una terapia de Nivel 2, no de primera línea." }
+                ]
+            },
+            {
+                caso: "Se está manejando a un paciente con TCE severo en ventilación mecánica. Los gases arteriales muestran una PaCO2 de 55 mmHg. El monitor de PIC muestra un rápido aumento de 15 a 28 mmHg.",
+                pregunta: "¿Cuál es la explicación fisiopatológica más probable para el aumento de la PIC en este paciente?",
+                opciones: [
+                    { texto: "La hipercapnia (PaCO2 alta) causa vasoconstricción cerebral, disminuyendo la PIC.", correcta: false, explicacion: "Incorrecto. La hipercapnia es un potente vasodilatador cerebral, no vasoconstrictor." },
+                    { texto: "La hipercapnia (PaCO2 alta) causa vasodilatación cerebral, aumentando el volumen sanguíneo cerebral y, por ende, la PIC.", correcta: true, explicacion: "Correcto. La PaCO2 es un potente regulador del flujo sanguíneo cerebral. La hipercapnia provoca vasodilatación de las arteriolas cerebrales, lo que aumenta el volumen sanguíneo dentro del cráneo rígido. Según la doctrina de Monro-Kellie, este aumento de volumen eleva directamente la PIC." },
+                    { texto: "La PaCO2 no tiene un efecto significativo sobre la PIC; el aumento debe ser por otra causa.", correcta: false, explicacion: "Incorrecto. La PaCO2 tiene uno de los efectos más rápidos y potentes sobre la dinámica de la PIC, siendo un pilar del manejo neurocrítico." },
+                    { texto: "La hipercapnia reduce la producción de LCR, lo que debería disminuir la PIC.", correcta: false, explicacion: "Incorrecto. El efecto vasodilatador de la hipercapnia sobre el volumen sanguíneo cerebral es mucho más potente e inmediato que cualquier efecto sobre la producción de LCR." }
+                ]
+            },
+            {
+                caso: "Un paciente con una hemorragia subaracnoidea es monitorizado con un catéter de presión de oxígeno tisular cerebral (PbtO2). La PIC es de 18 mmHg y la PPC es de 65 mmHg, pero la PbtO2 cae a 15 mmHg.",
+                pregunta: "¿Qué indica este hallazgo y cuál sería el siguiente paso adecuado?",
+                opciones: [
+                    { texto: "El paciente está estable, ya que la PIC y la PPC están dentro de los objetivos.", correcta: false, explicacion: "Incorrecto. Aunque la PIC y la PPC están en rangos aceptables, la PbtO2 indica hipoxia tisular, una forma de lesión cerebral secundaria que requiere intervención urgente." },
+                    { texto: "Indica hipoxia tisular cerebral. Se debe considerar aumentar la PAM con vasopresores para mejorar la PPC y el suministro de oxígeno.", correcta: true, explicacion: "Correcto. Este es un ejemplo clásico de la utilidad de la monitorización multimodal. Un valor de PbtO2 < 20 mmHg define hipoxia cerebral y es un predictor independiente de mal pronóstico. Aunque la PPC es de 65 mmHg, puede no ser suficiente para ese cerebro en particular. El siguiente paso es optimizar el suministro de oxígeno, a menudo aumentando la PAM para mejorar la perfusión." },
+                    { texto: "El catéter de PbtO2 probablemente está funcionando mal y debe ser retirado.", correcta: false, explicacion: "Incorrecto. Aunque siempre se debe considerar un mal funcionamiento del equipo, un valor bajo de PbtO2 debe tomarse como un signo clínico real hasta que se demuestre lo contrario, ya que indica una lesión secundaria crítica." },
+                    { texto: "Indica un exceso de oxígeno cerebral; se debe disminuir la FiO2 en el ventilador.", correcta: false, explicacion: "Incorrecto. Un valor de 15 mmHg es críticamente bajo e indica una falta de oxígeno, no un exceso." }
+                ]
+            },
+            {
+                caso: "Un paciente con TCE severo (GCS 5) es ingresado en la UCI. La TC de cráneo muestra múltiples contusiones y edema cerebral difuso. La presión arterial es de 85/50 mmHg.",
+                pregunta: "En la valoración inicial, ¿cuál es la prioridad de manejo más inmediata para prevenir la lesión cerebral secundaria?",
+                opciones: [
+                    { texto: "Administrar manitol para tratar el edema cerebral.", correcta: false, explicacion: "Incorrecto. Aunque el manitol será necesario, la hipotensión lo contraindica relativamente, ya que es un diurético osmótico que puede empeorar la volemia y la presión arterial. La hipotensión debe corregirse primero." },
+                    { texto: "Corregir la hipotensión agresivamente con fluidos y/o vasopresores para asegurar una PPC adecuada.", correcta: true, explicacion: "Correcto. La hipotensión (PAS < 90 mmHg) es uno de los factores más deletéreos en el TCE, ya que reduce drásticamente la Presión de Perfusión Cerebral (PPC = PAM - PIC), causando isquemia global. Prevenir la lesión cerebral secundaria por isquemia es la máxima prioridad. Por lo tanto, restaurar la presión arterial es el primer y más crucial paso." },
+                    { texto: "Realizar un EEG continuo para descartar convulsiones no convulsivas.", correcta: false, explicacion: "Incorrecto. Aunque el cEEG es importante en el manejo neurocrítico, la estabilización hemodinámica para prevenir la isquemia cerebral es una prioridad más inmediata en la fase aguda." },
+                    { texto: "Colocar un monitor de PIC de inmediato.", correcta: false, explicacion: "Incorrecto. La monitorización de la PIC es fundamental, pero no debe retrasar la resucitación hemodinámica. Un paciente hipotenso necesita ser estabilizado primero para que la monitorización de la PIC y la PPC sea significativa." }
+                ]
+            }
+        ];
+
+        const perlasClinicas = [
+            { icono: '🧠', titulo: 'Lesión Secundaria', texto: 'El objetivo principal en neurocríticos no es revertir la lesión inicial (irreversible), sino prevenir la lesión cerebral secundaria (hipoxia, isquemia, edema) que ocurre horas o días después.' },
+            { icono: '⚖️', titulo: 'Doctrina Monro-Kellie', texto: 'El cráneo es una caja rígida. Un aumento en un componente (cerebro, sangre, LCR) debe compensarse con la disminución de otro, o la PIC aumentará exponencialmente.' },
+            { icono: '📉', titulo: 'GCS ≤ 8', texto: 'Una Escala de Coma de Glasgow de 8 o menos define un TCE severo. Es una indicación clara para intubación y protección de la vía aérea, y para la monitorización invasiva de la PIC.' },
+            { icono: '🎯', titulo: 'Objetivo de PPC', texto: 'La Presión de Perfusión Cerebral (PPC = PAM - PIC) debe mantenerse entre 60-70 mmHg. Menos de 60 causa isquemia; más de 70 puede aumentar el edema sin claro beneficio.' },
+            { icono: '💨', titulo: 'Poder de la PaCO2', texto: 'La PaCO2 es el vasodilatador cerebral más potente. La hipercapnia aumenta la PIC; la hipocapnia la reduce, pero con riesgo de isquemia. El objetivo es la normocapnia (35-40 mmHg).' },
+            { icono: '💧', titulo: 'Terapia Hiperosmolar', texto: 'El Manitol y el Salino Hipertónico reducen la PIC al extraer agua del parénquima cerebral (edema) hacia el espacio intravascular, disminuyendo el volumen cerebral.' },
+            { icono: '🚨', titulo: 'Pupila de Hutchinson', texto: 'Una pupila dilatada y no reactiva ipsilateral a la lesión sugiere una herniación uncal que comprime el III par craneal. Es una emergencia neuroquirúrgica.' },
+            { icono: '⚡', titulo: 'Convulsiones Silenciosas', texto: 'Las convulsiones no convulsivas son comunes en pacientes neurocríticos, aumentan la demanda metabólica y la PIC. Solo se detectan con EEG continuo (cEEG).' },
+            { icono: '🌡️', titulo: 'Fiebre es Tóxica', texto: 'La fiebre aumenta la tasa metabólica cerebral, el consumo de oxígeno y la PIC. Debe ser tratada agresivamente en el paciente neurocrítico.' },
+            { icono: '⬇️', titulo: 'Hipotensión es Devastadora', texto: 'Un solo episodio de hipotensión (PAS < 90 mmHg) en un paciente con TCE severo puede duplicar la mortalidad. La resucitación hemodinámica es prioritaria.' }
+        ];
+
+        function renderCasos() {
+            casosContainer.innerHTML = '';
+            casosClinicos.forEach((casoData, index) => {
+                const casoElement = document.createElement('div');
+                casoElement.className = 'card p-6 md:p-8';
+                casoElement.innerHTML = `
+                    <div class="mb-6">
+                        <span class="text-indigo-600 font-bold text-sm">CASO CLÍNICO ${index + 1}</span>
+                        <p class="mt-2 text-lg">${casoData.caso}</p>
+                    </div>
+                    <div>
+                        <h4 class="font-bold text-lg mb-4">${casoData.pregunta}</h4>
+                        <div class="space-y-3" id="opciones-caso-${index}">
+                            ${casoData.opciones.map((opcion, i) => `
+                                <button data-correcta="${opcion.correcta}" data-explicacion="${opcion.explicacion}" class="w-full text-left p-4 rounded-lg border border-gray-300 hover:bg-gray-100 hover:border-indigo-500 focus:outline-none focus:ring-2 focus:ring-indigo-500 transition-colors duration-200">
+                                    <span class="font-semibold">${String.fromCharCode(97 + i)})</span> ${opcion.texto}
+                                </button>
+                            `).join('')}
+                        </div>
+                        <div class="text-right mt-4">
+                            <button class="btn-reiniciar text-sm text-indigo-600 hover:underline" data-caso-index="${index}">Reiniciar Caso</button>
+                        </div>
+                    </div>
+                `;
+                casosContainer.appendChild(casoElement);
+            });
+        }
+
+        function renderInfografia() {
+            infografiaContainer.innerHTML = '';
+            perlasClinicas.forEach((perla, index) => {
+                const perlaElement = document.createElement('div');
+                perlaElement.className = 'infographic-pearl card p-6 flex items-start space-x-4';
+                perlaElement.style.animationDelay = `${index * 100}ms`;
+                perlaElement.innerHTML = `
+                    <div class="text-4xl">${perla.icono}</div>
+                    <div>
+                        <h3 class="font-bold text-lg text-indigo-700">${perla.titulo}</h3>
+                        <p class="text-gray-600 mt-1">${perla.texto}</p>
+                    </div>
+                `;
+                infografiaContainer.appendChild(perlaElement);
+            });
+        }
+
+        function showModal(correcta, explicacion) {
+            modalTitle.textContent = correcta ? '¡Correcto!' : 'Respuesta Incorrecta';
+            modalTitle.className = `text-2xl font-bold mb-4 ${correcta ? 'text-green-600' : 'text-red-600'}`;
+            modalText.textContent = explicacion;
+            modal.style.display = 'flex';
+        }
+
+        casosContainer.addEventListener('click', function (e) {
+            const opcionBtn = e.target.closest('button[data-correcta]');
+            if (opcionBtn && !opcionBtn.disabled) {
+                const esCorrecta = opcionBtn.dataset.correcta === 'true';
+                const explicacion = opcionBtn.dataset.explicacion;
+                const opcionesContainer = opcionBtn.parentElement;
+
+                if (esCorrecta) {
+                    // Correct answer logic
+                    showModal(true, explicacion);
+
+                    // Disable all buttons, show colors, and display all explanations
+                    Array.from(opcionesContainer.querySelectorAll('button[data-correcta]')).forEach(btn => {
+                        btn.disabled = true;
+                        if (btn.dataset.correcta === 'true') {
+                            btn.classList.add('bg-green-100', 'border-green-500', 'ring-2', 'ring-green-500');
+                        } else {
+                            btn.classList.add('bg-red-100', 'border-red-500');
+                        }
+
+                        // Create and insert explanation text below each button
+                        const explainer = document.createElement('p');
+                        explainer.className = 'text-sm text-gray-600 mt-1 p-2 bg-gray-50 rounded-md explainer-p';
+                        explainer.textContent = btn.dataset.explicacion;
+                        
+                        // Check if an explanation already exists to avoid duplicates
+                        if (!btn.nextElementSibling || !btn.nextElementSibling.classList.contains('explainer-p')) {
+                            btn.insertAdjacentElement('afterend', explainer);
+                        }
+                    });
+                } else {
+                    // Incorrect answer logic: just show the modal.
+                    // The case remains active for another attempt after closing the modal.
+                    showModal(false, explicacion);
+                }
+            }
+
+            const reiniciarBtn = e.target.closest('.btn-reiniciar');
+            if (reiniciarBtn) {
+                const casoIndex = parseInt(reiniciarBtn.dataset.casoIndex);
+                const opcionesContainer = document.getElementById(`opciones-caso-${casoIndex}`);
+                
+                // Remove explanation paragraphs
+                const explanations = opcionesContainer.querySelectorAll('p.explainer-p');
+                explanations.forEach(p => p.remove());
+
+                // Reset buttons
+                Array.from(opcionesContainer.querySelectorAll('button[data-correcta]')).forEach(btn => {
+                    btn.disabled = false;
+                    btn.classList.remove('bg-green-100', 'border-green-500', 'ring-2', 'ring-green-500', 'bg-red-100', 'border-red-500');
+                });
+            }
+        });
+
+        modalClose.addEventListener('click', () => {
+            modal.style.display = 'none';
+        });
+
+        window.addEventListener('click', (e) => {
+            if (e.target === modal) {
+                modal.style.display = 'none';
+            }
+        });
+        
+        showInfographicBtn.addEventListener('click', () => {
+            casosView.classList.add('hidden');
+            infografiaView.classList.remove('hidden');
+            renderInfografia();
+        });
+
+        showCasosBtn.addEventListener('click', () => {
+            infografiaView.classList.add('hidden');
+            casosView.classList.remove('hidden');
+        });
+
+        // Initial render
+        renderCasos();
+    });
+</script>
+
+</body>
+</html>
