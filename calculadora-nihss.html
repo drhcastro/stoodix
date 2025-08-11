@@ -3,321 +3,414 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Calculadora de la Escala NIHSS</title>
+    <title>Escala Interactiva NIHSS</title>
     <script src="https://cdn.tailwindcss.com"></script>
     <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700&display=swap" rel="stylesheet">
     <style>
         body {
             font-family: 'Inter', sans-serif;
         }
-        .result-card {
-            transition: all 0.3s ease-in-out;
+        .score-item {
+            transition: background-color 0.3s ease;
         }
-        @media print {
-            body * {
-                visibility: hidden;
-            }
-            .print-section, .print-section * {
-                visibility: visible;
-            }
-            .print-section {
-                position: absolute;
-                left: 0;
-                top: 0;
-                width: 100%;
-            }
-            .no-print {
-                display: none;
-            }
+        .score-item:hover {
+            background-color: #374151; /* gray-700 */
+        }
+        .sticky-header {
+            position: -webkit-sticky;
+            position: sticky;
+            top: 0;
+            z-index: 10;
         }
     </style>
 </head>
-<body class="bg-gray-100">
+<body class="bg-gray-900 text-gray-200">
 
     <div class="container mx-auto p-4 md:p-8 max-w-4xl">
-        <div class="bg-white rounded-2xl shadow-lg p-6 md:p-8 print-section">
-            <header class="text-center mb-8">
-                <h1 class="text-3xl md:text-4xl font-bold text-blue-800">Calculadora de la Escala NIHSS</h1>
-                <p class="text-gray-600 mt-2">Herramienta interactiva para la evaluación del déficit neurológico en un Accidente Cerebrovascular (ACV).</p>
-            </header>
 
-            <form id="nihssForm">
-                <!-- Patient Identifier -->
-                <div class="mb-6">
-                    <label for="patientId" class="block text-lg font-semibold text-gray-700 mb-2">Identificador del Paciente:</label>
-                    <input type="text" id="patientId" name="patientId" class="w-full p-2 border border-gray-300 rounded-lg focus:ring-blue-500 focus:border-blue-500" placeholder="Ej: Juan Pérez, ID: 12345">
-                </div>
-
-                <!-- 1a. Nivel de Conciencia -->
-                <fieldset class="mb-6 border border-gray-200 p-4 rounded-lg">
-                    <legend class="px-2 font-semibold text-lg text-gray-800">1a. Nivel de Conciencia</legend>
-                    <div class="space-y-2 mt-2">
-                        <div><label class="flex items-center"><input type="radio" name="item_1a" value="0" class="mr-2" required> 0 - Alerta</label></div>
-                        <div><label class="flex items-center"><input type="radio" name="item_1a" value="1" class="mr-2"> 1 - Somnolencia (despierta con estímulos menores)</label></div>
-                        <div><label class="flex items-center"><input type="radio" name="item_1a" value="2" class="mr-2"> 2 - Obnubilación (requiere estímulo repetido o doloroso)</label></div>
-                        <div><label class="flex items-center"><input type="radio" name="item_1a" value="3" class="mr-2"> 3 - Coma (no responde)</label></div>
-                    </div>
-                </fieldset>
-
-                <!-- 1b. Preguntas de Orientación -->
-                <fieldset class="mb-6 border border-gray-200 p-4 rounded-lg">
-                    <legend class="px-2 font-semibold text-lg text-gray-800">1b. Nivel de Conciencia (Preguntas: mes y edad)</legend>
-                    <div class="space-y-2 mt-2">
-                        <div><label class="flex items-center"><input type="radio" name="item_1b" value="0" class="mr-2" required> 0 - Ambas respuestas correctas</label></div>
-                        <div><label class="flex items-center"><input type="radio" name="item_1b" value="1" class="mr-2"> 1 - Una respuesta correcta</label></div>
-                        <div><label class="flex items-center"><input type="radio" name="item_1b" value="2" class="mr-2"> 2 - Ninguna respuesta correcta</label></div>
-                    </div>
-                </fieldset>
-
-                <!-- 1c. Órdenes Motoras -->
-                <fieldset class="mb-6 border border-gray-200 p-4 rounded-lg">
-                    <legend class="px-2 font-semibold text-lg text-gray-800">1c. Nivel de Conciencia (Órdenes motoras)</legend>
-                    <div class="space-y-2 mt-2">
-                        <div><label class="flex items-center"><input type="radio" name="item_1c" value="0" class="mr-2" required> 0 - Ambas órdenes correctas</label></div>
-                        <div><label class="flex items-center"><input type="radio" name="item_1c" value="1" class="mr-2"> 1 - Una orden correcta</label></div>
-                        <div><label class="flex items-center"><input type="radio" name="item_1c" value="2" class="mr-2"> 2 - Ninguna orden correcta</label></div>
-                    </div>
-                </fieldset>
-
-                <!-- 2. Mirada Conjugada -->
-                <fieldset class="mb-6 border border-gray-200 p-4 rounded-lg">
-                    <legend class="px-2 font-semibold text-lg text-gray-800">2. Mirada Conjugada</legend>
-                    <div class="space-y-2 mt-2">
-                        <div><label class="flex items-center"><input type="radio" name="item_2" value="0" class="mr-2" required> 0 - Normal</label></div>
-                        <div><label class="flex items-center"><input type="radio" name="item_2" value="1" class="mr-2"> 1 - Paresia parcial de la mirada</label></div>
-                        <div><label class="flex items-center"><input type="radio" name="item_2" value="2" class="mr-2"> 2 - Desviación forzada o paresia total</label></div>
-                    </div>
-                </fieldset>
-
-                <!-- 3. Campos Visuales -->
-                <fieldset class="mb-6 border border-gray-200 p-4 rounded-lg">
-                    <legend class="px-2 font-semibold text-lg text-gray-800">3. Campos Visuales</legend>
-                    <div class="space-y-2 mt-2">
-                        <div><label class="flex items-center"><input type="radio" name="item_3" value="0" class="mr-2" required> 0 - Normal</label></div>
-                        <div><label class="flex items-center"><input type="radio" name="item_3" value="1" class="mr-2"> 1 - Hemianopsia parcial</label></div>
-                        <div><label class="flex items-center"><input type="radio" name="item_3" value="2" class="mr-2"> 2 - Hemianopsia completa</label></div>
-                        <div><label class="flex items-center"><input type="radio" name="item_3" value="3" class="mr-2"> 3 - Hemianopsia bilateral (ceguera)</label></div>
-                    </div>
-                </fieldset>
-
-                <!-- 4. Paresia Facial -->
-                <fieldset class="mb-6 border border-gray-200 p-4 rounded-lg">
-                    <legend class="px-2 font-semibold text-lg text-gray-800">4. Paresia Facial</legend>
-                    <div class="space-y-2 mt-2">
-                        <div><label class="flex items-center"><input type="radio" name="item_4" value="0" class="mr-2" required> 0 - Movimientos normales</label></div>
-                        <div><label class="flex items-center"><input type="radio" name="item_4" value="1" class="mr-2"> 1 - Paresia menor (borramiento surco nasolabial)</label></div>
-                        <div><label class="flex items-center"><input type="radio" name="item_4" value="2" class="mr-2"> 2 - Paresia parcial (parálisis parte inferior cara)</label></div>
-                        <div><label class="flex items-center"><input type="radio" name="item_4" value="3" class="mr-2"> 3 - Parálisis completa (superior e inferior)</label></div>
-                    </div>
-                </fieldset>
-
-                <!-- 5. Fuerza en Brazo -->
-                <div class="grid md:grid-cols-2 gap-4">
-                    <fieldset class="mb-6 border border-gray-200 p-4 rounded-lg">
-                        <legend class="px-2 font-semibold text-lg text-gray-800">5a. Fuerza Brazo Izquierdo</legend>
-                        <div class="space-y-2 mt-2">
-                            <div><label class="flex items-center"><input type="radio" name="item_5a" value="0" class="mr-2" required> 0 - No claudica</label></div>
-                            <div><label class="flex items-center"><input type="radio" name="item_5a" value="1" class="mr-2"> 1 - Claudica antes de 10 seg</label></div>
-                            <div><label class="flex items-center"><input type="radio" name="item_5a" value="2" class="mr-2"> 2 - Vence gravedad pero no resistencia</label></div>
-                            <div><label class="flex items-center"><input type="radio" name="item_5a" value="3" class="mr-2"> 3 - No vence gravedad</label></div>
-                            <div><label class="flex items-center"><input type="radio" name="item_5a" value="4" class="mr-2"> 4 - No hay movimiento</label></div>
-                            <div><label class="flex items-center"><input type="radio" name="item_5a" value="9" class="mr-2"> 9 - Amputación o inmovilización</label></div>
-                        </div>
-                    </fieldset>
-                    <fieldset class="mb-6 border border-gray-200 p-4 rounded-lg">
-                        <legend class="px-2 font-semibold text-lg text-gray-800">5b. Fuerza Brazo Derecho</legend>
-                        <div class="space-y-2 mt-2">
-                            <div><label class="flex items-center"><input type="radio" name="item_5b" value="0" class="mr-2" required> 0 - No claudica</label></div>
-                            <div><label class="flex items-center"><input type="radio" name="item_5b" value="1" class="mr-2"> 1 - Claudica antes de 10 seg</label></div>
-                            <div><label class="flex items-center"><input type="radio" name="item_5b" value="2" class="mr-2"> 2 - Vence gravedad pero no resistencia</label></div>
-                            <div><label class="flex items-center"><input type="radio" name="item_5b" value="3" class="mr-2"> 3 - No vence gravedad</label></div>
-                            <div><label class="flex items-center"><input type="radio" name="item_5b" value="4" class="mr-2"> 4 - No hay movimiento</label></div>
-                            <div><label class="flex items-center"><input type="radio" name="item_5b" value="9" class="mr-2"> 9 - Amputación o inmovilización</label></div>
-                        </div>
-                    </fieldset>
-                </div>
-
-                <!-- 6. Fuerza en Pierna -->
-                <div class="grid md:grid-cols-2 gap-4">
-                    <fieldset class="mb-6 border border-gray-200 p-4 rounded-lg">
-                        <legend class="px-2 font-semibold text-lg text-gray-800">6a. Fuerza Pierna Izquierda</legend>
-                        <div class="space-y-2 mt-2">
-                            <div><label class="flex items-center"><input type="radio" name="item_6a" value="0" class="mr-2" required> 0 - No claudica</label></div>
-                            <div><label class="flex items-center"><input type="radio" name="item_6a" value="1" class="mr-2"> 1 - Claudica antes de 5 seg</label></div>
-                            <div><label class="flex items-center"><input type="radio" name="item_6a" value="2" class="mr-2"> 2 - Vence gravedad pero no resistencia</label></div>
-                            <div><label class="flex items-center"><input type="radio" name="item_6a" value="3" class="mr-2"> 3 - No vence gravedad</label></div>
-                            <div><label class="flex items-center"><input type="radio" name="item_6a" value="4" class="mr-2"> 4 - No hay movimiento</label></div>
-                            <div><label class="flex items-center"><input type="radio" name="item_6a" value="9" class="mr-2"> 9 - Amputación o inmovilización</label></div>
-                        </div>
-                    </fieldset>
-                    <fieldset class="mb-6 border border-gray-200 p-4 rounded-lg">
-                        <legend class="px-2 font-semibold text-lg text-gray-800">6b. Fuerza Pierna Derecha</legend>
-                        <div class="space-y-2 mt-2">
-                           <div><label class="flex items-center"><input type="radio" name="item_6b" value="0" class="mr-2" required> 0 - No claudica</label></div>
-                            <div><label class="flex items-center"><input type="radio" name="item_6b" value="1" class="mr-2"> 1 - Claudica antes de 5 seg</label></div>
-                            <div><label class="flex items-center"><input type="radio" name="item_6b" value="2" class="mr-2"> 2 - Vence gravedad pero no resistencia</label></div>
-                            <div><label class="flex items-center"><input type="radio" name="item_6b" value="3" class="mr-2"> 3 - No vence gravedad</label></div>
-                            <div><label class="flex items-center"><input type="radio" name="item_6b" value="4" class="mr-2"> 4 - No hay movimiento</label></div>
-                            <div><label class="flex items-center"><input type="radio" name="item_6b" value="9" class="mr-2"> 9 - Amputación o inmovilización</label></div>
-                        </div>
-                    </fieldset>
-                </div>
-
-                <!-- 7. Ataxia de las extremidades -->
-                <fieldset class="mb-6 border border-gray-200 p-4 rounded-lg">
-                    <legend class="px-2 font-semibold text-lg text-gray-800">7. Ataxia de las extremidades</legend>
-                    <div class="space-y-2 mt-2">
-                        <div><label class="flex items-center"><input type="radio" name="item_7" value="0" class="mr-2" required> 0 - Ausente</label></div>
-                        <div><label class="flex items-center"><input type="radio" name="item_7" value="1" class="mr-2"> 1 - Ataxia en una extremidad</label></div>
-                        <div><label class="flex items-center"><input type="radio" name="item_7" value="2" class="mr-2"> 2 - Ataxia en dos extremidades</label></div>
-                    </div>
-                </fieldset>
-
-                <!-- 8. Sensibilidad -->
-                <fieldset class="mb-6 border border-gray-200 p-4 rounded-lg">
-                    <legend class="px-2 font-semibold text-lg text-gray-800">8. Sensibilidad</legend>
-                    <div class="space-y-2 mt-2">
-                        <div><label class="flex items-center"><input type="radio" name="item_8" value="0" class="mr-2" required> 0 - Normal</label></div>
-                        <div><label class="flex items-center"><input type="radio" name="item_8" value="1" class="mr-2"> 1 - Hipoestesia leve o moderada</label></div>
-                        <div><label class="flex items-center"><input type="radio" name="item_8" value="2" class="mr-2"> 2 - Anestesia (pérdida grave)</label></div>
-                    </div>
-                </fieldset>
-
-                <!-- 9. Lenguaje -->
-                <fieldset class="mb-6 border border-gray-200 p-4 rounded-lg">
-                    <legend class="px-2 font-semibold text-lg text-gray-800">9. Lenguaje (Afasia)</legend>
-                    <div class="space-y-2 mt-2">
-                        <div><label class="flex items-center"><input type="radio" name="item_9" value="0" class="mr-2" required> 0 - Normal</label></div>
-                        <div><label class="flex items-center"><input type="radio" name="item_9" value="1" class="mr-2"> 1 - Afasia leve o moderada</label></div>
-                        <div><label class="flex items-center"><input type="radio" name="item_9" value="2" class="mr-2"> 2 - Afasia grave</label></div>
-                        <div><label class="flex items-center"><input type="radio" name="item_9" value="3" class="mr-2"> 3 - Afasia global o mutismo</label></div>
-                    </div>
-                </fieldset>
-
-                <!-- 10. Disartria -->
-                <fieldset class="mb-6 border border-gray-200 p-4 rounded-lg">
-                    <legend class="px-2 font-semibold text-lg text-gray-800">10. Disartria</legend>
-                    <div class="space-y-2 mt-2">
-                        <div><label class="flex items-center"><input type="radio" name="item_10" value="0" class="mr-2" required> 0 - Articulación normal</label></div>
-                        <div><label class="flex items-center"><input type="radio" name="item_10" value="1" class="mr-2"> 1 - Leve, se le puede entender</label></div>
-                        <div><label class="flex items-center"><input type="radio" name="item_10" value="2" class="mr-2"> 2 - Grave, ininteligible o anartria</label></div>
-                        <div><label class="flex items-center"><input type="radio" name="item_10" value="9" class="mr-2"> 9 - Intubado o barrera física</label></div>
-                    </div>
-                </fieldset>
-
-                <!-- 11. Extinción / Negligencia -->
-                <fieldset class="mb-6 border border-gray-200 p-4 rounded-lg">
-                    <legend class="px-2 font-semibold text-lg text-gray-800">11. Extinción / Negligencia (Inatención)</legend>
-                    <div class="space-y-2 mt-2">
-                        <div><label class="flex items-center"><input type="radio" name="item_11" value="0" class="mr-2" required> 0 - Normal</label></div>
-                        <div><label class="flex items-center"><input type="radio" name="item_11" value="1" class="mr-2"> 1 - Inatención a una modalidad sensorial</label></div>
-                        <div><label class="flex items-center"><input type="radio" name="item_11" value="2" class="mr-2"> 2 - Inatención a más de una modalidad o negligencia espacial</label></div>
-                    </div>
-                </fieldset>
-
-                <div class="flex flex-col md:flex-row justify-center items-center gap-4 mt-8 no-print">
-                    <button type="submit" class="w-full md:w-auto bg-blue-600 text-white font-bold py-3 px-8 rounded-lg shadow-md hover:bg-blue-700 transition-all duration-300">
-                        Calcular Puntuación
-                    </button>
-                    <button type="button" id="resetBtn" class="w-full md:w-auto bg-gray-500 text-white font-bold py-3 px-8 rounded-lg shadow-md hover:bg-gray-600 transition-all duration-300">
-                        Reiniciar
-                    </button>
-                    <button type="button" id="printBtn" class="w-full md:w-auto bg-green-600 text-white font-bold py-3 px-8 rounded-lg shadow-md hover:bg-green-700 transition-all duration-300 hidden">
-                        Imprimir / Guardar PDF
-                    </button>
-                </div>
-            </form>
-
-            <!-- Results Section -->
-            <div id="results" class="hidden mt-10">
-                <div id="resultCard" class="result-card bg-gray-50 p-6 rounded-lg border-l-8">
-                    <h2 class="text-2xl font-bold text-gray-800 mb-4">Resultado</h2>
-                    <div id="patientInfo" class="text-lg text-gray-700 mb-3"></div>
-                    <p class="text-lg text-gray-700">Puntuación Total NIHSS: <span id="totalScore" class="font-bold text-3xl text-blue-800"></span></p>
-                    <p class="text-lg text-gray-700 mt-2">Interpretación: <span id="interpretation" class="font-bold text-xl"></span></p>
-                </div>
+        <!-- Encabezado Fijo con Puntuación -->
+        <div id="score-header" class="sticky-header bg-gray-900/80 backdrop-blur-sm p-4 rounded-b-xl mb-8 shadow-lg border-b border-gray-700">
+            <h1 class="text-2xl md:text-3xl font-bold text-cyan-400 text-center mb-2">Escala de Ictus del NIHSS</h1>
+            <div class="bg-gray-800 p-4 rounded-lg text-center">
+                <p class="text-lg text-gray-400">Puntuación Total</p>
+                <p id="total-score" class="text-5xl font-bold text-white">0</p>
+                 <p id="score-interpretation" class="text-sm text-gray-500 mt-2 h-4"></p>
             </div>
         </div>
+
+        <!-- Formulario de la Escala -->
+        <form id="nihss-form" class="space-y-6">
+
+            <!-- Item 1a: Nivel de Conciencia -->
+            <div class="bg-gray-800 p-5 rounded-xl shadow-md score-item">
+                <h2 class="text-xl font-semibold mb-3 text-white">1a. Nivel de Conciencia</h2>
+                <div class="space-y-3">
+                    <label class="flex items-center p-3 bg-gray-700 rounded-lg cursor-pointer hover:bg-gray-600">
+                        <input type="radio" name="item1a" value="0" class="form-radio h-5 w-5 text-cyan-500 bg-gray-800 border-gray-600 focus:ring-cyan-600" checked>
+                        <span class="ml-4 text-gray-300">0 - Alerta</span>
+                    </label>
+                    <label class="flex items-center p-3 bg-gray-700 rounded-lg cursor-pointer hover:bg-gray-600">
+                        <input type="radio" name="item1a" value="1" class="form-radio h-5 w-5 text-cyan-500 bg-gray-800 border-gray-600 focus:ring-cyan-600">
+                        <span class="ml-4 text-gray-300">1 - Somnoliento, pero responde a estímulos menores</span>
+                    </label>
+                    <label class="flex items-center p-3 bg-gray-700 rounded-lg cursor-pointer hover:bg-gray-600">
+                        <input type="radio" name="item1a" value="2" class="form-radio h-5 w-5 text-cyan-500 bg-gray-800 border-gray-600 focus:ring-cyan-600">
+                        <span class="ml-4 text-gray-300">2 - Estuporoso, requiere estímulos repetidos o dolorosos</span>
+                    </label>
+                    <label class="flex items-center p-3 bg-gray-700 rounded-lg cursor-pointer hover:bg-gray-600">
+                        <input type="radio" name="item1a" value="3" class="form-radio h-5 w-5 text-cyan-500 bg-gray-800 border-gray-600 focus:ring-cyan-600">
+                        <span class="ml-4 text-gray-300">3 - Coma, no responde</span>
+                    </label>
+                </div>
+            </div>
+
+            <!-- Item 1b: Preguntas (Mes y Edad) -->
+            <div class="bg-gray-800 p-5 rounded-xl shadow-md score-item">
+                <h2 class="text-xl font-semibold mb-3 text-white">1b. Orientación (Preguntas)</h2>
+                <p class="text-sm text-gray-400 mb-3">Se le pregunta al paciente el mes actual y su edad.</p>
+                <div class="space-y-3">
+                    <label class="flex items-center p-3 bg-gray-700 rounded-lg cursor-pointer hover:bg-gray-600">
+                        <input type="radio" name="item1b" value="0" class="form-radio h-5 w-5 text-cyan-500" checked>
+                        <span class="ml-4 text-gray-300">0 - Responde ambas correctamente</span>
+                    </label>
+                    <label class="flex items-center p-3 bg-gray-700 rounded-lg cursor-pointer hover:bg-gray-600">
+                        <input type="radio" name="item1b" value="1" class="form-radio h-5 w-5 text-cyan-500">
+                        <span class="ml-4 text-gray-300">1 - Responde una correctamente</span>
+                    </label>
+                    <label class="flex items-center p-3 bg-gray-700 rounded-lg cursor-pointer hover:bg-gray-600">
+                        <input type="radio" name="item1b" value="2" class="form-radio h-5 w-5 text-cyan-500">
+                        <span class="ml-4 text-gray-300">2 - No responde ninguna correctamente</span>
+                    </label>
+                </div>
+            </div>
+
+            <!-- Item 1c: Órdenes (Abrir/Cerrar Ojos y Puño) -->
+            <div class="bg-gray-800 p-5 rounded-xl shadow-md score-item">
+                <h2 class="text-xl font-semibold mb-3 text-white">1c. Comprensión (Órdenes)</h2>
+                <p class="text-sm text-gray-400 mb-3">Se le pide al paciente que abra y cierre los ojos, y que apriete y suelte la mano no parética.</p>
+                <div class="space-y-3">
+                    <label class="flex items-center p-3 bg-gray-700 rounded-lg cursor-pointer hover:bg-gray-600">
+                        <input type="radio" name="item1c" value="0" class="form-radio h-5 w-5 text-cyan-500" checked>
+                        <span class="ml-4 text-gray-300">0 - Realiza ambas tareas</span>
+                    </label>
+                    <label class="flex items-center p-3 bg-gray-700 rounded-lg cursor-pointer hover:bg-gray-600">
+                        <input type="radio" name="item1c" value="1" class="form-radio h-5 w-5 text-cyan-500">
+                        <span class="ml-4 text-gray-300">1 - Realiza una tarea</span>
+                    </label>
+                    <label class="flex items-center p-3 bg-gray-700 rounded-lg cursor-pointer hover:bg-gray-600">
+                        <input type="radio" name="item1c" value="2" class="form-radio h-5 w-5 text-cyan-500">
+                        <span class="ml-4 text-gray-300">2 - No realiza ninguna tarea</span>
+                    </label>
+                </div>
+            </div>
+
+            <!-- Item 2: Mejor Mirada Conjugada -->
+            <div class="bg-gray-800 p-5 rounded-xl shadow-md score-item">
+                <h2 class="text-xl font-semibold mb-3 text-white">2. Mejor Mirada Conjugada</h2>
+                <div class="space-y-3">
+                    <label class="flex items-center p-3 bg-gray-700 rounded-lg cursor-pointer hover:bg-gray-600">
+                        <input type="radio" name="item2" value="0" class="form-radio h-5 w-5 text-cyan-500" checked>
+                        <span class="ml-4 text-gray-300">0 - Normal</span>
+                    </label>
+                    <label class="flex items-center p-3 bg-gray-700 rounded-lg cursor-pointer hover:bg-gray-600">
+                        <input type="radio" name="item2" value="1" class="form-radio h-5 w-5 text-cyan-500">
+                        <span class="ml-4 text-gray-300">1 - Paresia de la mirada parcial</span>
+                    </label>
+                    <label class="flex items-center p-3 bg-gray-700 rounded-lg cursor-pointer hover:bg-gray-600">
+                        <input type="radio" name="item2" value="2" class="form-radio h-5 w-5 text-cyan-500">
+                        <span class="ml-4 text-gray-300">2 - Desviación forzada de la mirada</span>
+                    </label>
+                </div>
+            </div>
+
+            <!-- Item 3: Campos Visuales -->
+            <div class="bg-gray-800 p-5 rounded-xl shadow-md score-item">
+                <h2 class="text-xl font-semibold mb-3 text-white">3. Campos Visuales</h2>
+                <div class="space-y-3">
+                    <label class="flex items-center p-3 bg-gray-700 rounded-lg cursor-pointer hover:bg-gray-600">
+                        <input type="radio" name="item3" value="0" class="form-radio h-5 w-5 text-cyan-500" checked>
+                        <span class="ml-4 text-gray-300">0 - Normal</span>
+                    </label>
+                    <label class="flex items-center p-3 bg-gray-700 rounded-lg cursor-pointer hover:bg-gray-600">
+                        <input type="radio" name="item3" value="1" class="form-radio h-5 w-5 text-cyan-500">
+                        <span class="ml-4 text-gray-300">1 - Hemianopsia parcial</span>
+                    </label>
+                    <label class="flex items-center p-3 bg-gray-700 rounded-lg cursor-pointer hover:bg-gray-600">
+                        <input type="radio" name="item3" value="2" class="form-radio h-5 w-5 text-cyan-500">
+                        <span class="ml-4 text-gray-300">2 - Hemianopsia completa</span>
+                    </label>
+                    <label class="flex items-center p-3 bg-gray-700 rounded-lg cursor-pointer hover:bg-gray-600">
+                        <input type="radio" name="item3" value="3" class="form-radio h-5 w-5 text-cyan-500">
+                        <span class="ml-4 text-gray-300">3 - Ceguera bilateral</span>
+                    </label>
+                </div>
+            </div>
+
+            <!-- Item 4: Paresia Facial -->
+            <div class="bg-gray-800 p-5 rounded-xl shadow-md score-item">
+                <h2 class="text-xl font-semibold mb-3 text-white">4. Paresia Facial</h2>
+                <div class="space-y-3">
+                    <label class="flex items-center p-3 bg-gray-700 rounded-lg cursor-pointer hover:bg-gray-600">
+                        <input type="radio" name="item4" value="0" class="form-radio h-5 w-5 text-cyan-500" checked>
+                        <span class="ml-4 text-gray-300">0 - Movimientos normales</span>
+                    </label>
+                    <label class="flex items-center p-3 bg-gray-700 rounded-lg cursor-pointer hover:bg-gray-600">
+                        <input type="radio" name="item4" value="1" class="form-radio h-5 w-5 text-cyan-500">
+                        <span class="ml-4 text-gray-300">1 - Paresia menor</span>
+                    </label>
+                    <label class="flex items-center p-3 bg-gray-700 rounded-lg cursor-pointer hover:bg-gray-600">
+                        <input type="radio" name="item4" value="2" class="form-radio h-5 w-5 text-cyan-500">
+                        <span class="ml-4 text-gray-300">2 - Paresia parcial</span>
+                    </label>
+                    <label class="flex items-center p-3 bg-gray-700 rounded-lg cursor-pointer hover:bg-gray-600">
+                        <input type="radio" name="item4" value="3" class="form-radio h-5 w-5 text-cyan-500">
+                        <span class="ml-4 text-gray-300">3 - Parálisis completa</span>
+                    </label>
+                </div>
+            </div>
+
+            <!-- Item 5: Motor Brazo (Izquierdo y Derecho) -->
+            <div class="bg-gray-800 p-5 rounded-xl shadow-md score-item">
+                 <h2 class="text-xl font-semibold mb-3 text-white">5. Motor Miembro Superior</h2>
+                 <div class="grid md:grid-cols-2 gap-6 mt-4">
+                    <div>
+                        <h3 class="font-medium text-lg mb-2 text-cyan-300">a. Brazo Izquierdo</h3>
+                         <div class="space-y-3">
+                            <label class="flex items-center p-2 bg-gray-700 rounded-lg cursor-pointer hover:bg-gray-600">
+                                <input type="radio" name="item5a" value="0" class="form-radio h-5 w-5 text-cyan-500" checked><span class="ml-3">0 - Sin deriva</span>
+                            </label>
+                            <label class="flex items-center p-2 bg-gray-700 rounded-lg cursor-pointer hover:bg-gray-600">
+                                <input type="radio" name="item5a" value="1" class="form-radio h-5 w-5 text-cyan-500"><span class="ml-3">1 - Deriva</span>
+                            </label>
+                            <label class="flex items-center p-2 bg-gray-700 rounded-lg cursor-pointer hover:bg-gray-600">
+                                <input type="radio" name="item5a" value="2" class="form-radio h-5 w-5 text-cyan-500"><span class="ml-3">2 - Algo de esfuerzo contra gravedad</span>
+                            </label>
+                            <label class="flex items-center p-2 bg-gray-700 rounded-lg cursor-pointer hover:bg-gray-600">
+                                <input type="radio" name="item5a" value="3" class="form-radio h-5 w-5 text-cyan-500"><span class="ml-3">3 - Sin esfuerzo contra gravedad</span>
+                            </label>
+                            <label class="flex items-center p-2 bg-gray-700 rounded-lg cursor-pointer hover:bg-gray-600">
+                                <input type="radio" name="item5a" value="4" class="form-radio h-5 w-5 text-cyan-500"><span class="ml-3">4 - Ningún movimiento</span>
+                            </label>
+                         </div>
+                    </div>
+                    <div>
+                        <h3 class="font-medium text-lg mb-2 text-cyan-300">b. Brazo Derecho</h3>
+                         <div class="space-y-3">
+                            <label class="flex items-center p-2 bg-gray-700 rounded-lg cursor-pointer hover:bg-gray-600">
+                                <input type="radio" name="item5b" value="0" class="form-radio h-5 w-5 text-cyan-500" checked><span class="ml-3">0 - Sin deriva</span>
+                            </label>
+                            <label class="flex items-center p-2 bg-gray-700 rounded-lg cursor-pointer hover:bg-gray-600">
+                                <input type="radio" name="item5b" value="1" class="form-radio h-5 w-5 text-cyan-500"><span class="ml-3">1 - Deriva</span>
+                            </label>
+                            <label class="flex items-center p-2 bg-gray-700 rounded-lg cursor-pointer hover:bg-gray-600">
+                                <input type="radio" name="item5b" value="2" class="form-radio h-5 w-5 text-cyan-500"><span class="ml-3">2 - Algo de esfuerzo contra gravedad</span>
+                            </label>
+                            <label class="flex items-center p-2 bg-gray-700 rounded-lg cursor-pointer hover:bg-gray-600">
+                                <input type="radio" name="item5b" value="3" class="form-radio h-5 w-5 text-cyan-500"><span class="ml-3">3 - Sin esfuerzo contra gravedad</span>
+                            </label>
+                            <label class="flex items-center p-2 bg-gray-700 rounded-lg cursor-pointer hover:bg-gray-600">
+                                <input type="radio" name="item5b" value="4" class="form-radio h-5 w-5 text-cyan-500"><span class="ml-3">4 - Ningún movimiento</span>
+                            </label>
+                         </div>
+                    </div>
+                 </div>
+            </div>
+
+            <!-- Item 6: Motor Pierna (Izquierda y Derecha) -->
+            <div class="bg-gray-800 p-5 rounded-xl shadow-md score-item">
+                 <h2 class="text-xl font-semibold mb-3 text-white">6. Motor Miembro Inferior</h2>
+                 <div class="grid md:grid-cols-2 gap-6 mt-4">
+                    <div>
+                        <h3 class="font-medium text-lg mb-2 text-cyan-300">a. Pierna Izquierda</h3>
+                         <div class="space-y-3">
+                            <label class="flex items-center p-2 bg-gray-700 rounded-lg cursor-pointer hover:bg-gray-600">
+                                <input type="radio" name="item6a" value="0" class="form-radio h-5 w-5 text-cyan-500" checked><span class="ml-3">0 - Sin deriva</span>
+                            </label>
+                            <label class="flex items-center p-2 bg-gray-700 rounded-lg cursor-pointer hover:bg-gray-600">
+                                <input type="radio" name="item6a" value="1" class="form-radio h-5 w-5 text-cyan-500"><span class="ml-3">1 - Deriva</span>
+                            </label>
+                            <label class="flex items-center p-2 bg-gray-700 rounded-lg cursor-pointer hover:bg-gray-600">
+                                <input type="radio" name="item6a" value="2" class="form-radio h-5 w-5 text-cyan-500"><span class="ml-3">2 - Algo de esfuerzo contra gravedad</span>
+                            </label>
+                            <label class="flex items-center p-2 bg-gray-700 rounded-lg cursor-pointer hover:bg-gray-600">
+                                <input type="radio" name="item6a" value="3" class="form-radio h-5 w-5 text-cyan-500"><span class="ml-3">3 - Sin esfuerzo contra gravedad</span>
+                            </label>
+                            <label class="flex items-center p-2 bg-gray-700 rounded-lg cursor-pointer hover:bg-gray-600">
+                                <input type="radio" name="item6a" value="4" class="form-radio h-5 w-5 text-cyan-500"><span class="ml-3">4 - Ningún movimiento</span>
+                            </label>
+                         </div>
+                    </div>
+                    <div>
+                        <h3 class="font-medium text-lg mb-2 text-cyan-300">b. Pierna Derecha</h3>
+                         <div class="space-y-3">
+                            <label class="flex items-center p-2 bg-gray-700 rounded-lg cursor-pointer hover:bg-gray-600">
+                                <input type="radio" name="item6b" value="0" class="form-radio h-5 w-5 text-cyan-500" checked><span class="ml-3">0 - Sin deriva</span>
+                            </label>
+                            <label class="flex items-center p-2 bg-gray-700 rounded-lg cursor-pointer hover:bg-gray-600">
+                                <input type="radio" name="item6b" value="1" class="form-radio h-5 w-5 text-cyan-500"><span class="ml-3">1 - Deriva</span>
+                            </label>
+                            <label class="flex items-center p-2 bg-gray-700 rounded-lg cursor-pointer hover:bg-gray-600">
+                                <input type="radio" name="item6b" value="2" class="form-radio h-5 w-5 text-cyan-500"><span class="ml-3">2 - Algo de esfuerzo contra gravedad</span>
+                            </label>
+                            <label class="flex items-center p-2 bg-gray-700 rounded-lg cursor-pointer hover:bg-gray-600">
+                                <input type="radio" name="item6b" value="3" class="form-radio h-5 w-5 text-cyan-500"><span class="ml-3">3 - Sin esfuerzo contra gravedad</span>
+                            </label>
+                            <label class="flex items-center p-2 bg-gray-700 rounded-lg cursor-pointer hover:bg-gray-600">
+                                <input type="radio" name="item6b" value="4" class="form-radio h-5 w-5 text-cyan-500"><span class="ml-3">4 - Ningún movimiento</span>
+                            </label>
+                         </div>
+                    </div>
+                 </div>
+            </div>
+
+            <!-- Item 7: Ataxia de Miembros -->
+            <div class="bg-gray-800 p-5 rounded-xl shadow-md score-item">
+                <h2 class="text-xl font-semibold mb-3 text-white">7. Ataxia de Miembros</h2>
+                 <p class="text-sm text-gray-400 mb-3">Prueba dedo-nariz y talón-rodilla.</p>
+                <div class="space-y-3">
+                    <label class="flex items-center p-3 bg-gray-700 rounded-lg cursor-pointer hover:bg-gray-600">
+                        <input type="radio" name="item7" value="0" class="form-radio h-5 w-5 text-cyan-500" checked>
+                        <span class="ml-4 text-gray-300">0 - Ausente</span>
+                    </label>
+                    <label class="flex items-center p-3 bg-gray-700 rounded-lg cursor-pointer hover:bg-gray-600">
+                        <input type="radio" name="item7" value="1" class="form-radio h-5 w-5 text-cyan-500">
+                        <span class="ml-4 text-gray-300">1 - Presente en una extremidad</span>
+                    </label>
+                    <label class="flex items-center p-3 bg-gray-700 rounded-lg cursor-pointer hover:bg-gray-600">
+                        <input type="radio" name="item7" value="2" class="form-radio h-5 w-5 text-cyan-500">
+                        <span class="ml-4 text-gray-300">2 - Presente en dos extremidades</span>
+                    </label>
+                </div>
+            </div>
+
+            <!-- Item 8: Sensibilidad -->
+            <div class="bg-gray-800 p-5 rounded-xl shadow-md score-item">
+                <h2 class="text-xl font-semibold mb-3 text-white">8. Sensibilidad</h2>
+                <div class="space-y-3">
+                    <label class="flex items-center p-3 bg-gray-700 rounded-lg cursor-pointer hover:bg-gray-600">
+                        <input type="radio" name="item8" value="0" class="form-radio h-5 w-5 text-cyan-500" checked>
+                        <span class="ml-4 text-gray-300">0 - Normal</span>
+                    </label>
+                    <label class="flex items-center p-3 bg-gray-700 rounded-lg cursor-pointer hover:bg-gray-600">
+                        <input type="radio" name="item8" value="1" class="form-radio h-5 w-5 text-cyan-500">
+                        <span class="ml-4 text-gray-300">1 - Pérdida leve a moderada</span>
+                    </label>
+                    <label class="flex items-center p-3 bg-gray-700 rounded-lg cursor-pointer hover:bg-gray-600">
+                        <input type="radio" name="item8" value="2" class="form-radio h-5 w-5 text-cyan-500">
+                        <span class="ml-4 text-gray-300">2 - Pérdida severa a total</span>
+                    </label>
+                </div>
+            </div>
+
+            <!-- Item 9: Mejor Lenguaje -->
+            <div class="bg-gray-800 p-5 rounded-xl shadow-md score-item">
+                <h2 class="text-xl font-semibold mb-3 text-white">9. Mejor Lenguaje (Afasia)</h2>
+                <div class="space-y-3">
+                    <label class="flex items-center p-3 bg-gray-700 rounded-lg cursor-pointer hover:bg-gray-600">
+                        <input type="radio" name="item9" value="0" class="form-radio h-5 w-5 text-cyan-500" checked>
+                        <span class="ml-4 text-gray-300">0 - Sin afasia, normal</span>
+                    </label>
+                    <label class="flex items-center p-3 bg-gray-700 rounded-lg cursor-pointer hover:bg-gray-600">
+                        <input type="radio" name="item9" value="1" class="form-radio h-5 w-5 text-cyan-500">
+                        <span class="ml-4 text-gray-300">1 - Afasia leve a moderada</span>
+                    </label>
+                    <label class="flex items-center p-3 bg-gray-700 rounded-lg cursor-pointer hover:bg-gray-600">
+                        <input type="radio" name="item9" value="2" class="form-radio h-5 w-5 text-cyan-500">
+                        <span class="ml-4 text-gray-300">2 - Afasia severa</span>
+                    </label>
+                    <label class="flex items-center p-3 bg-gray-700 rounded-lg cursor-pointer hover:bg-gray-600">
+                        <input type="radio" name="item9" value="3" class="form-radio h-5 w-5 text-cyan-500">
+                        <span class="ml-4 text-gray-300">3 - Mutismo, afasia global</span>
+                    </label>
+                </div>
+            </div>
+
+            <!-- Item 10: Disartria -->
+            <div class="bg-gray-800 p-5 rounded-xl shadow-md score-item">
+                <h2 class="text-xl font-semibold mb-3 text-white">10. Disartria</h2>
+                <div class="space-y-3">
+                    <label class="flex items-center p-3 bg-gray-700 rounded-lg cursor-pointer hover:bg-gray-600">
+                        <input type="radio" name="item10" value="0" class="form-radio h-5 w-5 text-cyan-500" checked>
+                        <span class="ml-4 text-gray-300">0 - Articulación normal</span>
+                    </label>
+                    <label class="flex items-center p-3 bg-gray-700 rounded-lg cursor-pointer hover:bg-gray-600">
+                        <input type="radio" name="item10" value="1" class="form-radio h-5 w-5 text-cyan-500">
+                        <span class="ml-4 text-gray-300">1 - Leve a moderada</span>
+                    </label>
+                    <label class="flex items-center p-3 bg-gray-700 rounded-lg cursor-pointer hover:bg-gray-600">
+                        <input type="radio" name="item10" value="2" class="form-radio h-5 w-5 text-cyan-500">
+                        <span class="ml-4 text-gray-300">2 - Ininteligible o peor</span>
+                    </label>
+                </div>
+            </div>
+
+            <!-- Item 11: Extinción e Inatención -->
+            <div class="bg-gray-800 p-5 rounded-xl shadow-md score-item">
+                <h2 class="text-xl font-semibold mb-3 text-white">11. Extinción e Inatención (Negligencia)</h2>
+                <div class="space-y-3">
+                    <label class="flex items-center p-3 bg-gray-700 rounded-lg cursor-pointer hover:bg-gray-600">
+                        <input type="radio" name="item11" value="0" class="form-radio h-5 w-5 text-cyan-500" checked>
+                        <span class="ml-4 text-gray-300">0 - No hay negligencia</span>
+                    </label>
+                    <label class="flex items-center p-3 bg-gray-700 rounded-lg cursor-pointer hover:bg-gray-600">
+                        <input type="radio" name="item11" value="1" class="form-radio h-5 w-5 text-cyan-500">
+                        <span class="ml-4 text-gray-300">1 - Inatención visual, táctil, auditiva o espacial</span>
+                    </label>
+                    <label class="flex items-center p-3 bg-gray-700 rounded-lg cursor-pointer hover:bg-gray-600">
+                        <input type="radio" name="item11" value="2" class="form-radio h-5 w-5 text-cyan-500">
+                        <span class="ml-4 text-gray-300">2 - Hemi-inatención profunda o a más de una modalidad</span>
+                    </label>
+                </div>
+            </div>
+
+        </form>
+
     </div>
+    
+    <!-- Footer -->
+    <footer class="text-center py-8">
+        <p class="text-sm text-gray-500">Todos los Derechos reservados: Dr. Héctor Castro © 2025</p>
+    </footer>
+
 
     <script>
-        const form = document.getElementById('nihssForm');
-        const resultsDiv = document.getElementById('results');
-        const resultCard = document.getElementById('resultCard');
-        const totalScoreSpan = document.getElementById('totalScore');
-        const interpretationSpan = document.getElementById('interpretation');
-        const patientInfoDiv = document.getElementById('patientInfo');
-        const patientIdInput = document.getElementById('patientId');
-        const resetBtn = document.getElementById('resetBtn');
-        const printBtn = document.getElementById('printBtn');
+        document.addEventListener('DOMContentLoaded', () => {
+            const form = document.getElementById('nihss-form');
+            const totalScoreEl = document.getElementById('total-score');
+            const scoreInterpretationEl = document.getElementById('score-interpretation');
 
-        form.addEventListener('submit', function(event) {
-            event.preventDefault();
-            
-            let totalScore = 0;
-            const formData = new FormData(form);
-
-            // Sum all selected radio button values, excluding patientId
-            for (const [key, value] of formData.entries()) {
-                if (key !== 'patientId') {
-                    totalScore += parseInt(value, 10);
+            // Function to calculate and update the total score
+            function calculateScore() {
+                const formData = new FormData(form);
+                let score = 0;
+                for (const value of formData.values()) {
+                    score += parseInt(value, 10);
                 }
+                
+                // Update total score display
+                totalScoreEl.textContent = score;
+
+                // Update interpretation text
+                let interpretation = '';
+                if (score === 0) {
+                    interpretation = 'Sin síntomas de ictus';
+                } else if (score >= 1 && score <= 4) {
+                    interpretation = 'Ictus menor';
+                } else if (score >= 5 && score <= 15) {
+                    interpretation = 'Ictus moderado';
+                } else if (score >= 16 && score <= 20) {
+                    interpretation = 'Ictus moderado a severo';
+                } else if (score >= 21) {
+                    interpretation = 'Ictus severo';
+                }
+                scoreInterpretationEl.textContent = interpretation;
             }
 
-            // Display Patient Info
-            if (patientIdInput.value) {
-                patientInfoDiv.innerHTML = `<strong>Paciente:</strong> ${patientIdInput.value}`;
-                patientInfoDiv.classList.remove('hidden');
-            } else {
-                patientInfoDiv.classList.add('hidden');
-            }
+            // Listen for changes on any radio button
+            form.addEventListener('change', calculateScore);
 
-            totalScoreSpan.textContent = totalScore;
-
-            let interpretation = '';
-            let severityClass = '';
-
-            // Interpretation based on the provided website
-            if (totalScore === 0) {
-                interpretation = 'Sin déficit neurológico aparente';
-                severityClass = 'border-blue-500';
-            } else if (totalScore < 5) {
-                interpretation = 'Déficit neurológico leve';
-                severityClass = 'border-green-500';
-            } else if (totalScore <= 14) {
-                interpretation = 'Déficit neurológico moderado';
-                severityClass = 'border-yellow-500';
-            } else if (totalScore <= 24) {
-                interpretation = 'Déficit neurológico grave';
-                severityClass = 'border-orange-500';
-            } else {
-                interpretation = 'Déficit neurológico muy grave';
-                severityClass = 'border-red-500';
-            }
-
-            interpretationSpan.textContent = interpretation;
-            
-            // Update result card style
-            resultCard.className = 'result-card bg-gray-50 p-6 rounded-lg border-l-8 ' + severityClass;
-
-            // Show results and print button
-            resultsDiv.classList.remove('hidden');
-            printBtn.classList.remove('hidden');
-
-            // Scroll to results
-            resultsDiv.scrollIntoView({ behavior: 'smooth' });
-        });
-
-        resetBtn.addEventListener('click', function() {
-            form.reset();
-            resultsDiv.classList.add('hidden');
-            printBtn.classList.add('hidden');
-            patientInfoDiv.classList.add('hidden');
-            window.scrollTo({ top: 0, behavior: 'smooth' });
-        });
-
-        printBtn.addEventListener('click', function() {
-            window.print();
+            // Initial calculation on page load
+            calculateScore();
         });
     </script>
 
