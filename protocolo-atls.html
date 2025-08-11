@@ -1,0 +1,265 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Enfoque Neurocrítico ATLS</title>
+    <script src="https://cdn.tailwindcss.com"></script>
+    <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;600;700&display=swap" rel="stylesheet">
+    <style>
+        body {
+            font-family: 'Inter', sans-serif;
+            background-color: #f0f4f8; /* Fondo gris azulado claro */
+        }
+        .card {
+            background-color: white;
+            border-radius: 12px;
+            box-shadow: 0 10px 15px -3px rgba(0, 0, 0, 0.1), 0 4px 6px -2px rgba(0, 0, 0, 0.05);
+            transition: transform 0.3s ease, box-shadow 0.3s ease;
+            cursor: pointer;
+        }
+        .card:hover {
+            transform: translateY(-5px);
+            box-shadow: 0 20px 25px -5px rgba(0, 0, 0, 0.1), 0 10px 10px -5px rgba(0, 0, 0, 0.04);
+        }
+        .modal {
+            display: none;
+            position: fixed;
+            z-index: 1000;
+            left: 0;
+            top: 0;
+            width: 100%;
+            height: 100%;
+            overflow: auto;
+            background-color: rgba(0,0,0,0.6);
+            animation: fadeIn 0.3s;
+        }
+        .modal-content {
+            background-color: #fefefe;
+            margin: 5% auto;
+            padding: 2rem;
+            border: 1px solid #888;
+            width: 90%;
+            max-width: 800px;
+            border-radius: 12px;
+            animation: slideIn 0.3s;
+        }
+        .close-button {
+            color: #aaa;
+            float: right;
+            font-size: 28px;
+            font-weight: bold;
+            cursor: pointer;
+        }
+        .close-button:hover,
+        .close-button:focus {
+            color: black;
+        }
+        @keyframes fadeIn {
+            from { opacity: 0; }
+            to { opacity: 1; }
+        }
+        @keyframes slideIn {
+            from { transform: translateY(-50px); opacity: 0; }
+            to { transform: translateY(0); opacity: 1; }
+        }
+        .icon {
+            width: 48px;
+            height: 48px;
+        }
+        .card-title {
+            font-size: 1.5rem;
+            font-weight: 700;
+        }
+        .section-title {
+            font-size: 2rem;
+            font-weight: 700;
+            color: #1e3a8a; /* Azul oscuro */
+            border-bottom: 3px solid #3b82f6; /* Azul más claro */
+            padding-bottom: 0.5rem;
+            margin-bottom: 2rem;
+        }
+        ul {
+            list-style-position: inside;
+            padding-left: 1rem;
+        }
+        li {
+            margin-bottom: 0.75rem;
+        }
+        strong {
+            color: #1e3a8a;
+        }
+        table {
+            width: 100%;
+            border-collapse: collapse;
+            margin-top: 1rem;
+        }
+        th, td {
+            border: 1px solid #ddd;
+            padding: 8px;
+            text-align: left;
+        }
+        th {
+            background-color: #eef2ff; /* Azul muy claro */
+            color: #1e3a8a;
+            font-weight: 600;
+        }
+        .modal-image {
+            max-width: 100%;
+            height: auto;
+            border-radius: 8px;
+            margin: 1rem auto;
+            display: block;
+        }
+        .flow-chart-box {
+            border: 2px solid #9ca3af;
+            padding: 1rem;
+            border-radius: 8px;
+            margin-bottom: 1rem;
+            background-color: #f9fafb;
+        }
+        .flow-chart-arrow {
+            text-align: center;
+            font-size: 2rem;
+            font-weight: bold;
+            color: #6b7280;
+        }
+    </style>
+</head>
+<body class="p-4 sm:p-8">
+
+    <div class="container mx-auto max-w-7xl">
+        <header class="text-center mb-12">
+            <h1 class="text-4xl md:text-5xl font-bold text-gray-800">Enfoque Neurocrítico ATLS</h1>
+        </header>
+
+        <!-- SECCIÓN I: REVISIÓN PRIMARIA -->
+        <section class="mb-16">
+            <h2 class="section-title">SECCIÓN I: Revisión Primaria (xABCDE)</h2>
+            <div class="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-8">
+                <div class="card p-6 flex flex-col items-center text-center" onclick="openModal('modal-x')">
+                    <div class="icon text-red-500"><svg xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24" stroke-width="1.5" stroke="currentColor"><path stroke-linecap="round" stroke-linejoin="round" d="M12 9v3.75m-9.303 3.376c-.866 1.5.217 3.374 1.948 3.374h14.71c1.73 0 2.813-1.874 1.948-3.374L13.949 3.378c-.866-1.5-3.032-1.5-3.898 0L2.697 16.126zM12 15.75h.007v.008H12v-.008z" /></svg></div>
+                    <h3 class="card-title mt-4">x - Hemorragia</h3>
+                    <p class="text-gray-600 mt-2">Control de hemorragia externa masiva.</p>
+                </div>
+                <div class="card p-6 flex flex-col items-center text-center" onclick="openModal('modal-a')">
+                    <div class="icon text-blue-500"><svg xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24" stroke-width="1.5" stroke="currentColor"><path stroke-linecap="round" stroke-linejoin="round" d="M6 12L3.269 3.126A59.768 59.768 0 0121.485 12 59.77 59.77 0 013.27 20.876L5.999 12zm0 0h7.5" /></svg></div>
+                    <h3 class="card-title mt-4">A - Vía Aérea</h3>
+                    <p class="text-gray-600 mt-2">Asegurar permeabilidad y proteger columna cervical.</p>
+                </div>
+                <div class="card p-6 flex flex-col items-center text-center" onclick="openModal('modal-b')">
+                    <div class="icon text-green-500"><svg xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24" stroke-width="1.5" stroke="currentColor"><path stroke-linecap="round" stroke-linejoin="round" d="M12 18.75a6 6 0 006-6v-1.5a6 6 0 00-6-6v-1.5a6 6 0 00-6 6v1.5a6 6 0 006 6z" /><path stroke-linecap="round" stroke-linejoin="round" d="M12 12.75V15m0-6.75V6" /></svg></div>
+                    <h3 class="card-title mt-4">B - Ventilación</h3>
+                    <p class="text-gray-600 mt-2">Optimizar oxigenación y ventilación.</p>
+                </div>
+                <div class="card p-6 flex flex-col items-center text-center" onclick="openModal('modal-c')">
+                    <div class="icon text-yellow-500"><svg xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24" stroke-width="1.5" stroke="currentColor"><path stroke-linecap="round" stroke-linejoin="round" d="M21 8.25c0-2.485-2.099-4.5-4.688-4.5-1.935 0-3.597 1.126-4.312 2.733-.715-1.607-2.377-2.733-4.313-2.733C5.1 3.75 3 5.765 3 8.25c0 7.22 9 12 9 12s9-4.78 9-12z" /></svg></div>
+                    <h3 class="card-title mt-4">C - Circulación</h3>
+                    <p class="text-gray-600 mt-2">Controlar hemorragia y evitar hipotensión.</p>
+                </div>
+                <div class="card p-6 flex flex-col items-center text-center" onclick="openModal('modal-d')">
+                    <div class="icon text-purple-500"><svg xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24" stroke-width="1.5" stroke="currentColor"><path stroke-linecap="round" stroke-linejoin="round" d="M17.982 18.725A7.488 7.488 0 0012 15.75a7.488 7.488 0 00-5.982 2.975m11.963 0a9 9 0 10-11.963 0m11.963 0A8.966 8.966 0 0112 21a8.966 8.966 0 01-5.982-2.275M15 9.75a3 3 0 11-6 0 3 3 0 016 0z" /></svg></div>
+                    <h3 class="card-title mt-4">D - Déficit Neurológico</h3>
+                    <p class="text-gray-600 mt-2">Evaluación rápida con GCS y pupilas.</p>
+                </div>
+                <div class="card p-6 flex flex-col items-center text-center" onclick="openModal('modal-e')">
+                    <div class="icon text-indigo-500"><svg xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24" stroke-width="1.5" stroke="currentColor"><path stroke-linecap="round" stroke-linejoin="round" d="M15.75 15.75l-2.489-2.489m0 0a3.375 3.375 0 10-4.773-4.773 3.375 3.375 0 004.774 4.774zM21 12a9 9 0 11-18 0 9 9 0 0118 0z" /></svg></div>
+                    <h3 class="card-title mt-4">E - Exposición</h3>
+                    <p class="text-gray-600 mt-2">Examen completo y control de temperatura.</p>
+                </div>
+            </div>
+        </section>
+
+        <!-- SECCIÓN II: MANEJO DEL TCE -->
+        <section class="mb-16">
+            <h2 class="section-title">SECCIÓN II: Manejo Específico del TCE</h2>
+            <div class="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-4 gap-8">
+                <div class="card p-6 text-center" onclick="openModal('modal-tce-fisiopato')">
+                    <h3 class="card-title">Fisiopatología y Anatomía</h3>
+                </div>
+                <div class="card p-6 text-center" onclick="openModal('modal-tce-pic')">
+                    <h3 class="card-title">Manejo de la PIC</h3>
+                </div>
+                <div class="card p-6 text-center" onclick="openModal('modal-tce-manejo')">
+                    <h3 class="card-title">Manejo Médico General</h3>
+                </div>
+                 <div class="card p-6 text-center" onclick="openModal('modal-tce-treatment')">
+                    <h3 class="card-title">Tratamiento del TCE</h3>
+                </div>
+            </div>
+        </section>
+        
+        <!-- SECCIÓN III: MANEJO DE LESIÓN MEDULAR -->
+        <section class="mb-16">
+            <h2 class="section-title">SECCIÓN III: Manejo de Lesión Medular</h2>
+            <div class="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-8">
+                 <div class="card p-6 text-center" onclick="openModal('modal-spine-smr')">
+                    <h3 class="card-title">SMR y Descarte Clínico</h3>
+                </div>
+                <div class="card p-6 text-center" onclick="openModal('modal-spine-eval')">
+                    <h3 class="card-title">Evaluación y Síndromes</h3>
+                </div>
+                <div class="card p-6 text-center" onclick="openModal('modal-spine-shock')">
+                    <h3 class="card-title">Shock Neurogénico</h3>
+                </div>
+            </div>
+        </section>
+
+        <!-- SECCIÓN IV: ADJUNTOS Y TRANSFERENCIA -->
+        <section class="mb-16">
+            <h2 class="section-title">SECCIÓN IV: Adjuntos y Transferencia</h2>
+            <div class="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-8">
+                <div class="card p-6 text-center" onclick="openModal('modal-adj-tc')">
+                    <h3 class="card-title">Tomografía Computarizada</h3>
+                </div>
+                <div class="card p-6 text-center" onclick="openModal('modal-adj-transfer')">
+                    <h3 class="card-title">Criterios de Transferencia</h3>
+                </div>
+                <div class="card p-6 text-center" onclick="openModal('modal-adj-tables')">
+                    <h3 class="card-title">Tablas de Referencia Clave</h3>
+                </div>
+            </div>
+        </section>
+    </div>
+
+    <!-- Modals -->
+    <div id="modal-x" class="modal"><div class="modal-content"><span class="close-button" onclick="closeModal('modal-x')">&times;</span><h2 class="text-2xl font-bold mb-4">x - Hemorragia Exanguinante</h2><p>Antes de abordar la vía aérea, es imperativo controlar cualquier hemorragia externa masiva. Un paciente en shock hemorrágico no puede perfundir adecuadamente el cerebro o la médula espinal, lo que conduce a una lesión secundaria isquémica devastadora.</p></div></div>
+    <div id="modal-a" class="modal"><div class="modal-content"><span class="close-button" onclick="closeModal('modal-a')">&times;</span><h2 class="text-2xl font-bold mb-4">A - Vía Aérea con Restricción del Movimiento de la Columna Cervical</h2><ul><li><strong>Prioridad:</strong> Asegurar una vía aérea permeable es la máxima prioridad. La hipoxia es uno de los peores insultos secundarios para un cerebro lesionado.</li><li><strong>Indicaciones para Vía Aérea Definitiva:</strong><ul><li>GCS ≤ 8.</li><li>Pérdida de los reflejos protectores de la vía aérea.</li><li>Necesidad de ventilación mecánica.</li></ul></li><li><strong>Técnica:</strong> Realizar una intubación de secuencia rápida (ISR) modificada, manteniendo en todo momento la restricción del movimiento de la columna cervical.</li></ul></div></div>
+    <div id="modal-b" class="modal"><div class="modal-content"><span class="close-button" onclick="closeModal('modal-b')">&times;</span><h2 class="text-2xl font-bold mb-4">B - Ventilación y Oxigenación</h2><ul><li><strong>Evitar la Hipoxia:</strong> Mantener una SpO₂ ≥ 94%.</li><li><strong>Evitar Hiper/Hipocapnia:</strong> El objetivo es la normocapnia (PaCO₂ de 35-45 mmHg). La hipocapnia profiláctica debe evitarse.</li></ul></div></div>
+    <div id="modal-c" class="modal"><div class="modal-content"><span class="close-button" onclick="closeModal('modal-c')">&times;</span><h2 class="text-2xl font-bold mb-4">C - Circulación con Control de Hemorragia</h2><ul><li><strong>Objetivo Principal:</strong> Evitar la hipotensión. Un solo episodio duplica la mortalidad en TCE severo.</li><li><strong>Metas de Presión Arterial:</strong><ul><li><strong>TCE:</strong> PAS ≥ 100-110 mmHg según edad.</li><li><strong>Lesión Medular:</strong> PAM entre 85-90 mmHg.</li></ul></li><li><strong>Manejo:</strong> Reanimación con productos sanguíneos.</li></ul></div></div>
+    <div id="modal-d" class="modal"><div class="modal-content"><span class="close-button" onclick="closeModal('modal-d')">&times;</span><h2 class="text-2xl font-bold mb-4">D - Déficit Neurológico</h2><h3 class="text-xl font-semibold mt-4 mb-2">Escala de Coma de Glasgow (GCS)</h3><table><thead><tr><th>Componente</th><th>Respuesta</th><th>Puntuación</th></tr></thead><tbody><tr><td rowspan="4"><strong>Apertura Ocular (O)</strong></td><td>Espontánea</td><td>4</td></tr><tr><td>A la orden verbal</td><td>3</td></tr><tr><td>Al dolor</td><td>2</td></tr><tr><td>Ninguna</td><td>1</td></tr><tr><td rowspan="5"><strong>Respuesta Verbal (V)</strong></td><td>Orientado</td><td>5</td></tr><tr><td>Confuso</td><td>4</td></tr><tr><td>Palabras inapropiadas</td><td>3</td></tr><tr><td>Sonidos incomprensibles</td><td>2</td></tr><tr><td>Ninguna</td><td>1</td></tr><tr><td rowspan="6"><strong>Respuesta Motora (M)</strong></td><td>Obedece órdenes</td><td>6</td></tr><tr><td>Localiza el dolor</td><td>5</td></tr><tr><td>Retirada al dolor</td><td>4</td></tr><tr><td>Flexión anormal (decorticación)</td><td>3</td></tr><tr><td>Extensión anormal (descerebración)</td><td>2</td></tr><tr><td>Ninguna</td><td>1</td></tr></tbody></table><h3 class="text-xl font-semibold mt-4 mb-2">Evaluación Pupilar</h3><p>Buscar anisocoria (>1 mm) y falta de reactividad a la luz.</p></div></div>
+    <div id="modal-e" class="modal"><div class="modal-content"><span class="close-button" onclick="closeModal('modal-e')">&times;</span><h2 class="text-2xl font-bold mb-4">E - Exposición y Control Ambiental</h2><ul><li>Desvestir completamente al paciente para un examen completo.</li><li><strong>Prevenir la Hipotermia:</strong> La hipotermia (<35°C) exacerba la coagulopatía y empeora los resultados. Usar medidas de calentamiento activas.</li></ul></div></div>
+    <div id="modal-tce-fisiopato" class="modal"><div class="modal-content"><span class="close-button" onclick="closeModal('modal-tce-fisiopato')">&times;</span><h2 class="text-2xl font-bold mb-4">Fisiopatología y Anatomía del TCE</h2><h3 class="text-xl font-semibold mt-4 mb-2">Tipos de Lesiones</h3><ul><li><strong>Hematoma Epidural (HED):</strong> Acumulación de sangre entre la duramadre y el cráneo. Típicamente arterial, con forma de lente biconvexo en la TC.</li><li><strong>Hematoma Subdural (HSD):</strong> Sangre entre la duramadre y la aracnoides. Típicamente venoso, con forma de media luna.</li><li><strong>Contusiones y Hemorragia Intracerebral:</strong> Lesiones del parénquima cerebral.</li></ul><div class="text-center text-sm text-gray-600">[Imagen de Tipos de Hematomas Intracraneales]</div><div class="flex justify-center space-x-4 my-4"><div class="text-center"><div class="w-24 h-16 bg-red-200 border-2 border-red-500 rounded-full mx-auto" style="clip-path: ellipse(50% 40% at 50% 50%);"></div><p>Epidural</p></div><div class="text-center"><div class="w-24 h-16 bg-blue-200 border-2 border-blue-500" style="clip-path: polygon(0 0, 100% 0, 100% 100%, 0% 100%); border-radius: 0 50% 50% 0 / 0 100% 100% 0;"></div><p>Subdural</p></div></div><h3 class="text-xl font-semibold mt-4 mb-2">Doctrina de Monro-Kellie y Herniación</h3><p>El cráneo es una bóveda rígida. Un aumento de volumen (ej. hematoma) eleva la PIC. Una PIC elevada no controlada puede llevar a síndromes de herniación cerebral.</p><div class="text-center text-sm text-gray-600">[Imagen de Síndromes de Herniación Cerebral]</div></div></div>
+    <div id="modal-tce-pic" class="modal"><div class="modal-content"><span class="close-button" onclick="closeModal('modal-tce-pic')">&times;</span><h2 class="text-2xl font-bold mb-4">Manejo de la PIC Elevada</h2><ul><li><strong>Signos de Herniación:</strong> Deterioro del GCS, anisocoria, posturas anormales, Tríada de Cushing (tardía).</li><li><strong>Medidas Iniciales:</strong><ol class="list-decimal list-inside ml-4"><li>Elevación de la cabecera (30-45°).</li><li>Analgesia y sedación adecuadas.</li><li>Terapia hiperosmolar (Manitol o Solución Salina Hipertónica).</li><li>Hiperventilación temporal (PaCO₂ 30-35 mmHg) solo como rescate.</li></ol></li></ul></div></div>
+    <div id="modal-tce-manejo" class="modal"><div class="modal-content"><span class="close-button" onclick="closeModal('modal-tce-manejo')">&times;</span><h2 class="text-2xl font-bold mb-4">Manejo Médico General del TCE</h2><p>El objetivo es prevenir la lesión secundaria manteniendo una fisiología óptima.</p><table><thead><tr><th>Parámetro</th><th>Objetivo Óptimo</th></tr></thead><tbody><tr><td><strong>Presión Arterial Sistólica</strong></td><td>≥100-110 mmHg (según edad)</td></tr><tr><td><strong>Saturación de Oxígeno (SpO₂)</strong></td><td>≥94%</td></tr><tr><td><strong>PaCO₂</strong></td><td>35–45 mmHg (Normocapnia)</td></tr><tr><td><strong>Temperatura</strong></td><td>36–38°C (Normotermia)</td></tr><tr><td><strong>Glucosa</strong></td><td>100–180 mg/dL</td></tr><tr><td><strong>Hemoglobina</strong></td><td>> 7 g/dL</td></tr><tr><td><strong>INR</strong></td><td>≤1.4</td></tr></tbody></table><h3 class="text-xl font-semibold mt-4 mb-2">Profilaxis de Convulsiones</h3><p>Se recomienda Levetiracetam o Fenitoína por 7 días en TCE severo.</p></div></div>
+    <div id="modal-tce-treatment" class="modal"><div class="modal-content"><span class="close-button" onclick="closeModal('modal-tce-treatment')">&times;</span><h2 class="text-2xl font-bold mb-4">Tratamiento del TCE</h2><h3 class="text-xl font-semibold mt-4 mb-2">Terapia Hiperosmolar</h3><table><thead><tr><th>Agente</th><th>Dosis</th><th>Comentarios</th></tr></thead><tbody><tr><td><strong>Manitol 20%</strong></td><td>1 g/kg en bolo IV</td><td>Puede agravar la hipotensión por diuresis osmótica.</td></tr><tr><td><strong>Solución Salina Hipertónica (3%-5%)</strong></td><td>2.5–5 mL/kg en bolo</td><td>Idealmente por vía central, pero segura por vía periférica en emergencia. Menos efecto diurético que el manitol.</td></tr></tbody></table><h3 class="text-xl font-semibold mt-4 mb-2">Manejo Quirúrgico</h3><p>Indicado para hematomas con efecto de masa significativo (desviación de línea media >5mm, grosor >10mm) o deterioro neurológico. Incluye:</p><ul><li>Evacuación de hematomas (epidurales, subdurales).</li><li>Craneotomía o craniectomía descompresiva para PIC refractaria.</li></ul><h3 class="text-xl font-semibold mt-4 mb-2">Tratamientos a Evitar</h3><ul><li><strong>Esteroides:</strong> No están indicados y pueden aumentar la mortalidad.</li><li><strong>Hiperventilación Profiláctica Prolongada:</strong> Causa isquemia cerebral.</li><li><strong>Hipotermia Profiláctica:</strong> No ha demostrado mejorar los resultados.</li></ul></div></div>
+    <div id="modal-spine-smr" class="modal"><div class="modal-content"><span class="close-button" onclick="closeModal('modal-spine-smr')">&times;</span><h2 class="text-2xl font-bold mb-4">SMR y Descarte Clínico de Lesión Cervical</h2><p>En pacientes alertas y estables, se pueden usar reglas de decisión clínica para descartar lesiones sin necesidad de imágenes.</p><h3 class="text-xl font-semibold mt-4 mb-2">Criterios NEXUS (Requiere cumplir los 5)</h3><ul><li>Ausencia de dolor en la línea media posterior cervical.</li><li>Ausencia de evidencia de intoxicación.</li><li>Nivel de alerta normal.</li><li>Ausencia de déficit neurológico focal.</li><li>Ausencia de otra lesión dolorosa que distraiga.</li></ul><h3 class="text-xl font-semibold mt-4 mb-2">Regla Canadiense de Columna Cervical (CCR)</h3><div class="flow-chart-box"><strong>Paso 1: ¿Algún factor de alto riesgo?</strong><ul class="list-disc ml-5"><li>Edad ≥ 65 años</li><li>Mecanismo peligroso (caída >1m/5 escalones, carga axial a la cabeza, colisión a alta velocidad >100km/h, vuelco, eyección, accidente en vehículo recreativo motorizado, accidente de bicicleta)</li><li>Parestesias en extremidades</li></ul><div class="flex justify-around mt-2"><div class="text-center"><span class="font-bold text-green-600">NO</span><div class="flow-chart-arrow">↓</div></div><div class="text-center"><span class="font-bold text-red-600">SÍ</span><div class="flow-chart-arrow">→</div></div></div></div><div class="flex"><div class="w-1/2"><div class="flow-chart-box"><strong>Paso 2: ¿Algún factor de bajo riesgo que permita la evaluación segura del rango de movimiento?</strong><ul class="list-disc ml-5"><li>Colisión simple por alcance trasero</li><li>Paciente en posición sentada en urgencias</li><li>Deambulación en cualquier momento</li><li>Inicio tardío del dolor de cuello</li><li>Ausencia de dolor en la línea media cervical</li></ul><div class="flex justify-around mt-2"><div class="text-center"><span class="font-bold text-green-600">SÍ</span><div class="flow-chart-arrow">↓</div></div><div class="text-center"><span class="font-bold text-red-600">NO</span><div class="flow-chart-arrow">→</div></div></div></div><div class="flow-chart-box"><strong>Paso 3: ¿Capaz de rotar el cuello activamente 45° a la izquierda y a la derecha?</strong><div class="flex justify-around mt-2"><div class="text-center"><span class="font-bold text-green-600">SÍ</span><div class="flow-chart-arrow">→</div><p class="text-green-600 font-semibold">NO SE REQUIEREN RADIOGRAFÍAS</p></div><div class="text-center"><span class="font-bold text-red-600">NO</span><div class="flow-chart-arrow">→</div></div></div></div></div><div class="w-1/2 pl-4 flex items-center justify-center"><div class="flow-chart-box text-center bg-red-100 border-red-500"><p class="font-bold text-red-700 text-lg">SE REQUIEREN RADIOGRAFÍAS</p></div></div></div></div></div>
+    <div id="modal-spine-eval" class="modal"><div class="modal-content"><span class="close-button" onclick="closeModal('modal-spine-eval')">&times;</span><h2 class="text-2xl font-bold mb-4">Evaluación Neurológica y Síndromes Medulares</h2><p>Una evaluación detallada es clave para el pronóstico y manejo.</p><div class="text-center text-sm text-gray-600">[Imagen de Dermatomas y Miotomas]</div><h3 class="text-xl font-semibold mt-4 mb-2">Síndromes Medulares Comunes</h3><ul><li><strong>Síndrome Medular Central:</strong> Mayor debilidad en miembros superiores que en inferiores.</li><li><strong>Síndrome de Brown-Séquard:</strong> Hemisección de la médula. Causa pérdida motora y de propiocepción ipsilateral, y pérdida de la sensibilidad termoalgésica contralateral.</li></ul><div class="text-center text-sm text-gray-600">[Imagen de Síndromes Medulares]</div></div></div>
+    <div id="modal-spine-shock" class="modal"><div class="modal-content"><span class="close-button" onclick="closeModal('modal-spine-shock')">&times;</span><h2 class="text-2xl font-bold mb-4">Shock Neurogénico vs. Shock Espinal</h2><ul><li><strong>Shock Neurogénico:</strong> Tríada de hipotensión, bradicardia y vasodilatación periférica por pérdida del tono simpático en lesiones ≥T6. Requiere manejo con líquidos y vasopresores.</li><li><strong>Shock Espinal:</strong> Pérdida transitoria de la función refleja por debajo de la lesión. No es un estado de shock circulatorio.</li></ul></div></div>
+    <div id="modal-adj-tc" class="modal"><div class="modal-content"><span class="close-button" onclick="closeModal('modal-adj-tc')">&times;</span><h2 class="text-2xl font-bold mb-4">Tomografía Computarizada (TC)</h2><ul><li><strong>TC de Cráneo:</strong> Estudio de elección para TCE.</li><li><strong>TC de Columna:</strong> Estándar de oro para evaluar fracturas y luxaciones.</li></ul><h3 class="text-xl font-semibold mt-4 mb-2">Indicaciones para TC de Cráneo en TCE Leve</h3><table><thead><tr><th>Criterio</th><th>Indicación</th></tr></thead><tbody><tr><td>GCS < 15 dos horas post-lesión</td><td>Sí</td></tr><tr><td>Sospecha de fractura de cráneo abierta o deprimida</td><td>Sí</td></tr><tr><td>Signos de fractura de base de cráneo</td><td>Sí</td></tr><tr><td>Vómitos (≥2 episodios)</td><td>Sí</td></tr><tr><td>Edad ≥ 65 años</td><td>Sí</td></tr><tr><td>Amnesia > 30 min antes del impacto</td><td>Sí</td></tr><tr><td>Mecanismo peligroso (ej. atropello, caída >1m)</td><td>Sí</td></tr></tbody></table></div></div>
+    <div id="modal-adj-transfer" class="modal"><div class="modal-content"><span class="close-button" onclick="closeModal('modal-adj-transfer')">&times;</span><h2 class="text-2xl font-bold mb-4">Criterios de Transferencia</h2><p>Cualquier paciente con TCE moderado/severo, lesión medular, o hallazgos en la TC que requieran intervención neuroquirúrgica debe ser transferido a un centro con capacidad neuroquirúrgica. La estabilización del xABCDE es prioritaria antes del traslado.</p></div></div>
+    <div id="modal-adj-tables" class="modal"><div class="modal-content"><span class="close-button" onclick="closeModal('modal-adj-tables')">&times;</span><h2 class="text-2xl font-bold mb-4">Tablas de Referencia Clave</h2><h3 class="text-xl font-semibold mt-4 mb-2">Tabla 7-5: Clasificación de Severidad del TCE por GCS</h3><table><thead><tr><th>Clasificación</th><th>Puntuación GCS</th></tr></thead><tbody><tr><td><strong>TCE Severo</strong></td><td>≤ 8</td></tr><tr><td><strong>TCE Moderado</strong></td><td>9–12</td></tr><tr><td><strong>TCE Leve</strong></td><td>13–15</td></tr></tbody></table><h3 class="text-xl font-semibold mt-4 mb-2">Tabla 7-6: Función Sensorial por Nivel Medular (Dermatomas Clave)</h3><table><thead><tr><th>Dermatoma</th><th>Localización</th></tr></thead><tbody><tr><td>C5</td><td>Sobre el deltoides</td></tr><tr><td>C6</td><td>Pulgar</td></tr><tr><td>C7</td><td>Dedo medio</td></tr><tr><td>C8</td><td>Dedo meñique</td></tr><tr><td>T4</td><td>Línea mamilar</td></tr><tr><td>T10</td><td>Ombligo</td></tr><tr><td>L4</td><td>Aspecto medial de la pantorrilla</td></tr><tr><td>L5</td><td>Espacio interdigital entre el 1er y 2do dedo del pie</td></tr><tr><td>S1</td><td>Borde lateral del pie</td></tr></tbody></table><h3 class="text-xl font-semibold mt-4 mb-2">Tabla 7-10: Criterios de Detección para Lesión Cerebrovascular Contusa (BCVI)</h3><ul><li>Fractura de columna cervical, base de cráneo (canal carotídeo), o facial compleja (Le Fort II/III).</li><li>Lesión de tejidos blandos del cuello (signo del cinturón de seguridad, hematoma en expansión).</li><li>Déficit neurológico no explicado por la TC de cráneo.</li><li>Hemorragia arterial de cuello, nariz o boca.</li><li>TCE severo con GCS < 6.</li></ul></div></div>
+
+    <script>
+        // JavaScript para manejar la apertura y cierre de los modales
+        function openModal(modalId) {
+            document.getElementById(modalId).style.display = "block";
+        }
+
+        function closeModal(modalId) {
+            document.getElementById(modalId).style.display = "none";
+        }
+
+        // Cierra el modal si el usuario hace clic fuera del contenido
+        window.onclick = function(event) {
+            const modals = document.getElementsByClassName('modal');
+            for (let i = 0; i < modals.length; i++) {
+                if (event.target == modals[i]) {
+                    modals[i].style.display = "none";
+                }
+            }
+        }
+    </script>
+
+</body>
+</html>
