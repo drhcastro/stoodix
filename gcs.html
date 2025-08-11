@@ -1,1 +1,313 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Calculadora de Escala de Coma de Glasgow (GCS)</title>
+    <script src="https://cdn.tailwindcss.com"></script>
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700&display=swap" rel="stylesheet">
+    <style>
+        body {
+            font-family: 'Inter', sans-serif;
+            background-color: #f0f4f8;
+        }
+        .card {
+            background-color: white;
+            border-radius: 0.75rem;
+            box-shadow: 0 4px 6px -1px rgb(0 0 0 / 0.1), 0 2px 4px -2px rgb(0 0 0 / 0.1);
+            transition: all 0.3s ease-in-out;
+        }
+        .option-btn {
+            transition: all 0.2s ease-in-out;
+            border: 1px solid #e2e8f0;
+        }
+        .option-btn.selected {
+            background-color: #3b82f6;
+            color: white;
+            border-color: #2563eb;
+            transform: translateY(-2px);
+            box-shadow: 0 4px 8px rgba(59, 130, 246, 0.3);
+        }
+        .info-icon {
+            cursor: pointer;
+            color: #64748b;
+            transition: color 0.2s;
+        }
+        .info-icon:hover {
+            color: #3b82f6;
+        }
+        #modal-overlay {
+            transition: opacity 0.3s ease-in-out;
+        }
+        #modal-content {
+            transition: transform 0.3s ease-in-out;
+        }
+        .interpretation-badge {
+            padding: 0.5rem 1rem;
+            border-radius: 9999px;
+            font-weight: 600;
+            font-size: 1.125rem;
+            text-align: center;
+        }
+    </style>
+</head>
+<body class="text-gray-800">
 
+    <div class="container mx-auto p-4 md:p-8 max-w-4xl">
+        
+        <!-- Header -->
+        <header class="text-center mb-8">
+            <h1 class="text-3xl md:text-4xl font-bold text-gray-900">Escala de Coma de Glasgow (GCS)</h1>
+            <p class="mt-2 text-lg text-gray-600 max-w-3xl mx-auto">
+                Una herramienta fundamental para la evaluación estandarizada del nivel de conciencia en pacientes con traumatismo craneoencefálico.
+            </p>
+        </header>
+
+        <!-- Main Content -->
+        <div class="grid grid-cols-1 lg:grid-cols-3 gap-6">
+            
+            <!-- Calculator -->
+            <div class="lg:col-span-2 space-y-6">
+                
+                <!-- Ocular Response -->
+                <div class="card p-6">
+                    <h3 class="text-xl font-semibold mb-4 flex items-center justify-between">
+                        <span>Apertura Ocular (E)</span>
+                        <svg data-modal-target="ocular" class="info-icon w-6 h-6" xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24" stroke-width="1.5" stroke="currentColor"><path stroke-linecap="round" stroke-linejoin="round" d="M11.25 11.25l.041-.02a.75.75 0 011.063.852l-.708 2.836a.75.75 0 001.063.853l.041-.021M21 12a9 9 0 11-18 0 9 9 0 0118 0zm-9-3.75h.008v.008H12V8.25z" /></svg>
+                    </h3>
+                    <div id="ocular-options" class="grid grid-cols-2 md:grid-cols-4 gap-3">
+                        <button data-score="4" class="option-btn p-3 rounded-lg">4: Espontánea</button>
+                        <button data-score="3" class="option-btn p-3 rounded-lg">3: A la voz</button>
+                        <button data-score="2" class="option-btn p-3 rounded-lg">2: Al dolor</button>
+                        <button data-score="1" class="option-btn p-3 rounded-lg">1: Ninguna</button>
+                    </div>
+                </div>
+
+                <!-- Verbal Response -->
+                <div class="card p-6">
+                    <h3 class="text-xl font-semibold mb-4 flex items-center justify-between">
+                        <span>Respuesta Verbal (V)</span>
+                        <svg data-modal-target="verbal" class="info-icon w-6 h-6" xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24" stroke-width="1.5" stroke="currentColor"><path stroke-linecap="round" stroke-linejoin="round" d="M11.25 11.25l.041-.02a.75.75 0 011.063.852l-.708 2.836a.75.75 0 001.063.853l.041-.021M21 12a9 9 0 11-18 0 9 9 0 0118 0zm-9-3.75h.008v.008H12V8.25z" /></svg>
+                    </h3>
+                    <div id="verbal-options" class="grid grid-cols-2 md:grid-cols-3 gap-3">
+                        <button data-score="5" class="option-btn p-3 rounded-lg">5: Orientada</button>
+                        <button data-score="4" class="option-btn p-3 rounded-lg">4: Confusa</button>
+                        <button data-score="3" class="option-btn p-3 rounded-lg">3: Palabras inapropiadas</button>
+                        <button data-score="2" class="option-btn p-3 rounded-lg">2: Sonidos incomprensibles</button>
+                        <button data-score="1" class="option-btn p-3 rounded-lg col-span-2 md:col-span-1">1: Ninguna</button>
+                    </div>
+                </div>
+
+                <!-- Motor Response -->
+                <div class="card p-6">
+                    <h3 class="text-xl font-semibold mb-4 flex items-center justify-between">
+                        <span>Respuesta Motora (M)</span>
+                        <svg data-modal-target="motora" class="info-icon w-6 h-6" xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24" stroke-width="1.5" stroke="currentColor"><path stroke-linecap="round" stroke-linejoin="round" d="M11.25 11.25l.041-.02a.75.75 0 011.063.852l-.708 2.836a.75.75 0 001.063.853l.041-.021M21 12a9 9 0 11-18 0 9 9 0 0118 0zm-9-3.75h.008v.008H12V8.25z" /></svg>
+                    </h3>
+                    <div id="motor-options" class="grid grid-cols-2 md:grid-cols-3 gap-3">
+                        <button data-score="6" class="option-btn p-3 rounded-lg">6: Obedece órdenes</button>
+                        <button data-score="5" class="option-btn p-3 rounded-lg">5: Localiza el dolor</button>
+                        <button data-score="4" class="option-btn p-3 rounded-lg">4: Retirada al dolor</button>
+                        <button data-score="3" class="option-btn p-3 rounded-lg">3: Flexión anormal</button>
+                        <button data-score="2" class="option-btn p-3 rounded-lg">2: Extensión anormal</button>
+                        <button data-score="1" class="option-btn p-3 rounded-lg">1: Ninguna</button>
+                    </div>
+                </div>
+
+                <!-- Pupillary Response -->
+                <div class="card p-6">
+                    <h3 class="text-xl font-semibold mb-4">Respuesta Pupilar</h3>
+                    <p class="text-sm text-gray-500 mb-3">Reste este valor del GCS total para obtener el GCS-P.</p>
+                    <div id="pupil-options" class="grid grid-cols-3 gap-3">
+                        <button data-score="0" class="option-btn p-3 rounded-lg">0: Ambas reactivas</button>
+                        <button data-score="1" class="option-btn p-3 rounded-lg">1: Una no reactiva</button>
+                        <button data-score="2" class="option-btn p-3 rounded-lg">2: Ninguna reactiva</button>
+                    </div>
+                </div>
+
+            </div>
+
+            <!-- Results -->
+            <div class="lg:col-span-1">
+                <div class="card p-6 sticky top-8">
+                    <h3 class="text-2xl font-bold text-center mb-4">Resultados</h3>
+                    <div class="space-y-5">
+                        <div class="text-center">
+                            <p class="text-sm font-medium text-gray-500">Puntuación GCS (E+V+M)</p>
+                            <p id="gcs-score" class="text-6xl font-bold text-blue-600">0</p>
+                        </div>
+                        <div class="text-center">
+                            <p class="text-sm font-medium text-gray-500">Puntuación GCS-P (GCS - Pupilar)</p>
+                            <p id="gcsp-score" class="text-4xl font-bold text-blue-500">0</p>
+                        </div>
+                         <div class="text-center pt-2">
+                            <p class="text-sm font-medium text-gray-500 mb-2">Interpretación</p>
+                            <div id="interpretation" class="interpretation-badge bg-gray-200 text-gray-700">Seleccione opciones</div>
+                        </div>
+                    </div>
+                    <button id="reset-btn" class="w-full mt-6 bg-gray-200 text-gray-700 hover:bg-gray-300 font-semibold py-2 px-4 rounded-lg transition">Reiniciar</button>
+                </div>
+            </div>
+        </div>
+        
+        <!-- Footer -->
+        <footer class="text-center mt-12 text-gray-500 text-sm">
+            <p>&copy; 2025 Dr. Héctor Castro. Todos los Derechos Reservados.</p>
+        </footer>
+
+    </div>
+
+    <!-- Modal -->
+    <div id="modal-overlay" class="fixed inset-0 bg-black bg-opacity-50 hidden items-center justify-center p-4 z-50">
+        <div id="modal-content" class="card p-6 max-w-lg w-full transform scale-95">
+            <h4 id="modal-title" class="text-2xl font-bold mb-4"></h4>
+            <p id="modal-text" class="text-gray-600 leading-relaxed"></p>
+            <button id="modal-close" class="mt-6 w-full bg-blue-600 text-white font-semibold py-2 px-4 rounded-lg hover:bg-blue-700 transition">Cerrar</button>
+        </div>
+    </div>
+
+    <script>
+        document.addEventListener('DOMContentLoaded', () => {
+            // State variables
+            let scores = {
+                ocular: 0,
+                verbal: 0,
+                motor: 0,
+                pupil: 0
+            };
+
+            // DOM elements
+            const optionGroups = {
+                ocular: document.getElementById('ocular-options'),
+                verbal: document.getElementById('verbal-options'),
+                motor: document.getElementById('motor-options'),
+                pupil: document.getElementById('pupil-options')
+            };
+            
+            const gcsScoreEl = document.getElementById('gcs-score');
+            const gcspScoreEl = document.getElementById('gcsp-score');
+            const interpretationEl = document.getElementById('interpretation');
+            const resetBtn = document.getElementById('reset-btn');
+
+            // Modal elements and content
+            const modalOverlay = document.getElementById('modal-overlay');
+            const modalContent = document.getElementById('modal-content');
+            const modalTitle = document.getElementById('modal-title');
+            const modalText = document.getElementById('modal-text');
+            const modalClose = document.getElementById('modal-close');
+            
+            const modalData = {
+                ocular: {
+                    title: 'Apertura Ocular (E)',
+                    text: 'Evalúa la capacidad del paciente para abrir los ojos. Una apertura espontánea indica el nivel más alto de vigilia, mientras que la ausencia de respuesta, incluso al dolor, sugiere una disfunción cerebral profunda.'
+                },
+                verbal: {
+                    title: 'Respuesta Verbal (V)',
+                    text: 'Mide la coherencia y orientación del habla. Un paciente orientado sabe quién es, dónde está y la fecha. Las respuestas confusas o las palabras inapropiadas indican grados crecientes de disfunción cerebral superior.'
+                },
+                motora: {
+                    title: 'Respuesta Motora (M)',
+                    text: 'Es el componente más importante para el pronóstico. Evalúa la capacidad del cerebro para procesar y responder a estímulos. Obedecer órdenes es la mejor respuesta. Las posturas de decorticación (flexión anormal) y descerebración (extensión anormal) son signos ominosos de daño cerebral severo.'
+                }
+            };
+            
+            // Function to calculate and update results
+            function updateResults() {
+                const gcsTotal = scores.ocular + scores.verbal + scores.motor;
+                const gcspTotal = gcsTotal - scores.pupil;
+
+                // Update scores display
+                gcsScoreEl.textContent = gcsTotal;
+                gcspScoreEl.textContent = gcspTotal;
+
+                // Update interpretation display
+                interpretationEl.classList.remove('bg-green-100', 'text-green-800', 'bg-yellow-100', 'text-yellow-800', 'bg-red-100', 'text-red-800', 'bg-gray-200', 'text-gray-700');
+                
+                if (scores.ocular === 0 || scores.verbal === 0 || scores.motor === 0) {
+                     interpretationEl.textContent = 'Complete la escala';
+                     interpretationEl.classList.add('bg-gray-200', 'text-gray-700');
+                } else if (gcsTotal >= 13) {
+                    interpretationEl.textContent = 'TCE Leve';
+                    interpretationEl.classList.add('bg-green-100', 'text-green-800');
+                } else if (gcsTotal >= 9) {
+                    interpretationEl.textContent = 'TCE Moderado';
+                    interpretationEl.classList.add('bg-yellow-100', 'text-yellow-800');
+                } else {
+                    interpretationEl.textContent = 'TCE Severo';
+                    interpretationEl.classList.add('bg-red-100', 'text-red-800');
+                }
+            }
+
+            // Event listeners for option buttons
+            Object.keys(optionGroups).forEach(groupKey => {
+                const groupContainer = optionGroups[groupKey];
+                groupContainer.addEventListener('click', (e) => {
+                    if (e.target.tagName === 'BUTTON') {
+                        // Update score for the group
+                        scores[groupKey] = parseInt(e.target.dataset.score);
+                        
+                        // Update visual selection
+                        const buttons = groupContainer.querySelectorAll('button');
+                        buttons.forEach(btn => btn.classList.remove('selected'));
+                        e.target.classList.add('selected');
+                        
+                        // Recalculate everything
+                        updateResults();
+                    }
+                });
+            });
+
+            // Event listener for reset button
+            resetBtn.addEventListener('click', () => {
+                scores = { ocular: 0, verbal: 0, motor: 0, pupil: 0 };
+                Object.values(optionGroups).forEach(group => {
+                    group.querySelectorAll('button').forEach(btn => btn.classList.remove('selected'));
+                });
+                updateResults();
+            });
+
+            // Modal logic
+            function openModal(type) {
+                const data = modalData[type];
+                if (data) {
+                    modalTitle.textContent = data.title;
+                    modalText.textContent = data.text;
+                    modalOverlay.classList.remove('hidden');
+                    modalOverlay.classList.add('flex');
+                    setTimeout(() => {
+                        modalOverlay.style.opacity = '1';
+                        modalContent.style.transform = 'scale(1)';
+                    }, 10);
+                }
+            }
+
+            function closeModal() {
+                modalOverlay.style.opacity = '0';
+                modalContent.style.transform = 'scale(0.95)';
+                setTimeout(() => {
+                    modalOverlay.classList.add('hidden');
+                    modalOverlay.classList.remove('flex');
+                }, 300);
+            }
+
+            document.querySelectorAll('.info-icon').forEach(icon => {
+                icon.addEventListener('click', () => {
+                    openModal(icon.dataset.modalTarget);
+                });
+            });
+
+            modalClose.addEventListener('click', closeModal);
+            modalOverlay.addEventListener('click', (e) => {
+                if (e.target === modalOverlay) {
+                    closeModal();
+                }
+            });
+
+            // Initial calculation
+            updateResults();
+        });
+    </script>
+</body>
+</html>
