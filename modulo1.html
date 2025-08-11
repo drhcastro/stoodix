@@ -36,6 +36,12 @@
         .action-button:hover { background-color: #2563eb; }
         .action-button.secondary { background-color: #6b7280; }
         .action-button.secondary:hover { background-color: #4b5563; }
+        .action-button.indigo { background-color: #4f46e5; }
+        .action-button.indigo:hover { background-color: #4338ca; }
+        .action-button.green { background-color: #16a34a; }
+        .action-button.green:hover { background-color: #15803d; }
+        .action-button.purple { background-color: #9333ea; }
+        .action-button.purple:hover { background-color: #7e22ce; }
     </style>
 </head>
 <body class="text-gray-800">
@@ -63,67 +69,40 @@
                             <h3 class="font-bold text-xl text-gray-800 border-b pb-2 mt-6">Fisiopatología de la hipertensión intracraneal</h3>
                             <p>Basada en la <strong>Doctrina de Monro-Kellie</strong>, el cráneo es una bóveda rígida con un volumen fijo (parénquima 80%, sangre 10%, LCR 10%). Un aumento en uno de los componentes (ej. un hematoma) debe ser compensado por la disminución de otro. Cuando este mecanismo de compensación falla, la <strong>Presión Intracraneal (PIC)</strong> aumenta peligrosamente.</p>
                             <div class="mt-4 flex flex-wrap gap-4">
-                                <button onclick="openModal('modal-dashboard-mk')" class="action-button">Dashboard Interactivo Monro-Kellie</button>
-                                <a href="monro-kellie.html" class="action-button">Monro Kellie 4.0</a>
+                                <button onclick="openModal('modal-dashboard-mk')" class="action-button indigo">Dashboard Interactivo Monro-Kellie</button>
+                                <a href="monro-kellie.html" class="action-button indigo">Monro Kellie 4.0</a>
                                 <button class="action-button secondary">Futuro Enlace</button>
                             </div>
 
                             <h3 class="font-bold text-xl text-gray-800 border-b pb-2 mt-6">Evaluación Neurológica Sistemática</h3>
-                            <p>La evaluación neurológica rápida y estandarizada es fundamental para establecer una línea de base y detectar cambios.</p>
+                            <p>El examen neurológico es la herramienta de neuromonitorización más fundamental y accesible. El uso de escalas estandarizadas permite una evaluación objetiva, reproducible y comunicable del estado del paciente.</p>
                             <ul class="list-disc list-inside space-y-2 pl-4">
                                 <li><strong>Escala de Coma de Glasgow (GCS):</strong> Evalúa el nivel de conciencia (ocular, verbal, motora). Un GCS ≤ 8 define un TCE severo.</li>
                                 <li><strong>Evaluación Pupilar:</strong> Se valora tamaño, simetría y reactividad a la luz. Cambios como la anisocoria pueden indicar herniación.</li>
                                 <li><strong>Escala NIHSS (National Institutes of Health Stroke Scale):</strong> Cuantifica el déficit neurológico en pacientes con EVC.</li>
                             </ul>
-                            <div class="mt-4">
-                                <a href="calculadora-nihss.html" class="action-button">Evaluación Ictus NIHSS</a>
+                            <div class="mt-4 flex flex-wrap gap-4">
+                                <a href="exploracion-neuro.html" class="action-button green">Evaluación Neurológica</a>
+                                <button onclick="openModal('modal-gcs-calculator')" class="action-button green">Evaluación de GCS</button>
+                                <a href="calculadora-nihss.html" class="action-button green">Evaluación Ictus NIHSS</a>
                             </div>
 
                             <h3 class="font-bold text-xl text-gray-800 border-b pb-2 mt-6">ABCD Primario y Secundario con Enfoque Neurológico</h3>
-                            <p>La evaluación inicial sigue el principio de ABCD con consideraciones neurológicas clave:</p>
-                             <ul class="list-disc list-inside space-y-2 pl-4">
-                                <li><strong>A (Airway):</strong> Asegurar vía aérea protegiendo la columna cervical.</li>
-                                <li><strong>B (Breathing):</strong> Evitar hipoxia e hipercapnia.</li>
-                                <li><strong>C (Circulation):</strong> Evitar la hipotensión a toda costa.</li>
-                                <li><strong>D (Disability):</strong> Evaluación neurológica rápida (GCS, pupilas).</li>
-                            </ul>
-
-                            <h3 class="font-bold text-xl mt-6">Simulador Clínico: Día 1</h3>
-                            <div id="sim1-container" class="bg-gray-800 text-white p-6 rounded-lg">
-                                <p class="mb-4 font-semibold">Caso: Paciente de 25 años, accidente de motocicleta. Inconsciente.</p>
-                                <div id="sim1-step1">
-                                   <p class="mb-4">Paso 1: ¿Cuál es su acción inicial para calcular la Escala de Coma de Glasgow (GCS)?</p>
-                                    <div class="space-y-2 sim-options">
-                                        <button class="sim-button" onclick="sim1_feedback(this, true)">Evaluar la respuesta ocular, verbal y motora.</button>
-                                        <button class="sim-button" onclick="sim1_feedback(this, false)">Tomar la presión arterial.</button>
-                                        <button class="sim-button" onclick="sim1_feedback(this, false)">Administrar oxígeno.</button>
-                                    </div>
-                                    <div id="sim1-feedback1" class="sim-feedback hidden"></div>
-                                    <button id="sim1-next1" class="sim-control-button bg-blue-500 hover:bg-blue-600 hidden" onclick="sim1_next(2)">Siguiente Paso →</button>
-                                </div>
-                                <div id="sim1-step2" class="hidden">
-                                    <p class="mb-4">Paso 2: El paciente no abre los ojos (1), emite sonidos incomprensibles (2) y presenta flexión anormal al estímulo doloroso (3). Calcule la GCS.</p>
-                                    <div class="space-y-2 sim-options">
-                                        <button class="sim-button" onclick="sim1_final(this, true)">GCS: 6. TCE Severo.</button>
-                                        <button class="sim-button" onclick="sim1_final(this, false)">GCS: 8. TCE Moderado.</button>
-                                        <button class="sim-button" onclick="sim1_final(this, false)">GCS: 5. TCE Severo.</button>
-                                    </div>
-                                    <div id="sim1-feedback2" class="sim-feedback hidden"></div>
-                                </div>
-                                <button id="sim1-restart" class="sim-control-button bg-gray-500 hover:bg-gray-600 hidden" onclick="restartSim(1)">Reiniciar Caso</button>
+                            <p>La evaluación primaria (ABCD) y secundaria estándar debe adaptarse con un enfoque neurológico. En la 'C' de Circulación, la hipotensión se evita agresivamente, ya que una PAM baja reduce directamente la PPC. En la 'D' de Disability (Déficit), se realiza una evaluación rápida de la GCS y las pupilas para establecer una línea de base neurológica.</p>
+                            <div class="mt-4 flex flex-wrap gap-4">
+                                <a href="protocolo-atls.html" class="action-button purple">ATLS</a>
+                                <a href="protocolo-brain.html" class="action-button purple">BRAIN</a>
+                                <a href="protocolo-bts.html" class="action-button purple">BTS</a>
                             </div>
+
                         </div>
                         <div class="lg:col-span-1 space-y-6">
                             <div class="bg-white p-6 rounded-lg shadow-md">
-                                <h3 class="text-xl font-bold text-gray-800 mb-4">Recursos del Día 1</h3>
                                 <div class="space-y-3">
-                                    <button onclick="openModal('modal-gcs')" class="w-full bg-blue-50 hover:bg-blue-100 text-blue-800 font-semibold py-3 px-4 rounded-lg text-left transition-colors duration-200 flex items-center"><span class="text-xl mr-3">📋</span> Guía Rápida: Escala de Glasgow</button>
-                                    <button onclick="openModal('modal-pupilas')" class="w-full bg-blue-50 hover:bg-blue-100 text-blue-800 font-semibold py-3 px-4 rounded-lg text-left transition-colors duration-200 flex items-center"><span class="text-xl mr-3">👁️</span> Guía Rápida: Valoración Pupilar</button>
-                                    <a href="https://www.ninds.nih.gov/health-information/professional-resources/nih-stroke-scale" target="_blank" class="w-full bg-blue-50 hover:bg-blue-100 text-blue-800 font-semibold py-3 px-4 rounded-lg text-left transition-colors duration-200 flex items-center"><span class="text-xl mr-3">📄</span> Descargable: Escala NIHSS</a>
+                                    <button onclick="openModal('modal-gcs')" class="w-full bg-blue-50 hover:bg-blue-100 text-blue-800 font-semibold py-3 px-4 rounded-lg text-left transition-colors duration-200 flex items-center"><span class="text-xl mr-3">📚</span> Biblioteca</button>
+                                    <button onclick="openModal('modal-pupilas')" class="w-full bg-blue-50 hover:bg-blue-100 text-blue-800 font-semibold py-3 px-4 rounded-lg text-left transition-colors duration-200 flex items-center"><span class="text-xl mr-3">🩺</span> Casos Clínicos</button>
+                                    <a href="https://www.ninds.nih.gov/health-information/professional-resources/nih-stroke-scale" target="_blank" class="w-full bg-blue-50 hover:bg-blue-100 text-blue-800 font-semibold py-3 px-4 rounded-lg text-left transition-colors duration-200 flex items-center"><span class="text-xl mr-3">💡</span> Perlas Clínicas</a>
                                 </div>
-                            </div>
-                            <div class="bg-white p-6 rounded-lg shadow-md">
-                                <button onclick="openModal('modal-ojo-clinico')" class="w-full bg-yellow-100 hover:bg-yellow-200 text-yellow-800 font-bold py-4 px-4 rounded-lg text-center transition-colors duration-200 flex items-center justify-center"><span class="text-xl mr-3">🚨</span> ¡OJO CLÍNICO!</button>
                             </div>
                         </div>
                     </div>
@@ -177,7 +156,7 @@
     </div>
     <div id="modal-gcs" class="modal fixed inset-0 bg-black bg-opacity-60 flex items-center justify-center p-4 z-50 opacity-0 pointer-events-none"><div class="modal-content bg-white w-full max-w-2xl rounded-lg shadow-2xl p-6 transform scale-95"><div class="flex justify-between items-center border-b pb-3 mb-4"><h3 class="text-xl font-bold text-gray-800">📋 Guía Rápida: Escala de Coma de Glasgow (GCS)</h3><button onclick="closeModal('modal-gcs')" class="text-gray-500 hover:text-gray-800 text-3xl">&times;</button></div><img src="https://placehold.co/600x400/ffffff/000000?text=Tabla+Visual+de+la+Escala+de+Glasgow" alt="Tabla de GCS" class="w-full rounded-md"></div></div>
     <div id="modal-pupilas" class="modal fixed inset-0 bg-black bg-opacity-60 flex items-center justify-center p-4 z-50 opacity-0 pointer-events-none"><div class="modal-content bg-white w-full max-w-2xl rounded-lg shadow-2xl p-6 transform scale-95"><div class="flex justify-between items-center border-b pb-3 mb-4"><h3 class="text-xl font-bold text-gray-800">👁️ Guía Rápida: Valoración Pupilar</h3><button onclick="closeModal('modal-pupilas')" class="text-gray-500 hover:text-gray-800 text-3xl">&times;</button></div><img src="https://placehold.co/600x300/ffffff/000000?text=Imágenes+de+Pupilas+Normales+y+Patológicas" alt="Infografía de valoración pupilar" class="w-full rounded-md"></div></div>
-    <div id="modal-ojo-clinico" class="modal fixed inset-0 bg-black bg-opacity-60 flex items-center justify-center p-4 z-50 opacity-0 pointer-events-none"><div class="modal-content bg-yellow-50 border-4 border-yellow-300 w-full max-w-lg rounded-lg shadow-2xl p-8 text-center transform scale-95"><button onclick="closeModal('modal-ojo-clinico')" class="absolute top-2 right-4 text-yellow-700 hover:text-yellow-900 text-3xl">&times;</button><span class="text-5xl mb-4 block">🚨</span><h3 class="text-2xl font-bold text-yellow-900 mb-2">¡Alerta: Signos de Herniación!</h3><p class="text-yellow-800 mb-4">La <strong>Tríada de Cushing</strong> es un signo tardío y ominoso de HIC severa. ¡Actúa rápido!</p><div class="text-left space-y-2 font-semibold text-gray-700"><p>1. <strong class="text-red-600">Hipertensión Arterial</strong></p><p>2. <strong class="text-blue-600">Bradicardia</strong></p><p>3. <strong class="text-green-600">Alteración Respiratoria</strong></p></div></div></div>
+    <div id="modal-gcs-calculator" class="modal fixed inset-0 bg-black bg-opacity-60 flex items-center justify-center p-4 z-50 opacity-0 pointer-events-none"><div class="modal-content bg-white w-full max-w-2xl rounded-lg shadow-2xl p-6 transform scale-95"><div class="flex justify-between items-center border-b pb-3 mb-4"><h3 class="text-xl font-bold text-gray-800">Calculadora de GCS</h3><button onclick="closeModal('modal-gcs-calculator')" class="text-gray-500 hover:text-gray-800 text-3xl">&times;</button></div><p>Aquí irá la calculadora de GCS.</p></div></div>
     
     <script>
         document.addEventListener('DOMContentLoaded', () => { setupMonroKellieChart(); });
@@ -207,35 +186,6 @@
         function openModal(modalId) { const m = document.getElementById(modalId); if (!m) return; m.classList.remove('opacity-0', 'pointer-events-none'); m.querySelector('.modal-content').classList.remove('scale-95'); }
         function closeModal(modalId) { const m = document.getElementById(modalId); if (!m) return; m.classList.add('opacity-0'); m.querySelector('.modal-content').classList.add('scale-95'); setTimeout(() => m.classList.add('pointer-events-none'), 300); }
         document.querySelectorAll('.modal').forEach(m => m.addEventListener('click', (e) => { if (e.target === m) closeModal(m.id); }));
-        const simFeedbacks = {
-            sim1_step1_correct: "¡Correcto! La valoración neurológica sistemática es el primer paso.", sim1_step1_incorrect: "Incorrecto. La GCS requiere una evaluación neurológica directa.",
-            sim1_step2_correct: "¡Excelente! Un GCS de 6 (E1V2M3) indica un TCE severo.", sim1_step2_incorrect: "Cálculo incorrecto. Revisa los componentes de la GCS."
-        };
-        function disableOptions(stepElement) { stepElement.querySelectorAll('.sim-button').forEach(button => button.disabled = true); }
-        function sim1_feedback(button, isCorrect) {
-            const stepElement = document.getElementById('sim1-step1'), feedbackDiv = document.getElementById('sim1-feedback1');
-            disableOptions(stepElement); button.classList.add(isCorrect ? 'sim-button-correct' : 'sim-button-incorrect');
-            feedbackDiv.textContent = isCorrect ? simFeedbacks.sim1_step1_correct : simFeedbacks.sim1_step1_incorrect;
-            feedbackDiv.className = isCorrect ? 'sim-feedback correct' : 'sim-feedback incorrect';
-            if (isCorrect) { document.getElementById('sim1-next1').classList.remove('hidden'); } else { document.getElementById('sim1-restart').classList.remove('hidden'); }
-        }
-        function sim1_next(step) { document.getElementById('sim1-step1').classList.add('hidden'); document.getElementById(`sim1-step${step}`).classList.remove('hidden'); }
-        function sim1_final(button, isCorrect) {
-            const stepElement = document.getElementById('sim1-step2'), feedbackDiv = document.getElementById('sim1-feedback2');
-            disableOptions(stepElement); button.classList.add(isCorrect ? 'sim-button-correct' : 'sim-button-incorrect');
-            feedbackDiv.textContent = isCorrect ? simFeedbacks.sim1_step2_correct : simFeedbacks.sim1_step2_incorrect;
-            feedbackDiv.className = isCorrect ? 'sim-feedback correct' : 'sim-feedback incorrect';
-            document.getElementById('sim1-restart').classList.remove('hidden');
-        }
-        function restartSim(simNum) {
-            const container = document.getElementById(`sim${simNum}-container`);
-            container.querySelectorAll('div[id^="sim' + simNum + '-step"]').forEach(el => el.classList.add('hidden'));
-            container.querySelector('#sim' + simNum + '-step1').classList.remove('hidden');
-            container.querySelectorAll('.sim-feedback').forEach(el => el.classList.add('hidden'));
-            container.querySelectorAll('.sim-control-button').forEach(el => el.classList.add('hidden'));
-            container.querySelectorAll('.sim-button').forEach(button => { button.disabled = false; button.classList.remove('sim-button-correct', 'sim-button-incorrect'); });
-        }
     </script>
 </body>
 </html>
-
