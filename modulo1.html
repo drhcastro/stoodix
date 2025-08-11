@@ -32,6 +32,8 @@
         .sim-control-button { @apply mt-4 px-5 py-2 rounded-lg font-semibold text-white transition-colors duration-200; }
         .modal { transition: opacity 0.3s ease, transform 0.3s ease; }
         .modal-content { transition: transform 0.3s ease; }
+        .action-button { background-color: #3b82f6; color: white; padding: 0.75rem 1.5rem; border-radius: 0.5rem; font-weight: 600; text-align: center; transition: background-color 0.3s ease; display: inline-block; }
+        .action-button:hover { background-color: #2563eb; }
     </style>
 </head>
 <body class="text-gray-800">
@@ -50,16 +52,18 @@
                     <h2 class="text-2xl font-bold text-blue-700 mb-4">Módulo 1: Valoración Inicial y Fisiopatología</h2>
                     <div class="grid grid-cols-1 lg:grid-cols-3 gap-8">
                         <div class="lg:col-span-2 space-y-6">
-                            <p>El manejo del paciente neurocrítico comienza desde el primer contacto. Todas las medidas están destinadas a prevenir, disminuir o revertir el <strong>daño secundario</strong> a la lesión primaria.</p>
                             
-                            <h3 class="font-bold text-xl">Lesión Primaria vs. Secundaria</h3>
-                            <ul class="list-disc list-inside space-y-2">
-                                <li><strong>Lesión Primaria:</strong> El daño inicial e irreversible.</li>
-                                <li><strong>Lesión Secundaria:</strong> Cascada de eventos moleculares y celulares que son potencialmente prevenibles (hipoperfusión, hipoxia, edema, etc.).</li>
+                            <h3 class="font-bold text-xl text-gray-800 border-b pb-2">Definición y Principales Etiologías</h3>
+                            <p>El paciente neurocrítico es aquel con una lesión aguda del sistema nervioso central que amenaza su vida o función neurológica. El objetivo del manejo es prevenir el <strong>daño secundario</strong>, ya que la lesión primaria es irreversible.</p>
+                            <ul class="list-disc list-inside space-y-2 pl-4">
+                                <li><strong>Traumatismo Craneoencefálico (TEC):</strong> Lesión física directa al cerebro.</li>
+                                <li><strong>Evento Vascular Cerebral (EVC):</strong> Isquémico o hemorrágico, interrumpe el flujo sanguíneo.</li>
+                                <li><strong>Hemorragia Subaracnoidea (HSA):</strong> Sangrado en el espacio que rodea el cerebro, usualmente por ruptura de un aneurisma.</li>
+                                <li><strong>Encefalopatías:</strong> Disfunción cerebral difusa por causas metabólicas, tóxicas o anóxicas.</li>
                             </ul>
 
-                            <h3 class="font-bold text-xl">Fisiopatología de la HIC: Doctrina de Monro-Kellie</h3>
-                            <p>El cráneo es una bóveda rígida con un volumen fijo (parénquima, sangre, LCR). Un aumento en uno debe ser compensado por la disminución de otro. Cuando falla, la <strong>Presión Intracraneal (PIC)</strong> aumenta.</p>
+                            <h3 class="font-bold text-xl text-gray-800 border-b pb-2 mt-6">Fisiopatología de la Hipertensión Intracraneal (HIC)</h3>
+                            <p>Basada en la <strong>Doctrina de Monro-Kellie</strong>, el cráneo es una bóveda rígida con un volumen fijo (parénquima 80%, sangre 10%, LCR 10%). Un aumento en uno de los componentes (ej. un hematoma) debe ser compensado por la disminución de otro. Cuando este mecanismo de compensación falla, la <strong>Presión Intracraneal (PIC)</strong> aumenta peligrosamente.</p>
                             
                             <div class="infographic my-6">
                                 <h3 class="font-bold text-xl mb-4 text-center">Simulador Interactivo: Monro-Kellie y Curva P/V</h3>
@@ -97,8 +101,28 @@
                                     </div>
                                 </div>
                             </div>
-                            
-                            <h3 class="font-bold text-xl">Simulador Clínico: Día 1</h3>
+
+                            <h3 class="font-bold text-xl text-gray-800 border-b pb-2 mt-6">Evaluación Neurológica Sistemática</h3>
+                            <p>La evaluación neurológica rápida y estandarizada es fundamental para establecer una línea de base y detectar cambios.</p>
+                            <ul class="list-disc list-inside space-y-2 pl-4">
+                                <li><strong>Escala de Coma de Glasgow (GCS):</strong> Evalúa el nivel de conciencia (ocular, verbal, motora). Un GCS ≤ 8 define un TCE severo.</li>
+                                <li><strong>Evaluación Pupilar:</strong> Se valora tamaño, simetría y reactividad a la luz. Cambios como la anisocoria pueden indicar herniación.</li>
+                                <li><strong>Escala NIHSS (National Institutes of Health Stroke Scale):</strong> Cuantifica el déficit neurológico en pacientes con EVC.</li>
+                            </ul>
+                            <div class="mt-4">
+                                <a href="calculadora-nihss.html" class="action-button">Evaluación Ictus NIHSS</a>
+                            </div>
+
+                            <h3 class="font-bold text-xl text-gray-800 border-b pb-2 mt-6">ABCD Primario y Secundario con Enfoque Neurológico</h3>
+                            <p>La evaluación inicial sigue el principio de ABCD con consideraciones neurológicas clave:</p>
+                             <ul class="list-disc list-inside space-y-2 pl-4">
+                                <li><strong>A (Airway):</strong> Asegurar vía aérea protegiendo la columna cervical.</li>
+                                <li><strong>B (Breathing):</strong> Evitar hipoxia e hipercapnia.</li>
+                                <li><strong>C (Circulation):</strong> Evitar la hipotensión a toda costa.</li>
+                                <li><strong>D (Disability):</strong> Evaluación neurológica rápida (GCS, pupilas).</li>
+                            </ul>
+
+                            <h3 class="font-bold text-xl mt-6">Simulador Clínico: Día 1</h3>
                             <div id="sim1-container" class="bg-gray-800 text-white p-6 rounded-lg">
                                 <p class="mb-4 font-semibold">Caso: Paciente de 25 años, accidente de motocicleta. Inconsciente.</p>
                                 <div id="sim1-step1">
@@ -129,7 +153,7 @@
                                 <div class="space-y-3">
                                     <button onclick="openModal('modal-gcs')" class="w-full bg-blue-50 hover:bg-blue-100 text-blue-800 font-semibold py-3 px-4 rounded-lg text-left transition-colors duration-200 flex items-center"><span class="text-xl mr-3">📋</span> Guía Rápida: Escala de Glasgow</button>
                                     <button onclick="openModal('modal-pupilas')" class="w-full bg-blue-50 hover:bg-blue-100 text-blue-800 font-semibold py-3 px-4 rounded-lg text-left transition-colors duration-200 flex items-center"><span class="text-xl mr-3">👁️</span> Guía Rápida: Valoración Pupilar</button>
-                                    <a href="#" class="w-full bg-blue-50 hover:bg-blue-100 text-blue-800 font-semibold py-3 px-4 rounded-lg text-left transition-colors duration-200 flex items-center"><span class="text-xl mr-3">📄</span> Descargable: Escala NIHSS</a>
+                                    <a href="https://www.ninds.nih.gov/health-information/professional-resources/nih-stroke-scale" target="_blank" class="w-full bg-blue-50 hover:bg-blue-100 text-blue-800 font-semibold py-3 px-4 rounded-lg text-left transition-colors duration-200 flex items-center"><span class="text-xl mr-3">📄</span> Descargable: Escala NIHSS</a>
                                 </div>
                             </div>
                             <div class="bg-white p-6 rounded-lg shadow-md">
