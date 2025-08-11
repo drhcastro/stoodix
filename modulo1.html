@@ -34,6 +34,8 @@
         .modal-content { transition: transform 0.3s ease; }
         .action-button { background-color: #3b82f6; color: white; padding: 0.75rem 1.5rem; border-radius: 0.5rem; font-weight: 600; text-align: center; transition: background-color 0.3s ease; display: inline-block; }
         .action-button:hover { background-color: #2563eb; }
+        .action-button.secondary { background-color: #6b7280; }
+        .action-button.secondary:hover { background-color: #4b5563; }
     </style>
 </head>
 <body class="text-gray-800">
@@ -42,7 +44,6 @@
         <!-- Encabezado Principal -->
         <header class="text-center mb-8">
             <h1 class="text-3xl md:text-4xl font-bold text-blue-600">Abordaje del Paciente Neurocrítico</h1>
-            <p class="text-lg text-gray-600 mt-2">Guía Interactiva por Dr. Héctor Castro</p>
         </header>
 
         <!-- Contenido del Módulo 1 -->
@@ -53,53 +54,18 @@
                     <div class="grid grid-cols-1 lg:grid-cols-3 gap-8">
                         <div class="lg:col-span-2 space-y-6">
                             
-                            <h3 class="font-bold text-xl text-gray-800 border-b pb-2">Definición y Principales Etiologías</h3>
-                            <p>El paciente neurocrítico es aquel con una lesión aguda del sistema nervioso central que amenaza su vida o función neurológica. El objetivo del manejo es prevenir el <strong>daño secundario</strong>, ya que la lesión primaria es irreversible.</p>
-                            <ul class="list-disc list-inside space-y-2 pl-4">
-                                <li><strong>Traumatismo Craneoencefálico (TEC):</strong> Lesión física directa al cerebro.</li>
-                                <li><strong>Evento Vascular Cerebral (EVC):</strong> Isquémico o hemorrágico, interrumpe el flujo sanguíneo.</li>
-                                <li><strong>Hemorragia Subaracnoidea (HSA):</strong> Sangrado en el espacio que rodea el cerebro, usualmente por ruptura de un aneurisma.</li>
-                                <li><strong>Encefalopatías:</strong> Disfunción cerebral difusa por causas metabólicas, tóxicas o anóxicas.</li>
-                            </ul>
+                            <h3 class="font-bold text-xl text-gray-800 border-b pb-2">Definición, Etiología y Fisiopatología de la lesión cerebral</h3>
+                            <div class="mt-4 flex flex-wrap gap-4">
+                                <a href="definicion-clasificacion.html" class="action-button">Definición y clasificación del paciente neurocrítico</a>
+                                <a href="daño.cerebral.html" class="action-button">Fisiopatología de la Lesión Cerebral</a>
+                            </div>
 
-                            <h3 class="font-bold text-xl text-gray-800 border-b pb-2 mt-6">Fisiopatología de la Hipertensión Intracraneal (HIC)</h3>
+                            <h3 class="font-bold text-xl text-gray-800 border-b pb-2 mt-6">Fisiopatología de la hipertensión intracraneal</h3>
                             <p>Basada en la <strong>Doctrina de Monro-Kellie</strong>, el cráneo es una bóveda rígida con un volumen fijo (parénquima 80%, sangre 10%, LCR 10%). Un aumento en uno de los componentes (ej. un hematoma) debe ser compensado por la disminución de otro. Cuando este mecanismo de compensación falla, la <strong>Presión Intracraneal (PIC)</strong> aumenta peligrosamente.</p>
-                            
-                            <div class="infographic my-6">
-                                <h3 class="font-bold text-xl mb-4 text-center">Simulador Interactivo: Monro-Kellie y Curva P/V</h3>
-                                <div id="monro-kellie-container" class="monro-kellie-container">
-                                    <div class="chart-area">
-                                        <div class="skull-box">
-                                            <div id="bar-brain" class="volume-bar bg-gray-600" style="height: 80%;"></div>
-                                            <div id="bar-blood" class="volume-bar bg-red-600" style="height: 10%;"></div>
-                                            <div id="bar-csf" class="volume-bar bg-blue-500" style="height: 10%;"></div>
-                                            <div id="bar-mass" class="volume-bar bg-purple-600" style="height: 0%;"></div>
-                                        </div>
-                                        <div class="flex flex-col items-center">
-                                            <div class="pic-gauge-container"><div id="pic-gauge-level" class="pic-gauge-level"></div></div>
-                                            <span id="pic-status-text" class="mt-2 text-green-600">PIC NORMAL</span>
-                                        </div>
-                                    </div>
-                                    <div class="flex justify-around w-full max-w-lg mt-3 text-xs md:text-sm font-semibold">
-                                        <div class="text-center w-1/4">Parénquima<br><span id="label-brain">80%</span></div>
-                                        <div class="text-center w-1/4">Sangre<br><span id="label-blood">10%</span></div>
-                                        <div class="text-center w-1/4">LCR<br><span id="label-csf">10%</span></div>
-                                        <div class="text-center w-1/4">Lesión<br><span id="label-mass">0%</span></div>
-                                    </div>
-                                    <div class="pressure-volume-chart">
-                                        <h4 class="text-center font-semibold text-gray-700 mb-2">Curva de Presión-Volumen Cerebral</h4>
-                                        <svg id="pv-chart" viewBox="0 0 300 200">
-                                            <line x1="20" y1="10" x2="20" y2="180" stroke="#9ca3af" stroke-width="1"/><line x1="20" y1="180" x2="280" y2="180" stroke="#9ca3af" stroke-width="1"/><text x="5" y="15" font-size="8" fill="#6b7280" style="writing-mode: vertical-rl; text-orientation: mixed;">PIC</text><text x="270" y="195" font-size="8" fill="#6b7280">Volumen</text>
-                                            <rect x="20" y="10" width="133" height="170" fill="#22c55e" fill-opacity="0.1" /><rect x="153" y="10" width="127" height="170" fill="#ef4444" fill-opacity="0.1" /><text x="65" y="175" font-size="8" fill="#15803d">Compensación</text><text x="185" y="175" font-size="8" fill="#b91c1c">Descompensación</text>
-                                            <path id="pv-curve-path" d="M 20,170 C 100,170 120,165 153,100 S 200,10 280,10" stroke="#3b82f6" stroke-width="2.5" fill="none"/>
-                                            <circle id="pv-curve-indicator" class="pv-curve-indicator" cx="20" cy="170" r="5" fill="#1d4ed8" stroke="white" stroke-width="1.5"/>
-                                        </svg>
-                                    </div>
-                                    <div class="w-full max-w-md mt-4">
-                                        <label for="mass-slider" class="block text-center font-semibold mb-1">Aumentar tamaño de la lesión</label>
-                                        <input id="mass-slider" type="range" min="0" max="30" value="0" class="w-full h-2 bg-gray-200 rounded-lg appearance-none cursor-pointer">
-                                    </div>
-                                </div>
+                            <div class="mt-4 flex flex-wrap gap-4">
+                                <button onclick="openModal('modal-dashboard-mk')" class="action-button">Dashboard Interactivo Monro-Kellie</button>
+                                <a href="monro-kellie.html" class="action-button">Monro Kellie 4.0</a>
+                                <button class="action-button secondary">Futuro Enlace</button>
                             </div>
 
                             <h3 class="font-bold text-xl text-gray-800 border-b pb-2 mt-6">Evaluación Neurológica Sistemática</h3>
@@ -157,7 +123,7 @@
                                 </div>
                             </div>
                             <div class="bg-white p-6 rounded-lg shadow-md">
-                                <button onclick="openModal('modal-ojo-clinico')" class="w-full bg-yellow-100 hover:bg-yellow-200 text-yellow-800 font-bold py-4 px-4 rounded-lg text-center transition-colors duration-200 flex items-center justify-center"><span class="text-2xl mr-3">🚨</span> ¡OJO CLÍNICO!</button>
+                                <button onclick="openModal('modal-ojo-clinico')" class="w-full bg-yellow-100 hover:bg-yellow-200 text-yellow-800 font-bold py-4 px-4 rounded-lg text-center transition-colors duration-200 flex items-center justify-center"><span class="text-xl mr-3">🚨</span> ¡OJO CLÍNICO!</button>
                             </div>
                         </div>
                     </div>
@@ -168,6 +134,47 @@
     </div>
 
     <!-- Modales -->
+    <div id="modal-dashboard-mk" class="modal fixed inset-0 bg-black bg-opacity-60 flex items-center justify-center p-4 z-50 opacity-0 pointer-events-none">
+        <div class="modal-content bg-gray-100 w-full max-w-4xl rounded-lg shadow-2xl p-6 transform scale-95 overflow-y-auto max-h-[90vh]">
+            <div class="flex justify-between items-center border-b pb-3 mb-4">
+                <h3 class="text-xl font-bold text-gray-800">Dashboard Interactivo: Monro-Kellie y Curva P/V</h3>
+                <button onclick="closeModal('modal-dashboard-mk')" class="text-gray-500 hover:text-gray-800 text-3xl">&times;</button>
+            </div>
+            <div id="monro-kellie-container" class="monro-kellie-container">
+                <div class="chart-area">
+                    <div class="skull-box">
+                        <div id="bar-brain" class="volume-bar bg-gray-600" style="height: 80%;"></div>
+                        <div id="bar-blood" class="volume-bar bg-red-600" style="height: 10%;"></div>
+                        <div id="bar-csf" class="volume-bar bg-blue-500" style="height: 10%;"></div>
+                        <div id="bar-mass" class="volume-bar bg-purple-600" style="height: 0%;"></div>
+                    </div>
+                    <div class="flex flex-col items-center">
+                        <div class="pic-gauge-container"><div id="pic-gauge-level" class="pic-gauge-level"></div></div>
+                        <span id="pic-status-text" class="mt-2 text-green-600">PIC NORMAL</span>
+                    </div>
+                </div>
+                <div class="flex justify-around w-full max-w-lg mt-3 text-xs md:text-sm font-semibold">
+                    <div class="text-center w-1/4">Parénquima<br><span id="label-brain">80%</span></div>
+                    <div class="text-center w-1/4">Sangre<br><span id="label-blood">10%</span></div>
+                    <div class="text-center w-1/4">LCR<br><span id="label-csf">10%</span></div>
+                    <div class="text-center w-1/4">Lesión<br><span id="label-mass">0%</span></div>
+                </div>
+                <div class="pressure-volume-chart">
+                    <h4 class="text-center font-semibold text-gray-700 mb-2">Curva de Presión-Volumen Cerebral</h4>
+                    <svg id="pv-chart" viewBox="0 0 300 200">
+                        <line x1="20" y1="10" x2="20" y2="180" stroke="#9ca3af" stroke-width="1"/><line x1="20" y1="180" x2="280" y2="180" stroke="#9ca3af" stroke-width="1"/><text x="5" y="15" font-size="8" fill="#6b7280" style="writing-mode: vertical-rl; text-orientation: mixed;">PIC</text><text x="270" y="195" font-size="8" fill="#6b7280">Volumen</text>
+                        <rect x="20" y="10" width="133" height="170" fill="#22c55e" fill-opacity="0.1" /><rect x="153" y="10" width="127" height="170" fill="#ef4444" fill-opacity="0.1" /><text x="65" y="175" font-size="8" fill="#15803d">Compensación</text><text x="185" y="175" font-size="8" fill="#b91c1c">Descompensación</text>
+                        <path id="pv-curve-path" d="M 20,170 C 100,170 120,165 153,100 S 200,10 280,10" stroke="#3b82f6" stroke-width="2.5" fill="none"/>
+                        <circle id="pv-curve-indicator" class="pv-curve-indicator" cx="20" cy="170" r="5" fill="#1d4ed8" stroke="white" stroke-width="1.5"/>
+                    </svg>
+                </div>
+                <div class="w-full max-w-md mt-4">
+                    <label for="mass-slider" class="block text-center font-semibold mb-1">Aumentar tamaño de la lesión</label>
+                    <input id="mass-slider" type="range" min="0" max="30" value="0" class="w-full h-2 bg-gray-200 rounded-lg appearance-none cursor-pointer">
+                </div>
+            </div>
+        </div>
+    </div>
     <div id="modal-gcs" class="modal fixed inset-0 bg-black bg-opacity-60 flex items-center justify-center p-4 z-50 opacity-0 pointer-events-none"><div class="modal-content bg-white w-full max-w-2xl rounded-lg shadow-2xl p-6 transform scale-95"><div class="flex justify-between items-center border-b pb-3 mb-4"><h3 class="text-xl font-bold text-gray-800">📋 Guía Rápida: Escala de Coma de Glasgow (GCS)</h3><button onclick="closeModal('modal-gcs')" class="text-gray-500 hover:text-gray-800 text-3xl">&times;</button></div><img src="https://placehold.co/600x400/ffffff/000000?text=Tabla+Visual+de+la+Escala+de+Glasgow" alt="Tabla de GCS" class="w-full rounded-md"></div></div>
     <div id="modal-pupilas" class="modal fixed inset-0 bg-black bg-opacity-60 flex items-center justify-center p-4 z-50 opacity-0 pointer-events-none"><div class="modal-content bg-white w-full max-w-2xl rounded-lg shadow-2xl p-6 transform scale-95"><div class="flex justify-between items-center border-b pb-3 mb-4"><h3 class="text-xl font-bold text-gray-800">👁️ Guía Rápida: Valoración Pupilar</h3><button onclick="closeModal('modal-pupilas')" class="text-gray-500 hover:text-gray-800 text-3xl">&times;</button></div><img src="https://placehold.co/600x300/ffffff/000000?text=Imágenes+de+Pupilas+Normales+y+Patológicas" alt="Infografía de valoración pupilar" class="w-full rounded-md"></div></div>
     <div id="modal-ojo-clinico" class="modal fixed inset-0 bg-black bg-opacity-60 flex items-center justify-center p-4 z-50 opacity-0 pointer-events-none"><div class="modal-content bg-yellow-50 border-4 border-yellow-300 w-full max-w-lg rounded-lg shadow-2xl p-8 text-center transform scale-95"><button onclick="closeModal('modal-ojo-clinico')" class="absolute top-2 right-4 text-yellow-700 hover:text-yellow-900 text-3xl">&times;</button><span class="text-5xl mb-4 block">🚨</span><h3 class="text-2xl font-bold text-yellow-900 mb-2">¡Alerta: Signos de Herniación!</h3><p class="text-yellow-800 mb-4">La <strong>Tríada de Cushing</strong> es un signo tardío y ominoso de HIC severa. ¡Actúa rápido!</p><div class="text-left space-y-2 font-semibold text-gray-700"><p>1. <strong class="text-red-600">Hipertensión Arterial</strong></p><p>2. <strong class="text-blue-600">Bradicardia</strong></p><p>3. <strong class="text-green-600">Alteración Respiratoria</strong></p></div></div></div>
