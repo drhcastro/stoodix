@@ -1,0 +1,878 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Guía de Exploración Neurológica en Paciente Neurocrítico</title>
+    <script src="https://cdn.tailwindcss.com"></script>
+    <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700&display=swap" rel="stylesheet">
+    <style>
+        body {
+            font-family: 'Inter', sans-serif;
+            background-color: #f0f4f8;
+        }
+        .tab-content {
+            display: none;
+        }
+        .tab-content.active {
+            display: block;
+        }
+        .tab-button.active {
+            background-color: #3b82f6;
+            color: white;
+            border-color: #3b82f6;
+        }
+        .section-card {
+            background-color: white;
+            border-radius: 0.75rem;
+            box-shadow: 0 4px 6px -1px rgb(0 0 0 / 0.1), 0 2px 4px -2px rgb(0 0 0 / 0.1);
+            transition: transform 0.2s ease-in-out, box-shadow 0.2s ease-in-out;
+            display: flex;
+            flex-direction: column;
+        }
+        .section-card-interactive {
+            cursor: pointer;
+        }
+        .section-card:hover {
+            transform: translateY(-5px);
+            box-shadow: 0 10px 15px -3px rgb(0 0 0 / 0.1), 0 4px 6px -2px rgb(0 0 0 / 0.1);
+        }
+        table {
+            width: 100%;
+            border-collapse: collapse;
+            margin-top: 1rem;
+        }
+        th, td {
+            border: 1px solid #e5e7eb;
+            padding: 0.75rem;
+            text-align: left;
+            font-size: 0.875rem;
+        }
+        th {
+            background-color: #f3f4f6;
+            font-weight: 600;
+        }
+        tr:nth-child(even) {
+            background-color: #f9fafb;
+        }
+        .table-container {
+            overflow-x: auto;
+        }
+        /* Modal Styles */
+        .modal-overlay {
+            display: none;
+            position: fixed;
+            z-index: 50;
+            left: 0;
+            top: 0;
+            width: 100%;
+            height: 100%;
+            overflow: auto;
+            background-color: rgba(0,0,0,0.6);
+            justify-content: center;
+            align-items: center;
+            padding: 1rem;
+        }
+        .modal-content {
+            background-color: #f9fafb;
+            margin: auto;
+            padding: 1.5rem 2rem;
+            border-radius: 0.75rem;
+            width: 100%;
+            max-width: 700px;
+            position: relative;
+            box-shadow: 0 20px 25px -5px rgba(0,0,0,0.1), 0 10px 10px -5px rgba(0,0,0,0.04);
+            max-height: 90vh;
+            overflow-y: auto;
+        }
+        .modal-close-btn {
+            position: absolute;
+            top: 0.5rem;
+            right: 1rem;
+            font-size: 2rem;
+            font-weight: bold;
+            color: #9ca3af;
+            cursor: pointer;
+            transition: color 0.2s;
+        }
+        .modal-close-btn:hover {
+            color: #1f2937;
+        }
+        .infographic-card {
+            background-color: #ffffff;
+            border-radius: 0.5rem;
+            padding: 1.25rem;
+            box-shadow: 0 2px 4px rgba(0,0,0,0.05);
+            transition: all 0.3s ease;
+            border-left: 4px solid transparent;
+        }
+        .infographic-card:hover {
+            transform: translateY(-3px);
+            box-shadow: 0 4px 8px rgba(0,0,0,0.1);
+        }
+        .infographic-card-icon {
+            flex-shrink: 0;
+            width: 3rem;
+            height: 3rem;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            border-radius: 50%;
+            margin-right: 1rem;
+        }
+        /* Quiz Styles */
+        .quiz-option {
+            display: block;
+            width: 100%;
+            padding: 0.75rem;
+            margin-top: 0.5rem;
+            text-align: left;
+            background-color: #fff;
+            border: 1px solid #e5e7eb;
+            border-radius: 0.375rem;
+            cursor: pointer;
+            transition: all 0.2s ease-in-out;
+        }
+        .quiz-option:hover {
+            background-color: #eff6ff;
+            border-color: #3b82f6;
+        }
+        .quiz-option.correct-answer {
+            background-color: #dbeafe;
+            border-color: #3b82f6;
+            color: #1e40af;
+            font-weight: 600;
+        }
+        .quiz-option.incorrect-answer {
+            background-color: #fee2e2;
+            border-color: #ef4444;
+            color: #991b1b;
+            font-weight: 600;
+        }
+    </style>
+</head>
+<body class="text-gray-800">
+
+    <div class="container mx-auto p-4 sm:p-6 lg:p-8">
+        <header class="text-center mb-8">
+            <h1 class="text-3xl sm:text-4xl font-bold text-gray-900">Exploración Neurológica en TCE Moderado y Severo</h1>
+            <p class="mt-2 text-lg text-gray-600">Guía de manejo rápido para la Unidad de Cuidados Críticos</p>
+        </header>
+
+        <main>
+            <!-- Secciones Principales -->
+            <div class="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-6 mb-10">
+                <div class="section-card p-6">
+                    <div class="flex-grow">
+                        <h3 class="font-bold text-xl text-blue-600 mb-2">Nivel de Consciencia</h3>
+                        <p class="text-gray-600">Evaluación del estado de alerta, Escala de Glasgow, Estado de Mínima Consciencia y Estado Vegetativo.</p>
+                    </div>
+                    <div class="mt-4 pt-4 border-t border-gray-200 flex flex-col sm:flex-row gap-3">
+                        <a href="./gcs.html" target="_blank" class="w-full sm:w-auto flex-grow text-center bg-blue-500 hover:bg-blue-600 text-white font-bold py-2 px-4 rounded-lg transition duration-300 ease-in-out">GCS</a>
+                        <a href="./calculadora-nihss.html" target="_blank" class="w-full sm:w-auto flex-grow text-center bg-green-500 hover:bg-green-600 text-white font-bold py-2 px-4 rounded-lg transition duration-300 ease-in-out">NIHSS</a>
+                        <a href="./pupilas.html" target="_blank" class="w-full sm:w-auto flex-grow text-center bg-purple-500 hover:bg-purple-600 text-white font-bold py-2 px-4 rounded-lg transition duration-300 ease-in-out">Pupilas</a>
+                    </div>
+                </div>
+                <div id="card-pares-craneales" class="section-card section-card-interactive p-6">
+                    <h3 class="font-bold text-xl text-blue-600 mb-2">Pares Craneales</h3>
+                    <p class="text-gray-600">Examen de pupilas, motilidad ocular, reflejos del tronco y función facial.</p>
+                </div>
+                <div id="card-motor-sensitivo" class="section-card section-card-interactive p-6">
+                    <h3 class="font-bold text-xl text-blue-600 mb-2">Sistema Motor y Sensitivo</h3>
+                    <p class="text-gray-600">Valoración de fuerza, tono, reflejos, posturas patológicas y nivel sensitivo.</p>
+                </div>
+            </div>
+            
+            <!-- Botón Caso Clínico -->
+            <div class="text-center mb-10">
+                <button id="open-case-btn" class="bg-teal-500 hover:bg-teal-600 text-white font-bold py-3 px-8 rounded-lg shadow-lg transition duration-300 ease-in-out transform hover:scale-105">
+                    Caso Clínico Interactivo
+                </button>
+            </div>
+
+            <!-- Pestañas para Tablas -->
+            <div class="bg-white rounded-lg shadow-lg p-4 sm:p-6">
+                <!-- ... (código de las tablas sin cambios) ... -->
+                <h2 class="text-2xl font-bold text-center mb-6 text-gray-800">Guías y Tablas de Referencia</h2>
+                <div class="border-b border-gray-200 mb-4">
+                    <nav class="-mb-px flex flex-wrap justify-center gap-2 sm:gap-4" aria-label="Tabs">
+                        <button class="tab-button active text-sm sm:text-base whitespace-nowrap py-3 px-4 border-b-2 font-medium rounded-t-lg border-transparent text-gray-500 hover:text-gray-700 hover:border-gray-300" onclick="openTab(event, 'tabla1')">Fármacos</button>
+                        <button class="tab-button text-sm sm:text-base whitespace-nowrap py-3 px-4 border-b-2 font-medium rounded-t-lg border-transparent text-gray-500 hover:text-gray-700 hover:border-gray-300" onclick="openTab(event, 'tabla2')">Estados de Consciencia</button>
+                        <button class="tab-button text-sm sm:text-base whitespace-nowrap py-3 px-4 border-b-2 font-medium rounded-t-lg border-transparent text-gray-500 hover:text-gray-700 hover:border-gray-300" onclick="openTab(event, 'tabla3')">Alteraciones Pupilares</button>
+                        <button class="tab-button text-sm sm:text-base whitespace-nowrap py-3 px-4 border-b-2 font-medium rounded-t-lg border-transparent text-gray-500 hover:text-gray-700 hover:border-gray-300" onclick="openTab(event, 'tabla4')">Reflejos Craneales</button>
+                        <button class="tab-button text-sm sm:text-base whitespace-nowrap py-3 px-4 border-b-2 font-medium rounded-t-lg border-transparent text-gray-500 hover:text-gray-700 hover:border-gray-300" onclick="openTab(event, 'tabla5')">Signos Localizadores Coma</button>
+                        <button class="tab-button text-sm sm:text-base whitespace-nowrap py-3 px-4 border-b-2 font-medium rounded-t-lg border-transparent text-gray-500 hover:text-gray-700 hover:border-gray-300" onclick="openTab(event, 'tabla6')">Exploración Comparativa</button>
+                        <button class="tab-button text-sm sm:text-base whitespace-nowrap py-3 px-4 border-b-2 font-medium rounded-t-lg border-transparent text-gray-500 hover:text-gray-700 hover:border-gray-300" onclick="openTab(event, 'tabla7')">Tests Respuesta Vegetativa</button>
+                    </nav>
+                </div>
+                <div id="tabla1" class="tab-content active table-container">
+                    <h3 class="font-semibold text-lg mb-2">Tabla 1-1. Fármacos que pueden interferir la exploración neurológica</h3>
+                    <table>
+                        <thead>
+                            <tr>
+                                <th></th>
+                                <th>Dosis de mantenimiento habituales en intubados</th>
+                                <th>Inicio rápido</th>
+                                <th>Recuperación fácil</th>
+                                <th></th>
+                                <th></th>
+                            </tr>
+                        </thead>
+                        <tbody>
+                            <tr><td colspan="6" class="font-bold bg-gray-100">Analgésicos</td></tr>
+                            <tr>
+                                <td>Morfina</td>
+                                <td>1-5 mg/h</td>
+                                <td>+</td>
+                                <td>+</td>
+                                <td class="font-bold" rowspan="3">Relajantes musculares</td>
+                                <td>Cisatracurio</td>
+                            </tr>
+                            <tr>
+                                <td>Fentanilo</td>
+                                <td>1-2 µg/kg/h</td>
+                                <td>+</td>
+                                <td>+</td>
+                                <td>Rocuronio</td>
+                            </tr>
+                            <tr>
+                                <td>Remifentanilo</td>
+                                <td>3-18 µg/kg/h</td>
+                                <td>+++</td>
+                                <td>+++</td>
+                                <td>Atracurio</td>
+                            </tr>
+                             <tr>
+                                <td></td>
+                                <td></td>
+                                <td></td>
+                                <td></td>
+                                <td>Vecuronio</td>
+                                <td rowspan="2">Exploración física no valorable hasta retirarlos</td>
+                            </tr>
+                            <tr><td colspan="6" class="font-bold bg-gray-100">Hipnóticos</td></tr>
+                            <tr>
+                                <td>Propofol</td>
+                                <td>1-4.5 mg/kg/h</td>
+                                <td>+++</td>
+                                <td>+++</td>
+                                <td class="font-bold" rowspan="5">Otros posibles fármacos que se pueden administrar por agitación</td>
+                                <td>Tramadol</td>
+                            </tr>
+                            <tr>
+                                <td>Midazolam</td>
+                                <td>0,05-0,2 mg/kg/h</td>
+                                <td>+</td>
+                                <td>+</td>
+                                <td>Alprazolam</td>
+                            </tr>
+                            <tr>
+                                <td>Dexmedetomidina</td>
+                                <td>0.2-1,4 µg/kg/h</td>
+                                <td>+</td>
+                                <td>+</td>
+                                <td>Haloperidol</td>
+                            </tr>
+                             <tr>
+                                <td>Ketamina</td>
+                                <td>2-4 mg/kg/h</td>
+                                <td>+</td>
+                                <td>+</td>
+                                <td>Quetiapina</td>
+                            </tr>
+                             <tr>
+                                <td>Barbitúricos</td>
+                                <td>1-3 mg/kg/h</td>
+                                <td>+</td>
+                                <td></td>
+                                <td>Distraneurine</td>
+                            </tr>
+                             <tr>
+                                <td></td>
+                                <td></td>
+                                <td></td>
+                                <td></td>
+                                 <td>Mirtazapina</td>
+                                 <td>Cloracepato dipotásico</td>
+                            </tr>
+                             <tr>
+                                <td></td>
+                                <td></td>
+                                <td></td>
+                                <td></td>
+                                 <td>Clonidina</td>
+                                 <td></td>
+                            </tr>
+                        </tbody>
+                    </table>
+                </div>
+                <div id="tabla2" class="tab-content table-container">
+                    <h3 class="font-semibold text-lg mb-2">Tabla 1-2. Exploración neurológica en muerte cerebral, coma, estado vegetativo persistente, estado de mínima consciencia y síndrome de locked-in</h3>
+                    <table>
+                        <thead>
+                            <tr>
+                                <th></th>
+                                <th>Consciencia</th>
+                                <th>Comunicación</th>
+                                <th>Emociones</th>
+                                <th>Ciclo sueño/vigilia</th>
+                                <th>EEG</th>
+                                <th>Pronóstico</th>
+                            </tr>
+                        </thead>
+                        <tbody>
+                            <tr>
+                                <td>Muerte cerebral</td>
+                                <td>No</td>
+                                <td>Ninguna</td>
+                                <td>Ninguna</td>
+                                <td>Ninguno</td>
+                                <td>Isoeléctrico/sin actividad</td>
+                                <td>Irreversible</td>
+                            </tr>
+                            <tr>
+                                <td>Coma</td>
+                                <td>No</td>
+                                <td>Ninguna</td>
+                                <td>Ninguna</td>
+                                <td>Ninguno</td>
+                                <td>Polimórfico o delta</td>
+                                <td>Incierto (variable según la causa)</td>
+                            </tr>
+                            <tr>
+                                <td>Estado vegetativo persistente (apálico)</td>
+                                <td>No detectable en la práctica</td>
+                                <td>Ninguna</td>
+                                <td>No evidencia en la práctica</td>
+                                <td>Presente</td>
+                                <td>Polimórfico delta, theta o alfa lento</td>
+                                <td>Generalmente persiste sin variaciones</td>
+                            </tr>
+                            <tr>
+                                <td>Estado de mínima consciencia (mutismo acinético)</td>
+                                <td>Intermitente, insostenida</td>
+                                <td>Mínima verbalización</td>
+                                <td>Sonrisa o lloro reactivo. Posible origen pseudobulbar</td>
+                                <td>Presente</td>
+                                <td>Delta, theta o alfa</td>
+                                <td>Un 40-50% de casos no presentan cambios tras 1 mes</td>
+                            </tr>
+                            <tr>
+                                <td>Locked-in</td>
+                                <td>Preservada</td>
+                                <td>Movimientos verticales oculares o parpadeo</td>
+                                <td>Preservada</td>
+                                <td>Presente</td>
+                                <td>Normal</td>
+                                <td>Persistente. Sin cambios durante el primer mes</td>
+                            </tr>
+                        </tbody>
+                    </table>
+                </div>
+                <div id="tabla3" class="tab-content table-container">
+                    <h3 class="font-semibold text-lg mb-2">Tabla 1-3. Principales diagnósticos diferenciales de las alteraciones pupilares y sus causas</h3>
+                    <table>
+                        <thead>
+                            <tr>
+                                <th></th>
+                                <th></th>
+                                <th></th>
+                                <th>Afectación</th>
+                                <th>Reflejo fotomotor</th>
+                                <th>Aumento de la anisocoria</th>
+                            </tr>
+                        </thead>
+                        <tbody>
+                            <tr>
+                                <td rowspan="3" class="font-bold align-top">Midriasis</td>
+                                <td rowspan="2">Unilateral</td>
+                                <td>Pupila de Adie (10% bilateral)</td>
+                                <td>Vía eferente. Ganglio ciliar/posganglionar</td>
+                                <td>Enlentecido</td>
+                                <td>Luz</td>
+                            </tr>
+                            <tr>
+                                <td>Parálisis del III par craneal</td>
+                                <td>TCE, herniación</td>
+                                <td>Abolido</td>
+                                <td>Luz</td>
+                            </tr>
+                            <tr>
+                                <td>Bilateral</td>
+                                <td>Fisiológica (oscuridad, miedo) / Gotas / Fármacos Sistémicos/drogas</td>
+                                <td>-</td>
+                                <td>Conservado / Abolido</td>
+                                <td>-</td>
+                            </tr>
+                            <tr>
+                                <td rowspan="3" class="font-bold align-top">Miosis</td>
+                                <td>Unilateral</td>
+                                <td>Síndrome de Horner</td>
+                                <td>Vía simpática</td>
+                                <td>Enlentecido</td>
+                                <td>Oscuridad</td>
+                            </tr>
+                            <tr>
+                                <td rowspan="2">Bilateral</td>
+                                <td>Argyll Robertson (puede ser unilateral)</td>
+                                <td>Sífilis (tabes dorsal), vasculitis o neoplasia</td>
+                                <td>No (acomodación conservada)</td>
+                                <td>Oscuridad si unilateral</td>
+                            </tr>
+                            <tr>
+                                <td>Marcus Gunn</td>
+                                <td>Nervio óptico o retina de forma extensa</td>
+                                <td>DPAR</td>
+                                <td>Luz</td>
+                            </tr>
+                        </tbody>
+                    </table>
+                </div>
+                <div id="tabla4" class="tab-content table-container">
+                    <h3 class="font-semibold text-lg mb-2">Tabla 1-4. Resumen de los principales reflejos craneales del troncoencéfalo</h3>
+                    <table>
+                        <thead>
+                            <tr>
+                                <th>Reflejo</th>
+                                <th>Pares craneales implicados</th>
+                                <th>Estímulo</th>
+                                <th>Respuesta</th>
+                                <th>Localización de la lesión</th>
+                            </tr>
+                        </thead>
+                        <tbody>
+                            <tr>
+                                <td>Reflejo fotomotor (Unilateral y Consensuado)</td>
+                                <td>II -> III</td>
+                                <td>Iluminar un ojo de forma directa / Iluminar el ojo contralateral</td>
+                                <td>Miosis</td>
+                                <td>Nervio óptico, Daño extenso en la retina, Pupila de Adie</td>
+                            </tr>
+                            <tr>
+                                <td>Reflejo oculocefálico</td>
+                                <td>VIII -> III y VI</td>
+                                <td>Movimiento de la cabeza hacia ambos lados</td>
+                                <td>Fijación de la mirada</td>
+                                <td>Alteración vestibular</td>
+                            </tr>
+                            <tr>
+                                <td>Reflejo oculovestibular</td>
+                                <td>VIII -> III y VI</td>
+                                <td>Aplicar agua fría o tibia en el oído</td>
+                                <td>Fría: desplazamiento contralateral de la mirada. Tibia: desplazamiento ipsilateral</td>
+                                <td>Alteración vestibular</td>
+                            </tr>
+                            <tr>
+                                <td>Reflejo corneal</td>
+                                <td>V -> VII</td>
+                                <td>Con un algodón se toca la córnea</td>
+                                <td>Se cierran ambos párpados</td>
+                                <td>Daño en V o VII par craneal</td>
+                            </tr>
+                            <tr>
+                                <td>Reflejo nauseoso</td>
+                                <td>IX -> X</td>
+                                <td>Se estimula el paladar blando con un depresor (o tubo de intubación)</td>
+                                <td>Se desencadenan náuseas</td>
+                                <td>Daño en IX o X par craneal</td>
+                            </tr>
+                        </tbody>
+                    </table>
+                </div>
+                <div id="tabla5" class="tab-content table-container">
+                    <h3 class="font-semibold text-lg mb-2">Tabla 1-5. Signos localizadores del coma</h3>
+                    <table>
+                        <thead>
+                            <tr>
+                                <th>Localización</th>
+                                <th>Patrón respiratorio</th>
+                                <th>Reflejos</th>
+                                <th>Alteraciones de la mirada</th>
+                                <th>Pupilas</th>
+                                <th>Postura corporal</th>
+                            </tr>
+                        </thead>
+                        <tbody>
+                            <tr>
+                                <td>Hemisférico/diencéfalo</td>
+                                <td>Cheyne-Stokes</td>
+                                <td>Conservados</td>
+                                <td>Desviación ipsilateral a lesión, Presencia de Roving, Posible skew</td>
+                                <td>Miosis reactiva</td>
+                                <td>Decorticación</td>
+                            </tr>
+                            <tr>
+                                <td>Mesencéfalo</td>
+                                <td>Kussmaul</td>
+                                <td>Pupilar, Afectación de reflejos oculocefálicos/oculovestibulares</td>
+                                <td>Alteración mirada vertical</td>
+                                <td>Midriasis arreactiva</td>
+                                <td>Descerebración</td>
+                            </tr>
+                            <tr>
+                                <td>Protuberancia</td>
+                                <td>Apnéustica</td>
+                                <td>Ausencia de reflejos oculocefálicos/oculovestibular, Ausencia de reflejo corneal</td>
+                                <td>Desviación contralateral a la lesión, Posible aparición de bobbing, Skew</td>
+                                <td>Miosis puntiforme</td>
+                                <td>Descerebración</td>
+                            </tr>
+                            <tr>
+                                <td>Bulbo</td>
+                                <td>Cluster, atáxica de Biot, agónica</td>
+                                <td>Ausencia de reflejo nauseoso, Ausencia de reflejo tusígeno</td>
+                                <td>-</td>
+                                <td>Tendencia a miosis</td>
+                                <td>Descerebración</td>
+                            </tr>
+                        </tbody>
+                    </table>
+                </div>
+                <div id="tabla6" class="tab-content table-container">
+                    <h3 class="font-semibold text-lg mb-2">Tabla 1-6. Comparativa de exploración neurológica</h3>
+                    <table>
+                        <thead>
+                            <tr>
+                                <th class="w-1/2">A) Con alteración de la consciencia</th>
+                                <th class="w-1/2">B) Con preservación de la consciencia</th>
+                            </tr>
+                        </thead>
+                        <tbody>
+                            <tr>
+                                <td>Nivel de consciencia: respuesta a estímulos auditivos, visuales, dolorosos.</td>
+                                <td>Nivel de consciencia y orientación, exploración del lenguaje.</td>
+                            </tr>
+                            <tr>
+                                <td>Pares craneales: amenaza, reflejo fotomotor, oculocefálico, vestibuloocular, corneal, nauseoso. Asimetría facial (maniobra de Foix).</td>
+                                <td>Pares craneales: campimetría, MOES, facial a la orden, sensibilidad facial, VIII par, nauseoso, espinal accesorio, hipogloso.</td>
+                            </tr>
+                            <tr>
+                                <td>Movimientos: reflejo de retirada, movimientos espontáneos, tono.</td>
+                                <td>Función motora: global por extremidades o balance muscular.</td>
+                            </tr>
+                            <tr>
+                                <td>Reflejos tendinosos y reflejo cutáneo plantar.</td>
+                                <td>Reflejos tendinosos y reflejo cutáneo plantar.</td>
+                            </tr>
+                            <tr>
+                                <td>Sensibilidad: mediante estímulos dolorosos.</td>
+                                <td>Sensibilidad: epicrítica, protopática, vibratoria y termoalgésica.</td>
+                            </tr>
+                        </tbody>
+                    </table>
+                </div>
+                <div id="tabla7" class="tab-content table-container">
+                    <h3 class="font-semibold text-lg mb-2">Tabla 1-7. Test para la evaluación de la respuesta vegetativa</h3>
+                    <table>
+                        <thead>
+                            <tr>
+                                <th>Nombre</th>
+                                <th>Centro mediador</th>
+                                <th>Localización</th>
+                                <th>Patología</th>
+                            </tr>
+                        </thead>
+                        <tbody>
+                            <tr>
+                                <td>Test de atropina</td>
+                                <td>Centro regulatorio vasopresor</td>
+                                <td>Bulbo</td>
+                                <td>Dosis > 2 mg de atropina: taquicardización < 3%</td>
+                            </tr>
+                            <tr>
+                                <td>Test de apnea</td>
+                                <td>Centro respiratorio</td>
+                                <td>Bulbo</td>
+                                <td>Ausencia de movimientos respiratorios tras desconexión del ventilador > 1 min</td>
+                            </tr>
+                            <tr>
+                                <td>Reflejo oculocardíaco o fenómeno de Aschner</td>
+                                <td>Vía parasimpática</td>
+                                <td>Bulbo y protuberancia</td>
+                                <td>Ausencia de respuesta bradicardizante ante la compresión de los globos oculares</td>
+                            </tr>
+                        </tbody>
+                    </table>
+                </div>
+            </div>
+        </main>
+        <footer class="mt-12 pt-8 border-t border-gray-200">
+             <div class="text-center text-gray-700 mb-4">
+                <p class="mt-2 text-sm">Valín Villanueva, P., & Cardona Portela, P. (s.f.). *Exploración neurológica en el paciente neurocrítico*. En *Diploma de Experto en Atención al Paciente Neurocritico*. Editorial Médica Panamericana.</p>
+             </div>
+            <p class="text-center text-sm text-gray-500">&copy; Todos los derechos reservados 2025 Dr. Héctor Castro</p>
+        </footer>
+    </div>
+
+    <!-- Modals Infografías -->
+    <div id="modal-pares-craneales" class="modal-overlay">
+        <!-- ... (código del modal de pares craneales sin cambios) ... -->
+        <div class="modal-content">
+            <span class="modal-close-btn" id="close-pares-craneales">&times;</span>
+            <h2 class="text-2xl font-bold mb-6 text-center text-gray-800">Evaluación de los Pares Craneales</h2>
+            <div class="space-y-4">
+                <div class="infographic-card" style="border-left-color: #3b82f6;">
+                    <div class="flex items-center">
+                        <div class="infographic-card-icon bg-blue-100 text-blue-600">
+                            <svg xmlns="http://www.w3.org/2000/svg" class="h-6 w-6" fill="none" viewBox="0 0 24 24" stroke="currentColor"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M15 12a3 3 0 11-6 0 3 3 0 016 0z" /><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M2.458 12C3.732 7.943 7.523 5 12 5c4.478 0 8.268 2.943 9.542 7-1.274 4.057-5.064 7-9.542 7-4.477 0-8.268-2.943-9.542-7z" /></svg>
+                        </div>
+                        <div>
+                            <h3 class="font-semibold text-lg text-gray-800">Pupilas (II y III Par)</h3>
+                            <p class="text-sm text-gray-600">Punto central de la exploración. Evaluar diámetro, simetría y reactividad a la luz. <span class="font-semibold text-red-600">Midriasis arreactiva unilateral</span> puede indicar herniación uncal.</p>
+                        </div>
+                    </div>
+                </div>
+                <div class="infographic-card" style="border-left-color: #10b981;">
+                     <div class="flex items-center">
+                        <div class="infographic-card-icon bg-green-100 text-green-600">
+                            <svg xmlns="http://www.w3.org/2000/svg" class="h-6 w-6" fill="none" viewBox="0 0 24 24" stroke="currentColor"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M13 5l7 7-7 7M5 5l7 7-7 7" /></svg>
+                        </div>
+                        <div>
+                            <h3 class="font-semibold text-lg text-gray-800">Movimientos Oculares (III, IV, VI)</h3>
+                            <p class="text-sm text-gray-600">Evaluar motilidad extrínseca. La <span class="font-semibold">oftalmoplejía internuclear</span> y el <span class="font-semibold">"signo del uno y medio"</span> son signos localizadores clave en el tronco.</p>
+                        </div>
+                    </div>
+                </div>
+                <div class="infographic-card" style="border-left-color: #f59e0b;">
+                     <div class="flex items-center">
+                        <div class="infographic-card-icon bg-yellow-100 text-yellow-600">
+                            <svg xmlns="http://www.w3.org/2000/svg" class="h-6 w-6" fill="none" viewBox="0 0 24 24" stroke="currentColor"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M13 10V3L4 14h7v7l9-11h-7z" /></svg>
+                        </div>
+                        <div>
+                            <h3 class="font-semibold text-lg text-gray-800">Reflejos del Tronco</h3>
+                            <p class="text-sm text-gray-600">Vitales en el paciente en coma (fotomotor, corneal, oculocefálico, etc.). Su ausencia sin causa farmacológica indica <span class="font-semibold text-red-600">grave disfunción del tronco</span>.</p>
+                        </div>
+                    </div>
+                </div>
+                <div class="infographic-card" style="border-left-color: #8b5cf6;">
+                     <div class="flex items-center">
+                        <div class="infographic-card-icon bg-purple-100 text-purple-600">
+                            <svg xmlns="http://www.w3.org/2000/svg" class="h-6 w-6" fill="none" viewBox="0 0 24 24" stroke="currentColor"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M14.828 14.828a4 4 0 01-5.656 0M9 10h.01M15 10h.01M21 12a9 9 0 11-18 0 9 9 0 0118 0z" /></svg>
+                        </div>
+                        <div>
+                            <h3 class="font-semibold text-lg text-gray-800">Nervio Facial (VII Par)</h3>
+                            <p class="text-sm text-gray-600">Diferenciar entre parálisis <span class="font-semibold">central</span> (respeta la frente) y <span class="font-semibold">periférica</span> (afecta toda la hemicara).</p>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+    <div id="modal-motor-sensitivo" class="modal-overlay">
+        <div class="modal-content">
+            <span class="modal-close-btn" id="close-motor-sensitivo">&times;</span>
+            <h2 class="text-2xl font-bold mb-6 text-center text-gray-800">Evaluación del Sistema Motor y Sensitivo</h2>
+            <div class="grid grid-cols-1 gap-6">
+                <div class="infographic-card p-6" style="border-left-color: #ef4444;">
+                    <div class="flex items-center mb-3">
+                        <div class="infographic-card-icon bg-red-100 text-red-500 mr-3">
+                           <svg xmlns="http://www.w3.org/2000/svg" class="h-6 w-6" fill="none" viewBox="0 0 24 24" stroke="currentColor"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M5 10l7-7m0 0l7 7m-7-7v18" /></svg>
+                        </div>
+                        <h3 class="font-semibold text-lg text-gray-800">Sistema Motor</h3>
+                    </div>
+                    <ul class="space-y-3 text-sm text-gray-600 list-inside">
+                        <li class="flex items-start"><span class="text-red-500 mr-2">&#10148;</span>Evaluar fuerza (0-5), tono y reflejos.</li>
+                        <li class="flex items-start"><span class="text-red-500 mr-2">&#10148;</span><strong>Posturas al dolor:</strong><br>
+                            <span class="ml-4 font-medium">- Decorticación:</span> Lesión sobre núcleo rojo. <br>
+                            <span class="ml-4 font-medium">- Descerebración:</span> Lesión bajo núcleo rojo.
+                        </li>
+                         <li class="flex items-start"><span class="text-red-500 mr-2">&#10148;</span><span class="font-semibold">Babinski:</span> Signo de lesión piramidal.</li>
+                         <li class="flex items-start"><span class="text-red-500 mr-2">&#10148;</span><span class="font-semibold">Locked-in:</span> Lesión protuberancial con consciencia preservada.</li>
+                    </ul>
+                </div>
+                <div class="infographic-card p-6" style="border-left-color: #3b82f6;">
+                    <div class="flex items-center mb-3">
+                        <div class="infographic-card-icon bg-blue-100 text-blue-500 mr-3">
+                           <svg xmlns="http://www.w3.org/2000/svg" class="h-6 w-6" fill="none" viewBox="0 0 24 24" stroke="currentColor"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M15.232 5.232l3.536 3.536m-2.036-5.036a2.5 2.5 0 113.536 3.536L6.5 21.036H3v-3.5L15.232 5.232z" /></svg>
+                        </div>
+                        <h3 class="font-semibold text-lg text-gray-800">Sistema Sensitivo</h3>
+                    </div>
+                     <ul class="space-y-3 text-sm text-gray-600 list-inside">
+                        <li class="flex items-start"><span class="text-blue-500 mr-2">&#10148;</span>Limitar a sensibilidad táctil protopática y dolorosa.</li>
+                        <li class="flex items-start"><span class="text-blue-500 mr-2">&#10148;</span>Buscar nivel sensitivo en sospecha de lesión medular.</li>
+                        <li class="flex items-start"><span class="text-blue-500 mr-2">&#10148;</span><span class="font-semibold">Cerebelo:</span> Dismetría o disdiadococinesia sugieren afectación ipsilateral.</li>
+                    </ul>
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <!-- Modal Caso Clínico -->
+    <div id="modal-caso-clinico" class="modal-overlay">
+        <div class="modal-content">
+            <span class="modal-close-btn" id="close-caso-clinico">&times;</span>
+            <h2 class="text-2xl font-bold mb-4 text-center text-gray-800">Caso Clínico Neurocrítico</h2>
+            <div class="bg-white p-4 rounded-lg shadow-inner mb-6">
+                <p class="text-gray-700 leading-relaxed">
+                    Un hombre de 45 años es traído a urgencias tras un accidente de tráfico a alta velocidad. Los paramédicos lo intubaron en la escena debido a un bajo nivel de consciencia.
+                    A su llegada, la exploración neurológica inicial muestra lo siguiente:
+                </p>
+                <ul class="list-disc list-inside mt-2 text-gray-700">
+                    <li><span class="font-semibold">Consciencia:</span> No hay apertura ocular a ningún estímulo (O1). Antes de ser intubado, emitía sonidos incomprensibles ante el dolor (V2). Presenta una postura de extensión de las cuatro extremidades ante el estímulo doloroso (M2).</li>
+                    <li><span class="font-semibold">Pupilas:</span> Se observa anisocoria. La pupila derecha mide 5 mm y no reacciona a la luz. La pupila izquierda mide 3 mm y es reactiva.</li>
+                    <li><span class="font-semibold">Pares Craneales:</span> El reflejo corneal está ausente en el lado derecho, pero presente en el izquierdo. Los reflejos oculocefálicos (ojos de muñeca) están ausentes. El reflejo nauseoso está presente.</li>
+                </ul>
+            </div>
+            <h3 class="text-xl font-semibold mb-4 text-center text-gray-800">Pon a prueba tus conocimientos</h3>
+            <div id="quiz-container" class="space-y-6">
+                <!-- Las preguntas del quiz se insertarán aquí por JS -->
+            </div>
+        </div>
+    </div>
+
+    <script>
+        // --- DATA ---
+        const allQuestions = [
+            {
+                question: "¿Cuál es la puntuación en la Escala de Coma de Glasgow (GCS) del paciente a su llegada?",
+                options: ["3", "4", "5", "6"],
+                answer: "5"
+            },
+            {
+                question: "La midriasis arreactiva derecha sugiere una compresión del:",
+                options: ["II par craneal (óptico)", "III par craneal (oculomotor)", "IV par craneal (troclear)", "VI par craneal (abducens)"],
+                answer: "III par craneal (oculomotor)"
+            },
+            {
+                question: "La postura motora del paciente (extensión de las cuatro extremidades) se conoce como:",
+                options: ["Postura de decorticación", "Postura de descerebración", "Retirada al dolor", "Localización del dolor"],
+                answer: "Postura de descerebración"
+            },
+            {
+                question: "La ausencia del reflejo corneal derecho indica una posible lesión en los pares craneales:",
+                options: ["II y III", "III y IV", "V y VII", "IX y X"],
+                answer: "V y VII"
+            },
+            {
+                question: "¿Qué término describe la diferencia de tamaño entre las pupilas del paciente?",
+                options: ["Miosis", "Midriasis", "Anisocoria", "Discoria"],
+                answer: "Anisocoria"
+            },
+            {
+                question: "La ausencia de reflejos oculocefálicos ('ojos de muñeca') es un signo de disfunción grave en:",
+                options: ["Corteza cerebral", "Cerebelo", "Tronco del encéfalo", "Médula espinal"],
+                answer: "Tronco del encéfalo"
+            },
+            {
+                question: "Según los hallazgos, ¿cuál es el diagnóstico más probable que explica la midriasis derecha?",
+                options: ["Hemorragia subaracnoidea", "Lesión medular alta", "Herniación uncal derecha", "Ictus isquémico talámico"],
+                answer: "Herniación uncal derecha"
+            }
+        ];
+
+        // --- FUNCTIONS ---
+        function openTab(evt, tabName) {
+            let i, tabcontent, tablinks;
+            tabcontent = document.getElementsByClassName("tab-content");
+            for (i = 0; i < tabcontent.length; i++) {
+                tabcontent[i].style.display = "none";
+                tabcontent[i].classList.remove("active");
+            }
+            tablinks = document.getElementsByClassName("tab-button");
+            for (i = 0; i < tablinks.length; i++) {
+                tablinks[i].classList.remove("active");
+            }
+            document.getElementById(tabName).style.display = "block";
+            document.getElementById(tabName).classList.add("active");
+            evt.currentTarget.classList.add("active");
+        }
+
+        function createQuiz() {
+            const quizContainer = document.getElementById('quiz-container');
+            quizContainer.innerHTML = ''; // Limpiar preguntas anteriores
+            
+            // Mezclar y seleccionar 5 preguntas
+            const shuffled = allQuestions.sort(() => 0.5 - Math.random());
+            let selectedQuestions = shuffled.slice(0, 5);
+
+            selectedQuestions.forEach((q, index) => {
+                const questionElement = document.createElement('div');
+                questionElement.className = 'question-block';
+                
+                let optionsHTML = '';
+                q.options.forEach(option => {
+                    optionsHTML += `<button class="quiz-option" data-answer="${q.answer}">${option}</button>`;
+                });
+
+                questionElement.innerHTML = `
+                    <p class="font-medium text-gray-700">${index + 1}. ${q.question}</p>
+                    <div class="options-container mt-2">${optionsHTML}</div>
+                `;
+                quizContainer.appendChild(questionElement);
+            });
+
+            // Añadir event listeners a las nuevas opciones
+            document.querySelectorAll('.quiz-option').forEach(option => {
+                option.addEventListener('click', handleOptionClick);
+            });
+        }
+
+        function handleOptionClick(event) {
+            const selectedButton = event.target;
+            const correctAnswer = selectedButton.dataset.answer;
+            const isCorrect = selectedButton.textContent === correctAnswer;
+            const optionsContainer = selectedButton.parentElement;
+
+            // Deshabilitar todos los botones de esta pregunta
+            optionsContainer.querySelectorAll('.quiz-option').forEach(btn => {
+                btn.disabled = true;
+                // Marcar la respuesta correcta
+                if (btn.textContent === correctAnswer) {
+                    btn.classList.add('correct-answer');
+                }
+            });
+
+            // Si la respuesta seleccionada es incorrecta, marcarla
+            if (!isCorrect) {
+                selectedButton.classList.add('incorrect-answer');
+            }
+        }
+
+        // --- EVENT LISTENERS ---
+        document.addEventListener('DOMContentLoaded', function() {
+            // Tab logic
+            document.querySelector('.tab-button').click();
+
+            // Modals Infografías
+            const cardPares = document.getElementById('card-pares-craneales');
+            const cardMotor = document.getElementById('card-motor-sensitivo');
+            const modalPares = document.getElementById('modal-pares-craneales');
+            const modalMotor = document.getElementById('modal-motor-sensitivo');
+            const closeParesBtn = document.getElementById('close-pares-craneales');
+            const closeMotorBtn = document.getElementById('close-motor-sensitivo');
+            
+            cardPares.onclick = () => { modalPares.style.display = "flex"; }
+            cardMotor.onclick = () => { modalMotor.style.display = "flex"; }
+            closeParesBtn.onclick = () => { modalPares.style.display = "none"; }
+            closeMotorBtn.onclick = () => { modalMotor.style.display = "none"; }
+
+            // Modal Caso Clínico
+            const openCaseBtn = document.getElementById('open-case-btn');
+            const modalCase = document.getElementById('modal-caso-clinico');
+            const closeCaseBtn = document.getElementById('close-caso-clinico');
+
+            openCaseBtn.onclick = () => {
+                createQuiz();
+                modalCase.style.display = "flex";
+            }
+            closeCaseBtn.onclick = () => { modalCase.style.display = "none"; }
+            
+            // Cerrar modales al hacer clic fuera o presionar ESC
+            window.onclick = (event) => {
+                if (event.target == modalPares) modalPares.style.display = "none";
+                if (event.target == modalMotor) modalMotor.style.display = "none";
+                if (event.target == modalCase) modalCase.style.display = "none";
+            }
+            
+            window.addEventListener('keydown', (event) => {
+                if (event.key === 'Escape') {
+                    modalPares.style.display = 'none';
+                    modalMotor.style.display = 'none';
+                    modalCase.style.display = 'none';
+                }
+            });
+        });
+    </script>
+
+</body>
+</html>
