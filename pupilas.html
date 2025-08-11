@@ -1,1 +1,439 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Examen Pupilar del Paciente Neurocrítico</title>
+    <script src="https://cdn.tailwindcss.com"></script>
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700&display=swap" rel="stylesheet">
+    <style>
+        body {
+            font-family: 'Inter', sans-serif;
+        }
+        .modal {
+            transition: opacity 0.3s ease, visibility 0.3s ease;
+        }
+        .modal-content {
+            transition: transform 0.3s ease;
+        }
+        .table-responsive {
+            display: block;
+            width: 100%;
+            overflow-x: auto;
+            -webkit-overflow-scrolling: touch;
+        }
+        .content-card {
+            background-color: white;
+            padding: 1.5rem;
+            border-radius: 0.75rem;
+            box-shadow: 0 4px 6px -1px rgb(0 0 0 / 0.1), 0 2px 4px -2px rgb(0 0 0 / 0.1);
+            margin-bottom: 1.5rem;
+        }
+    </style>
+</head>
+<body class="bg-gray-100 text-gray-800">
+
+    <div class="container mx-auto p-4 sm:p-6 md:p-8">
+        <header class="text-center mb-8">
+            <h1 class="text-3xl md:text-4xl font-bold text-gray-900">Guía Interactiva del Examen Pupilar</h1>
+            <p class="mt-2 text-lg text-gray-600">Herramienta de consulta para profesionales en cuidados neurocríticos.</p>
+        </header>
+
+        <main>
+            <!-- El examen pupilar -->
+            <div class="content-card">
+                <h2 class="text-2xl font-semibold mb-4 text-gray-800">El Examen Pupilar</h2>
+                <div class="space-y-4 text-gray-700">
+                    <p>La evaluación pupilar comprende el <strong>tamaño</strong> (miosis <2mm, midriasis >4mm), la <strong>forma</strong> y la <strong>reactividad a la luz</strong> (directa y consensual). Se debe examinar cada ojo por separado con una luz intensa, evitando iluminar el ojo contralateral. Una pupila se considera <strong>arreactiva</strong> si su diámetro no cambia más de 1 mm.</p>
+                    <p>Es crucial indagar sobre antecedentes (fármacos tópicos, cirugía ocular, diabetes) y realizar el examen cuando el paciente esté hemodinámicamente estable. Para mayor objetividad y precisión, se recomienda el uso de <strong>pupilómetros</strong>, que miden cuantitativamente la velocidad y amplitud de la respuesta. También se debe explorar el <strong>reflejo cilioespinal</strong> (dilatación al dolor).</p>
+                </div>
+            </div>
+
+            <!-- Diferenciación de lesiones aferentes/eferentes -->
+            <div class="content-card">
+                <h2 class="text-2xl font-semibold mb-4 text-gray-800">Diferenciación de Lesiones Aferentes/Eferentes</h2>
+                <p class="mb-4 text-gray-700">Los defectos aferentes resultan de daño en las estructuras desde la retina hasta los núcleos pretectales del mesencéfalo. Por otro lado, las lesiones eferentes afectan los tractos simpáticos o parasimpáticos. En general, pupilas anisocóricas sugieren un defecto eferente, mientras que pupilas isocóricas que solo cambian de diámetro cuando se ilumina el ojo sano indican un defecto aferente, evaluable con la prueba de iluminación alternante (swinging flashlight test).</p>
+                <button onclick="showModal('tabla1')" class="bg-blue-600 text-white font-semibold py-2 px-5 rounded-lg shadow-md hover:bg-blue-700 focus:outline-none focus:ring-2 focus:ring-blue-500 focus:ring-opacity-75 transition-transform transform hover:scale-105">Ver Lesiones con Defectos Aferentes</button>
+            </div>
+
+            <!-- Localización del sitio por respuesta pupilar -->
+            <div class="content-card">
+                <h2 class="text-2xl font-semibold mb-4 text-gray-800">Localización del Sitio por Respuesta Pupilar</h2>
+                <div class="flex flex-wrap gap-4">
+                    <button onclick="showModal('tabla2')" class="bg-blue-600 text-white font-semibold py-2 px-5 rounded-lg shadow-md hover:bg-blue-700 focus:outline-none focus:ring-2 focus:ring-blue-500 focus:ring-opacity-75 transition-transform transform hover:scale-105">Ver Localización por Respuesta Pupilar</button>
+                    <button onclick="showModal('tabla3')" class="bg-blue-600 text-white font-semibold py-2 px-5 rounded-lg shadow-md hover:bg-blue-700 focus:outline-none focus:ring-2 focus:ring-blue-500 focus:ring-opacity-75 transition-transform transform hover:scale-105">Ver Causas de Síndrome de Horner</button>
+                </div>
+            </div>
+
+            <!-- Pupilas en el paciente con HTIC y herniación cerebral -->
+            <div class="content-card">
+                <h2 class="text-2xl font-semibold mb-4 text-gray-800">Pupilas en Pacientes con HTIC y Herniación Cerebral</h2>
+                <div class="space-y-4 text-gray-700">
+                    <p>El edema cerebral y la hipertensión intracraneal (HTIC) son causas principales de muerte en el TCE. En la <strong>herniación central</strong>, las pupilas inicialmente se tornan pequeñas y reactivas, progresando a intermedias y fijas. En la <strong>hernia del uncus</strong>, es característica la midriasis arreactiva ipsilateral (del mismo lado de la lesión), a menudo precedida por una pupila ovalada, que es un signo de alarma. Una pupila midriática (≥5 mm) en un paciente con alteración de conciencia sugiere compresión del III par. Si la HTIC no se resuelve, la compresión del mesencéfalo puede llevar a midriasis bilateral arreactiva. En la <strong>herniación amigdalina</strong>, las pupilas se dilatan junto con depresión respiratoria y de conciencia.</p>
+                </div>
+            </div>
+
+            <!-- Fármacos y tóxicos -->
+            <div class="content-card">
+                <h2 class="text-2xl font-semibold mb-4 text-gray-800">Fármacos y Tóxicos que Afectan la Respuesta Pupilar</h2>
+                <p class="mb-4 text-gray-700">Las vías pupilares son relativamente resistentes a insultos tóxico-metabólicos. Sin embargo, algunas sustancias pueden causar alteraciones significativas. Intoxicaciones por metanol, asfixia terminal, encefalopatía hepática e hipotermia pueden provocar pupilas dilatadas y arreactivas. El hippus pupilar (cambios rápidos de diámetro) es común en encefalopatías metabólicas y convulsiones.</p>
+                <button onclick="showModal('tabla4')" class="bg-red-600 text-white font-semibold py-2 px-5 rounded-lg shadow-md hover:bg-red-700 focus:outline-none focus:ring-2 focus:ring-red-500 focus:ring-opacity-75 transition-transform transform hover:scale-105">Ver Fármacos y Tóxicos</button>
+            </div>
+
+            <!-- Seudocoma -->
+            <div class="content-card">
+                <h2 class="text-2xl font-semibold mb-4 text-gray-800">Seudocoma</h2>
+                <p class="text-gray-700">El examen pupilar es clave para diferenciar un coma real de causas psiquiátricas (seudocoma), ya que la respuesta pupilar no puede ser controlada voluntariamente. Las pupilas se contraen durante el sueño, pero se dilatan al cerrar los ojos en vigilia. En un paciente comatoso (con reflejos conservados) o dormido, la apertura pasiva de los párpados causa dilatación pupilar. Por el contrario, en alguien que finge, la apertura pasiva de los párpados produce contracción pupilar y puede haber resistencia al movimiento.</p>
+            </div>
+
+            <!-- Anisocoria en neurotrauma -->
+            <div class="content-card">
+                <h2 class="text-2xl font-semibold mb-4 text-gray-800">Anisocoria en Neurotrauma</h2>
+                <p class="mb-4 text-gray-700">El hallazgo de anisocoria (desigualdad pupilar) en un paciente traumatizado siempre debe hacer sospechar una lesión intracraneal hasta que se demuestre lo contrario, y clasifica al paciente como de alto riesgo. Una parálisis aguda del III par con afectación pupilar es una emergencia neurológica que requiere descartar aneurismas, apoplejía pituitaria, o lesiones del seno cavernoso.</p>
+                <button onclick="showModal('tabla5')" class="bg-teal-600 text-white font-semibold py-2 px-5 rounded-lg shadow-md hover:bg-teal-700 focus:outline-none focus:ring-2 focus:ring-teal-500 focus:ring-opacity-75 transition-transform transform hover:scale-105">Ver Diagnóstico Diferencial de Anisocoria</button>
+            </div>
+
+            <!-- Valor pronóstico -->
+            <div class="content-card">
+                <h2 class="text-2xl font-semibold mb-4 text-gray-800">Valor del Examen Pupilar como Factor Pronóstico</h2>
+                <p class="mb-4 text-gray-700">La escala de coma FOUR, al incluir la evaluación de los reflejos del tronco encefálico (pupilas y corneal) y el patrón respiratorio, ofrece una valoración más completa del paciente en coma que otras escalas, siendo muy útil para cuantificar el estado de vigilia y establecer un pronóstico.</p>
+                <button onclick="showModal('tabla6')" class="bg-purple-600 text-white font-semibold py-2 px-5 rounded-lg shadow-md hover:bg-purple-700 focus:outline-none focus:ring-2 focus:ring-purple-500 focus:ring-opacity-75 transition-transform transform hover:scale-105">Ver Escala de Coma FOUR</button>
+            </div>
+        </main>
+
+        <footer class="text-center mt-12 py-4 border-t border-gray-300">
+            <p class="text-gray-600">Todos los derechos reservados 2025 Dr. Héctor Castro ©</p>
+        </footer>
+    </div>
+
+    <!-- Modal -->
+    <div id="modal" class="modal fixed inset-0 bg-black bg-opacity-60 flex items-center justify-center p-4 z-50 invisible opacity-0">
+        <div id="modal-content" class="modal-content bg-white rounded-xl shadow-2xl w-full max-w-4xl max-h-[90vh] flex flex-col transform scale-95">
+            <div class="flex justify-between items-center p-4 border-b border-gray-200">
+                <h3 id="modal-title" class="text-xl font-bold text-gray-900"></h3>
+                <button onclick="hideModal()" class="text-gray-500 hover:text-gray-800 text-3xl">&times;</button>
+            </div>
+            <div id="modal-body" class="p-6 overflow-y-auto">
+                <!-- Content will be injected here -->
+            </div>
+            <div class="p-4 bg-gray-50 border-t border-gray-200 text-right">
+                 <button onclick="hideModal()" class="bg-gray-600 text-white font-semibold py-2 px-6 rounded-lg shadow-md hover:bg-gray-700 focus:outline-none focus:ring-2 focus:ring-gray-500 focus:ring-opacity-75">Cerrar</button>
+            </div>
+        </div>
+    </div>
+
+    <script>
+        const modal = document.getElementById('modal');
+        const modalContent = document.getElementById('modal-content');
+        const modalTitle = document.getElementById('modal-title');
+        const modalBody = document.getElementById('modal-body');
+
+        const tableData = {
+            tabla1: {
+                title: 'Tabla 1: Lesiones que Comúnmente Producen Defectos Pupilares Aferentes',
+                html: `
+                    <div class="table-responsive">
+                        <table class="w-full text-sm text-left text-gray-500">
+                            <thead class="text-xs text-gray-700 uppercase bg-gray-100">
+                                <tr><th scope="col" class="px-6 py-3 rounded-t-lg">Condición</th></tr>
+                            </thead>
+                            <tbody>
+                                <tr class="bg-white border-b"><td class="px-6 py-4 font-medium text-gray-900">Hemorragias intraoculares (de la cámara anterior, el vítreo o prerretiniana)</td></tr>
+                                <tr class="bg-gray-50 border-b"><td class="px-6 py-4 font-medium text-gray-900">Opacidad de los medios transparentes del ojo (leucocoria o cataratas)</td></tr>
+                                <tr class="bg-white border-b"><td class="px-6 py-4 font-medium text-gray-900">Lesiones de la retina (isquemia, hemorragia, desprendimiento, inflamación)</td></tr>
+                                <tr class="bg-gray-50 border-b"><td class="px-6 py-4 font-medium text-gray-900">Neuropatía anterior del nervio óptico (isquémica, neuritis, compresión)</td></tr>
+                                <tr class="bg-white border-b"><td class="px-6 py-4 font-medium text-gray-900">Lesiones quiasmáticas y del tracto óptico (tumores, aneurismas, abscesos cerebrales, traumatismos)</td></tr>
+                                <tr class="bg-gray-50"><td class="px-6 py-4 font-medium text-gray-900 rounded-b-lg">Lesiones del tectum mesencefálico</td></tr>
+                            </tbody>
+                        </table>
+                    </div>
+                `
+            },
+            tabla2: {
+                title: 'Tabla 2: Lesiones Cerebrales Estructurales que Causan Alteraciones Pupilares',
+                html: `
+                    <div class="table-responsive">
+                        <table class="w-full text-sm text-left text-gray-500">
+                            <thead class="text-xs text-gray-700 uppercase bg-gray-100">
+                                <tr>
+                                    <th scope="col" class="px-6 py-3">Alteración pupilar</th>
+                                    <th scope="col" class="px-6 py-3">Localización de la lesión en el neuroeje</th>
+                                    <th scope="col" class="px-6 py-3">Cuadro clínico</th>
+                                    <th scope="col" class="px-6 py-3">Respuesta motora</th>
+                                    <th scope="col" class="px-6 py-3">Diferenciar con:</th>
+                                </tr>
+                            </thead>
+                            <tbody>
+                                <tr class="bg-white border-b">
+                                    <td class="px-6 py-4 font-medium text-gray-900">Pequeñas y reactivas (1-2.5 mm)</td>
+                                    <td class="px-6 py-4">Diencéfalo superior<br>Diencéfalo inferior</td>
+                                    <td class="px-6 py-4">Estupor, eupnea, bostezos y somnolencia, apnea poshiperventilación<br>Estupor profundo, respiración de Cheyne-Stokes.</td>
+                                    <td class="px-6 py-4">Paratonía y reflejo de presión<br>Rigidez de decorticación</td>
+                                    <td class="px-6 py-4">Encefalopatías metabólicas y por drogas (ej. opiáceos)</td>
+                                </tr>
+                                <tr class="bg-gray-50 border-b">
+                                    <td class="px-6 py-4 font-medium text-gray-900">Pupilas puntiformes (&lt;1mm)</td>
+                                    <td class="px-6 py-4">Puente (hemorragia)</td>
+                                    <td class="px-6 py-4">Hiperventilación neurogénica central, coma.</td>
+                                    <td class="px-6 py-4">Rigidez de descerebración</td>
+                                    <td class="px-6 py-4">Opiáceos (ej. morfina, heroína)</td>
+                                </tr>
+                                <tr class="bg-white border-b">
+                                    <td class="px-6 py-4 font-medium text-gray-900" rowspan="3">Intermedias y fijas (4-6 mm)</td>
+                                    <td class="px-6 py-4">Mesencéfalo</td>
+                                    <td class="px-6 py-4">Hiperventilación neurogénica central, coma</td>
+                                    <td class="px-6 py-4">Rigidez de descerebración</td>
+                                    <td class="px-6 py-4" rowspan="3"></td>
+                                </tr>
+                                <tr class="bg-white border-b">
+                                    <td class="px-6 py-4">Puente</td>
+                                    <td class="px-6 py-4">Hiperventilación neurogénica central, coma. Respiración atáxica, coma si porción inferior</td>
+                                    <td class="px-6 py-4">Rigidez de descerebración o flacidez.</td>
+                                </tr>
+                                <tr class="bg-white border-b">
+                                    <td class="px-6 py-4">Médula oblongada</td>
+                                    <td class="px-6 py-4">Apnea, coma</td>
+                                    <td class="px-6 py-4">Flacidez</td>
+                                </tr>
+                                <tr class="bg-gray-50">
+                                    <td class="px-6 py-4 font-medium text-gray-900">Anisocoria</td>
+                                    <td class="px-6 py-4">Mesencéfalo (herniación del uncus)</td>
+                                    <td class="px-6 py-4">Disminución del nivel de conciencia, coma, hemiplejia contralateral.</td>
+                                    <td class="px-6 py-4">Parálisis flácida del hemicuerpo afectado</td>
+                                    <td class="px-6 py-4">(Ver tabla 5)</td>
+                                </tr>
+                            </tbody>
+                        </table>
+                    </div>
+                `
+            },
+            tabla3: {
+                title: 'Tabla 3: Causas de Síndrome de Horner',
+                html: `
+                    <div class="table-responsive">
+                        <table class="w-full text-sm text-left text-gray-500">
+                             <thead class="text-xs text-gray-700 uppercase bg-gray-100">
+                                <tr>
+                                    <th scope="col" class="px-6 py-3">Localización</th>
+                                    <th scope="col" class="px-6 py-3">Causas</th>
+                                </tr>
+                            </thead>
+                            <tbody>
+                                <tr class="bg-white border-b">
+                                    <td class="px-6 py-4 font-medium text-gray-900 align-top">Central</td>
+                                    <td class="px-6 py-4">
+                                        <ul class="list-disc pl-5">
+                                            <li>Hipotálamo y tronco encefálico: isquemias, hemorragias y desmielinización.</li>
+                                            <li>Médula espinal cervical: traumáticas, tumores y siringomielia</li>
+                                            <li>Malformaciones arteriovenosas</li>
+                                        </ul>
+                                    </td>
+                                </tr>
+                                <tr class="bg-gray-50 border-b">
+                                    <td class="px-6 py-4 font-medium text-gray-900 align-top">Preganglionares</td>
+                                    <td class="px-6 py-4">
+                                        <ul class="list-disc pl-5">
+                                            <li>Médula espinal cervicotorácica: traumatismos, tumores paravertebrales, siringomielia, malformaciones arteriovenosas, espondilólisis cervical, anestesia epidural.</li>
+                                            <li>Plexo braquial inferior: traumatismo del parto y otros traumatismos</li>
+                                            <li>Vértice pulmonar y mediastino: lesiones vasculares de la aorta ascendente o la arteria subclavia, tumor apical de Pancoast, tumores mediastinales, costillas cervicales, iatrogenias (ej. tubos de toracotomía, cirugía cardiotorácica), infecciones (tuberculosis apical)</li>
+                                            <li>Anteriores del cuello: iatrogenias (cirugía del cuello, catéteres venosos centrales yugular o subclavios), traumatismos y tumores (tiroides o linfoma).</li>
+                                        </ul>
+                                    </td>
+                                </tr>
+                                <tr class="bg-white">
+                                    <td class="px-6 py-4 font-medium text-gray-900 align-top">Posganglionares</td>
+                                    <td class="px-6 py-4">
+                                        <ul class="list-disc pl-5">
+                                            <li>Ganglio cervical superior: traumatismos, éxtasis venoso yugular, iatrogenia (gangliectomía, tonsilectomía).</li>
+                                            <li>Arteria carótida interna: disección, traumatismo, trombosis, tumores, migraña.</li>
+                                            <li>Base del cráneo y canal carotideo: traumatismos y tumores (carcinomas nasofaríngeos).</li>
+                                            <li>Seno cavernoso: tumores (meningiomas, adenoma pituitario), inflamación, aneurisma carotideo, fístula carotideo-cavernosa, trombosis.</li>
+                                        </ul>
+                                    </td>
+                                </tr>
+                            </tbody>
+                        </table>
+                    </div>
+                `
+            },
+            tabla4: {
+                title: 'Tabla 4: Principales Drogas que Pueden Provocar Alteraciones Pupilares',
+                html: `
+                    <div class="table-responsive">
+                        <table class="w-full text-sm text-left text-gray-500">
+                            <thead class="text-xs text-gray-700 uppercase bg-gray-100">
+                                <tr>
+                                    <th scope="col" class="px-6 py-3">Alteración pupilar</th>
+                                    <th scope="col" class="px-6 py-3">Clase de droga</th>
+                                    <th scope="col" class="px-6 py-3">Otros síntomas y signos</th>
+                                    <th scope="col" class="px-6 py-3">Drogas o tóxicos</th>
+                                </tr>
+                            </thead>
+                            <tbody>
+                                <tr class="bg-white border-b">
+                                    <td rowspan="4" class="px-6 py-4 font-medium text-gray-900 align-middle">Miosis</td>
+                                    <td class="px-6 py-4">Opiáceos</td>
+                                    <td class="px-6 py-4">Sedación, (pupilas puntiformes), disminución de los ruidos hidroaéreos intestinales, disminución de la profundidad de la respiración.</td>
+                                    <td class="px-6 py-4">Morfina, codeína, heroína, metadona, fentanil, meperidina*.</td>
+                                </tr>
+                                <tr class="bg-gray-50 border-b">
+                                    <td class="px-6 py-4">Sedantes hipnóticos/alcohol</td>
+                                    <td class="px-6 py-4">Sedación hasta coma. Respiración disminuida. Hipotermia e hipotensión arterial. Hipotonía muscular.</td>
+                                    <td class="px-6 py-4">Benzodiacepinas, barbitúricos**, etanol, alcohol isopropílico.</td>
+                                </tr>
+                                <tr class="bg-white border-b">
+                                    <td class="px-6 py-4">Colinérgicos</td>
+                                    <td class="px-6 py-4">Depresión del nivel de conciencia, convulsiones, lagrimeo, diaforesis, broncoespasmo, broncorrea, vómitos, diarrea, bradicardia, fasciculaciones.</td>
+                                    <td class="px-6 py-4">Acetilcolina, carbacol, pilocarpina, organofosforados, carbamatos.</td>
+                                </tr>
+                                 <tr class="bg-gray-50 border-b">
+                                    <td class="px-6 py-4">Anticolinesterasa / Otros</td>
+                                    <td class="px-6 py-4"></td>
+                                    <td class="px-6 py-4">Neostigmina, fisostigmina, ecotiofato, demecario, isofluorato, Fenciclidina, fenotiazinas, clonidina.</td>
+                                </tr>
+                                <tr class="bg-white border-b">
+                                    <td rowspan="5" class="px-6 py-4 font-medium text-gray-900 align-middle">Midriasis</td>
+                                    <td class="px-6 py-4">Anticolinérgicos</td>
+                                    <td class="px-6 py-4">Alteraciones de conciencia, agitación, delirio y coma. Taquicardia, alucinaciones, piel y mucosas secas, disminución de los ruidos hidroaéreos y retención urinaria.</td>
+                                    <td class="px-6 py-4">Atropina y sus derivados (ej. homatropina), escopolamina, ciclopentolato, tropicamida.</td>
+                                </tr>
+                                <tr class="bg-gray-50 border-b">
+                                    <td class="px-6 py-4">Simpaticomiméticos</td>
+                                    <td class="px-6 py-4">Taquicardia, hiperpnea, hipertensión, hipertermia, diaforesis. Agitación, delirio, convulsiones y coma.</td>
+                                    <td class="px-6 py-4">Epinefrina, norepinefrina, dopamina, apraclonidina, cocaína, anfetaminas.</td>
+                                </tr>
+                                <tr class="bg-white border-b">
+                                    <td class="px-6 py-4">Síndrome serotoninérgico</td>
+                                    <td class="px-6 py-4">Alteraciones de conciencia, taquicardia, hipertensión, hiperreflexia, clonus, hipertermia.</td>
+                                    <td class="px-6 py-4"></td>
+                                </tr>
+                                <tr class="bg-gray-50 border-b">
+                                    <td class="px-6 py-4">Alucinógenos</td>
+                                    <td class="px-6 py-4">Excitación, delirio, alucinaciones, depresión nerviosa central, taquicardia, diaforesis o piel seca.</td>
+                                    <td class="px-6 py-4">Cocaína, fenciclidina (PCP), marihuana, ácido lisérgico-LSD, mescalina, "hongos".</td>
+                                </tr>
+                                <tr class="bg-white">
+                                    <td class="px-6 py-4">Abstinencia de opiáceos / alcohol o sedantes</td>
+                                    <td class="px-6 py-4">Consciente, ansioso, bostezos, piloerección, náuseas, vómitos, taquicardia, dolor. / Excitación, delirio, convulsiones, etc.</td>
+                                    <td class="px-6 py-4"></td>
+                                </tr>
+                            </tbody>
+                        </table>
+                        <p class="text-xs mt-2 text-gray-600">*Meperidina puede causar midriasis. **Los barbitúricos, a dosis muy elevadas, pueden provocar midriasis paralítica.</p>
+                    </div>
+                `
+            },
+            tabla5: {
+                title: 'Tabla 5: Diagnóstico Diferencial de Anisocoria',
+                html: `
+                    <div class="space-y-4">
+                        <div>
+                            <h4 class="font-semibold text-lg text-gray-800 mb-2">Fisiológicas</h4>
+                            <p class="text-gray-700">Anisocoria simple o esencial.</p>
+                        </div>
+                        <div>
+                            <h4 class="font-semibold text-lg text-gray-800 mb-2">Patológicas</h4>
+                            <div class="space-y-3">
+                                <p><strong class="text-gray-900">Del sistema nervioso central:</strong></p>
+                                <ul class="list-disc pl-6 space-y-1 text-gray-700">
+                                    <li>Locales: hipertensión intraocular (glaucoma), traumatismos y cirugía del ojo o la órbita, lesiones periféricas del III par, bloqueo farmacológico, pupila tónica.</li>
+                                    <li>Enfermedades cerebrovasculares (ej. trombosis de la arteria basilar, ictus cardioembólico)</li>
+                                    <li>Tumores cerebrales (ej. gliomas de tronco encefálico)</li>
+                                    <li>Convulsiones (anisocoria transitoria)</li>
+                                    <li>Síndrome del seno cavernoso</li>
+                                    <li>Aneurismas cerebrales</li>
+                                    <li>Espondilosis cervical (Insuficiencia arterial carotídea (menos frecuente))</li>
+                                    <li>Cefalea en racimo, migrañas.</li>
+                                    <li>Síndromes de disección</li>
+                                    <li>Esclerosis múltiple</li>
+                                    <li>Infecciones del sistema nervioso central: abscesos cerebrales, meningitis, empiemas durales.</li>
+                                    <li>Herniación cerebral por hipertensión intracraneal (pupila de Hutchinson).</li>
+                                </ul>
+                                <p><strong class="text-gray-900">Extracraneales:</strong></p>
+                                <ul class="list-disc pl-6 space-y-1 text-gray-700">
+                                    <li>Tumores o adenopatías de la parte superior del tórax que compriman la vía simpática (Síndrome de Horner)</li>
+                                </ul>
+                            </div>
+                        </div>
+                    </div>
+                `
+            },
+            tabla6: {
+                title: 'Tabla 6: Escala de Evaluación del Coma FOUR (Full Outline of UnResponsiveness)',
+                html: `
+                    <div class="table-responsive">
+                        <table class="w-full text-sm text-left text-gray-500">
+                            <thead class="text-xs text-gray-700 uppercase bg-gray-100">
+                                <tr>
+                                    <th scope="col" class="px-6 py-3">Componente</th>
+                                    <th scope="col" class="px-6 py-3">Puntaje</th>
+                                    <th scope="col" class="px-6 py-3">Respuesta</th>
+                                </tr>
+                            </thead>
+                            <tbody>
+                                <tr class="bg-white"><td colspan="3" class="px-6 py-2 font-bold text-base bg-blue-50">Respuesta ocular (E: eyes)</td></tr>
+                                <tr class="bg-white border-b"><td class="px-6 py-4"></td><td class="px-6 py-4 font-bold">E4</td><td class="px-6 py-4">abre los párpados o no, busca o parpadea a la orden</td></tr>
+                                <tr class="bg-gray-50 border-b"><td class="px-6 py-4"></td><td class="px-6 py-4 font-bold">E3</td><td class="px-6 py-4">párpados abiertos pero no busca</td></tr>
+                                <tr class="bg-white border-b"><td class="px-6 py-4"></td><td class="px-6 py-4 font-bold">E2</td><td class="px-6 py-4">párpados cerrados pero los abre al dolor</td></tr>
+                                <tr class="bg-gray-50 border-b"><td class="px-6 py-4"></td><td class="px-6 py-4 font-bold">E1</td><td class="px-6 py-4">los párpados permanecen cerrados al dolor</td></tr>
+                                
+                                <tr class="bg-white"><td colspan="3" class="px-6 py-2 font-bold text-base bg-green-50">Respuesta motora (M: motor)</td></tr>
+                                <tr class="bg-white border-b"><td class="px-6 py-4"></td><td class="px-6 py-4 font-bold">M4</td><td class="px-6 py-4">levanta el pulgar, el puño, o hace el "signo de la paz"</td></tr>
+                                <tr class="bg-gray-50 border-b"><td class="px-6 py-4"></td><td class="px-6 py-4 font-bold">M3</td><td class="px-6 py-4">localiza el dolor</td></tr>
+                                <tr class="bg-white border-b"><td class="px-6 py-4"></td><td class="px-6 py-4 font-bold">M2</td><td class="px-6 py-4">respuesta en flexión al dolor</td></tr>
+                                <tr class="bg-gray-50 border-b"><td class="px-6 py-4"></td><td class="px-6 py-4 font-bold">M1</td><td class="px-6 py-4">respuesta en extensión al dolor</td></tr>
+                                <tr class="bg-white border-b"><td class="px-6 py-4"></td><td class="px-6 py-4 font-bold">M0</td><td class="px-6 py-4">no hay respuesta al dolor o estado epiléptico mioclónico generalizado</td></tr>
+
+                                <tr class="bg-white"><td colspan="3" class="px-6 py-2 font-bold text-base bg-yellow-50">Reflejos de tronco encefálico (B: Brain stem)</td></tr>
+                                <tr class="bg-white border-b"><td class="px-6 py-4"></td><td class="px-6 py-4 font-bold">B4</td><td class="px-6 py-4">reflejo pupilar y corneal presente</td></tr>
+                                <tr class="bg-gray-50 border-b"><td class="px-6 py-4"></td><td class="px-6 py-4 font-bold">B3</td><td class="px-6 py-4">una pupila dilatada y arreactiva a la luz</td></tr>
+                                <tr class="bg-white border-b"><td class="px-6 py-4"></td><td class="px-6 py-4 font-bold">B2</td><td class="px-6 py-4">reflejo pupilar o corneal ausente</td></tr>
+                                <tr class="bg-gray-50 border-b"><td class="px-6 py-4"></td><td class="px-6 py-4 font-bold">B1</td><td class="px-6 py-4">reflejo pupilar y corneal ausentes</td></tr>
+                                <tr class="bg-white border-b"><td class="px-6 py-4"></td><td class="px-6 py-4 font-bold">B0</td><td class="px-6 py-4">ausencia de reflejos pupilares, corneales y tusígenos.</td></tr>
+
+                                <tr class="bg-white"><td colspan="3" class="px-6 py-2 font-bold text-base bg-red-50">Respiración (R: Respiration)</td></tr>
+                                <tr class="bg-white border-b"><td class="px-6 py-4"></td><td class="px-6 py-4 font-bold">R4</td><td class="px-6 py-4">patrón respiratorio regular</td></tr>
+                                <tr class="bg-gray-50 border-b"><td class="px-6 py-4"></td><td class="px-6 py-4 font-bold">R3</td><td class="px-6 py-4">patrón respiratorio de Cheyne-Stokes</td></tr>
+                                <tr class="bg-white border-b"><td class="px-6 py-4"></td><td class="px-6 py-4 font-bold">R2</td><td class="px-6 py-4">Patrón respiratorio irregular</td></tr>
+                                <tr class="bg-gray-50 border-b"><td class="px-6 py-4"></td><td class="px-6 py-4 font-bold">R1</td><td class="px-6 py-4">dispara o respira por encima de la frecuencia del ventilador</td></tr>
+                                <tr class="bg-white"><td class="px-6 py-4"></td><td class="px-6 py-4 font-bold">R0</td><td class="px-6 py-4">apnea o respira con la frecuencia del ventilador</td></tr>
+                            </tbody>
+                        </table>
+                    </div>
+                `
+            }
+        };
+
+        function showModal(tableId) {
+            const data = tableData[tableId];
+            if (data) {
+                modalTitle.textContent = data.title;
+                modalBody.innerHTML = data.html;
+                modal.classList.remove('invisible', 'opacity-0');
+                modalContent.classList.remove('scale-95');
+                modalContent.classList.add('scale-100');
+            }
+        }
+
+        function hideModal() {
+            modalContent.classList.remove('scale-100');
+            modalContent.classList.add('scale-95');
+            modal.classList.add('opacity-0');
+            setTimeout(() => {
+                modal.classList.add('invisible');
+            }, 300);
+        }
+        
+        // Close modal on outside click
+        modal.addEventListener('click', function(event) {
+            if (event.target === modal) {
+                hideModal();
+            }
+        });
+
+    </script>
+</body>
+</html>
 
