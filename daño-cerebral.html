@@ -1,0 +1,322 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Fisiopatología del Daño Cerebral en el Paciente Neurocrítico</title>
+    <script src="https://cdn.tailwindcss.com"></script>
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;600;700;900&display=swap" rel="stylesheet">
+    <style>
+        body {
+            font-family: 'Inter', sans-serif;
+            background-color: #f0f4f8; /* Un gris azulado muy claro */
+        }
+        .card {
+            background-color: white;
+            border-radius: 1rem;
+            box-shadow: 0 10px 15px -3px rgba(0, 0, 0, 0.1), 0 4px 6px -2px rgba(0, 0, 0, 0.05);
+            transition: transform 0.3s ease, box-shadow 0.3s ease;
+        }
+        .card:not(.modal-card):hover {
+            transform: translateY(-5px);
+            box-shadow: 0 20px 25px -5px rgba(0, 0, 0, 0.1), 0 10px 10px -5px rgba(0, 0, 0, 0.04);
+        }
+        .tab-button {
+            transition: all 0.3s ease;
+            border-bottom: 4px solid transparent;
+        }
+        .tab-button.active {
+            border-bottom-color: #3b82f6; /* Azul */
+            color: #1e3a8a; /* Azul oscuro */
+            transform: translateY(-2px);
+        }
+        .content-section {
+            display: none;
+        }
+        .content-section.active {
+            display: block;
+        }
+        .header-gradient {
+            background: linear-gradient(90deg, #1e3a8a, #3b82f6);
+        }
+        .bullet-point::before {
+            content: '✓';
+            color: #3b82f6;
+            font-weight: bold;
+            display: inline-block;
+            width: 1em;
+            margin-left: -1em;
+        }
+        /* Estilos para el diagrama secuencial */
+        .step-box {
+            background-color: #fef2f2;
+            border: 1px solid #fca5a5;
+            color: #991b1b;
+            padding: 0.75rem 1.5rem;
+            border-radius: 0.75rem;
+            font-weight: 600;
+            text-align: center;
+            box-shadow: 0 2px 4px rgba(0,0,0,0.05);
+            transition: all 0.3s ease;
+            height: 100%;
+        }
+        .step-box:hover {
+            transform: scale(1.05);
+            box-shadow: 0 4px 8px rgba(0,0,0,0.1);
+        }
+        .flow-arrow {
+            position: relative;
+            width: 50px;
+            height: 6px;
+            background: linear-gradient(90deg, #f87171, #fb923c);
+            border-radius: 3px;
+            animation: pulse-arrow 2s infinite ease-in-out;
+        }
+        .flow-arrow::after {
+            content: '';
+            position: absolute;
+            right: -10px;
+            top: -7px;
+            width: 0;
+            height: 0;
+            border-top: 10px solid transparent;
+            border-bottom: 10px solid transparent;
+            border-left: 20px solid #fb923c;
+        }
+        @keyframes pulse-arrow {
+            0%, 100% { transform: scaleX(1); opacity: 0.9; }
+            50% { transform: scaleX(1.1); opacity: 1; }
+        }
+        /* Estilos para el Modal */
+        .modal {
+            transition: opacity 0.3s ease;
+        }
+        .modal-content {
+            transition: transform 0.3s ease;
+        }
+        .modal.hidden .modal-content {
+            transform: scale(0.95);
+        }
+    </style>
+</head>
+<body class="text-gray-800">
+
+    <!-- Header -->
+    <header class="header-gradient text-white p-6 md:p-10 text-center shadow-lg">
+        <h1 class="text-3xl md:text-5xl font-black tracking-tight">Fisiopatología del Daño Cerebral</h1>
+        <p class="text-lg md:text-xl mt-2 font-light">Una guía interactiva para el paciente neurocrítico</p>
+    </header>
+
+    <main class="container mx-auto p-4 md:p-8">
+
+        <!-- Definición y Mecanismos Generales -->
+        <section class="grid md:grid-cols-2 gap-8 mb-12">
+            <div class="card p-6 md:p-8">
+                <h2 class="text-2xl font-bold text-blue-800 mb-4">¿Qué es el Daño Cerebral Adquirido?</h2>
+                <p class="mb-4">Es una lesión súbita en las células del cerebro que ocurre después del nacimiento. No es de carácter genético ni degenerativo. Se produce por múltiples causas (traumatismos, tumores, infecciones) y se divide en dos fases clave que definen el pronóstico del paciente neurocrítico.</p>
+            </div>
+            <div class="card p-6 md:p-8 flex items-center">
+                <div>
+                    <h3 class="text-xl font-bold text-blue-700">1. Lesión Primaria: El Impacto Inicial</h3>
+                    <p class="text-sm mb-3">Daño directo, inmediato e irreversible por la causa inicial (impacto, compresión, isquemia).</p>
+                    <h3 class="text-xl font-bold text-red-700">2. Lesión Secundaria: La Cascada Destructiva</h3>
+                    <p class="text-sm">Daño indirecto y evolutivo que se desencadena como respuesta. <span class="font-bold">Es el objetivo principal del tratamiento neurocrítico.</span></p>
+                </div>
+            </div>
+        </section>
+
+        <!-- Diagrama Fisiopatología General -->
+        <section class="card p-6 md:p-8 mb-12">
+            <h2 class="text-2xl font-bold text-center text-blue-900 mb-8">Fisiopatología General del Daño Cerebral</h2>
+            <div class="flex flex-wrap items-stretch justify-center gap-y-4 gap-x-2">
+                <div class="flex items-center justify-center step-box">ISQUEMIA</div>
+                <div class="hidden md:flex items-center justify-center"><div class="flow-arrow"></div></div>
+                <div class="flex items-center justify-center step-box text-center">DÉFICIT EN EL<br>APORTE DE O₂ Y GLUCOSA</div>
+                <div class="hidden md:flex items-center justify-center"><div class="flow-arrow"></div></div>
+                <div class="flex items-center justify-center step-box text-center">PÉRDIDA DE FUNCIÓN<br>DE PARED CELULAR</div>
+                <div class="hidden md:flex items-center justify-center"><div class="flow-arrow"></div></div>
+                <div class="flex items-center justify-center step-box text-center">DESEQUILIBRIO IÓNICO Y<br>ENTRADA DE Ca²⁺ Y GLUTAMATO</div>
+                <div class="hidden md:flex items-center justify-center"><div class="flow-arrow"></div></div>
+                <div class="flex items-center justify-center step-box text-center">ACTIVACIÓN ENZIMÁTICA<br>DESTRUCTIVA</div>
+                <div class="hidden md:flex items-center justify-center"><div class="flow-arrow"></div></div>
+                <div class="flex items-center justify-center step-box text-center">DAÑO CELULAR<br>IRREVERSIBLE</div>
+                <div class="hidden md:flex items-center justify-center"><div class="flow-arrow"></div></div>
+                <div class="flex items-center justify-center step-box">NECROSIS / APOPTOSIS</div>
+            </div>
+        </section>
+
+        <!-- Cascada de Lesión Secundaria (con Modales) -->
+        <section class="card p-6 md:p-8 mb-12 modal-card">
+            <h2 class="text-2xl font-bold text-center text-red-800 mb-6">La Cascada de la Lesión Secundaria</h2>
+            <div class="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 gap-6 text-center">
+                <button class="modal-trigger p-4 rounded-lg bg-red-50 hover:bg-red-100 transition duration-300" data-title="Excitotoxicidad por Glutamato" data-text="Liberación masiva del neurotransmisor excitador glutamato que sobreestimula los receptores neuronales. Esto provoca una entrada masiva y descontrolada de Calcio (Ca²⁺) a la célula, iniciando la cascada tóxica.">
+                    <h3 class="font-bold pointer-events-none">Excitotoxicidad por Glutamato</h3>
+                </button>
+                <button class="modal-trigger p-4 rounded-lg bg-red-50 hover:bg-red-100 transition duration-300" data-title="Neuroinflamación" data-text="La barrera hematoencefálica se rompe, activando la microglía y atrayendo células inmunes. Se liberan citoquinas pro-inflamatorias que, aunque intentan reparar, perpetúan el daño y contribuyen al edema.">
+                    <h3 class="font-bold pointer-events-none">Neuroinflamación</h3>
+                </button>
+                <button class="modal-trigger p-4 rounded-lg bg-red-50 hover:bg-red-100 transition duration-300" data-title="Disfunción Mitocondrial y Estrés Oxidativo" data-text="El exceso de calcio y el ambiente tóxico colapsan las mitocondrias, las centrales energéticas de la célula. La producción de energía (ATP) se detiene y se generan radicales libres, moléculas que destruyen lípidos, proteínas y ADN celular.">
+                    <h3 class="font-bold pointer-events-none">Disfunción Mitocondrial y Estrés Oxidativo</h3>
+                </button>
+                <button class="modal-trigger p-4 rounded-lg bg-red-50 hover:bg-red-100 transition duration-300" data-title="Edema Cerebral" data-text="Puede ser de dos tipos. Edema Citotóxico: las células se hinchan por la falla de las bombas iónicas debido a la falta de ATP. Edema Vasogénico: la barrera hematoencefálica se vuelve permeable y el líquido del plasma inunda el espacio extracelular.">
+                    <h3 class="font-bold pointer-events-none">Edema Cerebral</h3>
+                </button>
+                <button class="modal-trigger p-4 rounded-lg bg-red-50 hover:bg-red-100 transition duration-300" data-title="Apoptosis" data-text="En un ambiente hostil, sin energía y con daño irreparable, las neuronas activan un programa de 'suicidio' celular programado para autodestruirse de forma controlada.">
+                    <h3 class="font-bold pointer-events-none">Apoptosis</h3>
+                </button>
+                <button class="modal-trigger p-4 rounded-lg bg-red-50 hover:bg-red-100 transition duration-300" data-title="Hipertensión Intracraneal (HIC)" data-text="Es el resultado final y el enemigo a vencer. El aumento de volumen por el edema y la inflamación dentro del cráneo (una caja inextensible) aumenta la presión, comprime los vasos sanguíneos, disminuye el flujo cerebral y provoca más isquemia, creando un círculo vicioso de muerte neuronal.">
+                    <h3 class="font-bold pointer-events-none">Hipertensión Intracraneal (HIC)</h3>
+                </button>
+            </div>
+        </section>
+
+        <!-- Fisiopatología por Etiología -->
+        <section class="card p-6 md:p-8">
+            <h2 class="text-2xl md:text-3xl font-bold text-center text-blue-900 mb-8">Fisiopatología por Etiología</h2>
+            <div class="flex flex-wrap justify-center border-b-2 border-gray-200 mb-8 -mx-4">
+                <button class="tab-button active text-sm md:text-base font-semibold py-3 px-4 md:px-6" onclick="showTab('tce')"><span class="hidden sm:inline">💥</span> TCE</button>
+                <button class="tab-button text-sm md:text-base font-semibold py-3 px-4 md:px-6" onclick="showTab('tumor')"><span class="hidden sm:inline">🧠</span> Tumor Cerebral</button>
+                <button class="tab-button text-sm md:text-base font-semibold py-3 px-4 md:px-6" onclick="showTab('infeccion')"><span class="hidden sm:inline">🦠</span> Infecciones</button>
+                <button class="tab-button text-sm md:text-base font-semibold py-3 px-4 md:px-6" onclick="showTab('metabolico')"><span class="hidden sm:inline">⚙️</span> Trastornos Metabólicos</button>
+                <button class="tab-button text-sm md:text-base font-semibold py-3 px-4 md:px-6" onclick="showTab('evc')"><span class="hidden sm:inline">🩸</span> EVC</button>
+            </div>
+            <div id="tab-content">
+                <!-- Contenido de las pestañas (sin cambios) -->
+                <div id="tce" class="content-section active">
+                    <div class="grid md:grid-cols-2 gap-8 items-start">
+                        <div>
+                            <h3 class="text-xl font-bold text-blue-800 mb-3">Lesión Primaria</h3>
+                            <ul class="space-y-2 pl-4">
+                                <li class="bullet-point"><strong>Contusiones:</strong> Lesiones por golpe y contragolpe.</li>
+                                <li class="bullet-point"><strong>Lesión Axonal Difusa:</strong> Daño generalizado a las fibras nerviosas por fuerzas de cizallamiento y rotación.</li>
+                                <li class="bullet-point"><strong>Hematomas:</strong> Acumulación de sangre (epidural, subdural, intraparenquimatoso) por ruptura vascular.</li>
+                            </ul>
+                        </div>
+                        <div>
+                            <h3 class="text-xl font-bold text-red-800 mb-3">Cascada Secundaria Específica</h3>
+                            <p>Se activa la cascada de excitotoxicidad-inflamación de forma masiva. El <strong>edema vasogénico</strong> y la <strong>congestión vascular</strong> por pérdida de la autorregulación cerebral son predominantes, llevando a una rápida y severa elevación de la PIC.</p>
+                        </div>
+                    </div>
+                </div>
+                <div id="tumor" class="content-section">
+                    <div class="grid md:grid-cols-2 gap-8 items-start">
+                        <div>
+                            <h3 class="text-xl font-bold text-blue-800 mb-3">Lesión Primaria</h3>
+                             <ul class="space-y-2 pl-4">
+                                <li class="bullet-point"><strong>Efecto de Masa:</strong> Compresión directa del tejido cerebral por el crecimiento del tumor.</li>
+                                <li class="bullet-point"><strong>Infiltración:</strong> Destrucción del tejido sano a medida que el tumor lo invade.</li>
+                                 <li class="bullet-point"><strong>Hidrocefalia:</strong> Obstrucción del flujo de Líquido Cefalorraquídeo (LCR).</li>
+                            </ul>
+                        </div>
+                        <div>
+                            <h3 class="text-xl font-bold text-red-800 mb-3">Cascada Secundaria Específica</h3>
+                            <p>El tumor estimula la <strong>angiogénesis</strong> (formación de vasos sanguíneos anormales y permeables), causando un intenso <strong>edema vasogénico</strong> peritumoral. Este edema es el principal contribuyente al aumento de la PIC en estos pacientes.</p>
+                        </div>
+                    </div>
+                </div>
+                <div id="infeccion" class="content-section">
+                     <div class="grid md:grid-cols-2 gap-8 items-start">
+                        <div>
+                            <h3 class="text-xl font-bold text-blue-800 mb-3">Lesión Primaria</h3>
+                             <ul class="space-y-2 pl-4">
+                                <li class="bullet-point"><strong>Meningitis:</strong> Inflamación de las meninges por la invasión de bacterias o virus.</li>
+                                <li class="bullet-point"><strong>Absceso Cerebral:</strong> Infección focal que forma una colección de pus encapsulada, generando efecto de masa.</li>
+                            </ul>
+                        </div>
+                        <div>
+                            <h3 class="text-xl font-bold text-red-800 mb-3">Cascada Secundaria Específica</h3>
+                            <p>La respuesta inmune es el principal agresor. La liberación masiva de citoquinas provoca una <strong>inflamación severa de los vasos sanguíneos (vasculitis)</strong>, que puede llevar a trombosis e infartos. El edema es mixto: <strong>citotóxico</strong> por toxinas bacterianas y <strong>vasogénico</strong> por la inflamación.</p>
+                        </div>
+                    </div>
+                </div>
+                <div id="metabolico" class="content-section">
+                    <div class="grid md:grid-cols-2 gap-8 items-start">
+                        <div>
+                            <h3 class="text-xl font-bold text-blue-800 mb-3">Lesión Primaria (Disfunción Sistémica)</h3>
+                            <p>No hay una lesión estructural inicial. El problema es un <strong>desequilibrio bioquímico global</strong> por fallo de otro órgano (hígado, riñón) o por alteraciones sistémicas (hipoxia, hipo/hiperglucemia, desequilibrios electrolíticos).</p>
+                        </div>
+                        <div>
+                            <h3 class="text-xl font-bold text-red-800 mb-3">Cascada Secundaria Específica</h3>
+                            <p>La acumulación de toxinas (ej. amonio en fallo hepático) o la falta de sustratos energéticos (oxígeno, glucosa) causa una disfunción neuronal global. El daño principal es el <strong>edema citotóxico</strong>, ya que los astrocitos y neuronas se hinchan al fallar sus bombas iónicas por falta de ATP.</p>
+                        </div>
+                    </div>
+                </div>
+                <div id="evc" class="content-section">
+                    <div class="grid md:grid-cols-2 gap-8 items-start">
+                        <div>
+                            <h3 class="text-xl font-bold text-blue-800 mb-3">Lesión Primaria</h3>
+                             <ul class="space-y-2 pl-4">
+                                <li class="bullet-point"><strong>Isquémico:</strong> Obstrucción de una arteria, creando un <strong>núcleo isquémico</strong> (muerte celular rápida) y una <strong>zona de penumbra</strong> (tejido en riesgo pero salvable).</li>
+                                <li class="bullet-point"><strong>Hemorrágico:</strong> Ruptura de un vaso, con daño mecánico por el hematoma y toxicidad de la sangre sobre el parénquima cerebral.</li>
+                            </ul>
+                        </div>
+                        <div>
+                            <h3 class="text-xl font-bold text-red-800 mb-3">Cascada Secundaria Específica</h3>
+                            <p>En la <strong>zona de penumbra isquémica</strong> se activa la cascada de excitotoxicidad de forma crítica. El objetivo del tratamiento es restaurar el flujo sanguíneo para "rescatar" esta zona. En la hemorragia, la sangre misma desencadena una intensa respuesta inflamatoria y estrés oxidativo.</p>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </section>
+    </main>
+
+    <!-- Footer -->
+    <footer class="text-center p-6 bg-gray-800 text-white mt-12">
+        <p>Todos los derechos reservados 2025 Dr. Héctor Castro &copy;</p>
+    </footer>
+
+    <!-- Modal Structure -->
+    <div id="infoModal" class="modal fixed inset-0 bg-black bg-opacity-60 z-50 hidden flex items-center justify-center p-4">
+        <div class="modal-content bg-white rounded-2xl shadow-xl w-full max-w-lg p-6 md:p-8 relative mx-auto">
+            <button id="closeModalBtn" class="absolute top-4 right-4 text-gray-400 hover:text-gray-800 transition-colors">
+                <svg class="w-6 h-6" fill="none" stroke="currentColor" viewBox="0 0 24 24" xmlns="http://www.w3.org/2000/svg"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M6 18L18 6M6 6l12 12"></path></svg>
+            </button>
+            <h3 id="modalTitle" class="text-2xl font-bold text-blue-800 mb-4"></h3>
+            <p id="modalText" class="text-gray-700 leading-relaxed"></p>
+        </div>
+    </div>
+
+    <script>
+        // Tab functionality
+        function showTab(tabName) {
+            document.querySelectorAll('.content-section').forEach(section => section.classList.remove('active'));
+            document.querySelectorAll('.tab-button').forEach(button => button.classList.remove('active'));
+            document.getElementById(tabName).classList.add('active');
+            document.querySelector(`.tab-button[onclick="showTab('${tabName}')"]`).classList.add('active');
+        }
+
+        // Modal functionality
+        const modal = document.getElementById('infoModal');
+        const modalTitle = document.getElementById('modalTitle');
+        const modalText = document.getElementById('modalText');
+        const closeModalBtn = document.getElementById('closeModalBtn');
+        const modalTriggers = document.querySelectorAll('.modal-trigger');
+
+        function openModal(title, text) {
+            modalTitle.textContent = title;
+            modalText.textContent = text;
+            modal.classList.remove('hidden');
+        }
+
+        function closeModal() {
+            modal.classList.add('hidden');
+        }
+
+        modalTriggers.forEach(trigger => {
+            trigger.addEventListener('click', () => {
+                openModal(trigger.dataset.title, trigger.dataset.text);
+            });
+        });
+
+        closeModalBtn.addEventListener('click', closeModal);
+        modal.addEventListener('click', (event) => {
+            if (event.target === modal) {
+                closeModal();
+            }
+        });
+    </script>
+
+</body>
+</html>
