@@ -10,9 +10,6 @@
         body {
             font-family: 'Inter', sans-serif;
         }
-        .component-bar {
-            transition: height 0.5s ease-in-out;
-        }
         .card {
             transition: transform 0.3s, box-shadow 0.3s;
         }
@@ -26,9 +23,6 @@
         th, td {
             min-width: 150px;
         }
-        #manometer {
-            min-width: 150px;
-        }
     </style>
 </head>
 <body class="bg-gray-100 text-gray-800">
@@ -36,47 +30,20 @@
     <div class="container mx-auto p-4 md:p-8">
         <header class="text-center mb-10">
             <h1 class="text-4xl md:text-5xl font-bold text-gray-900 mb-2">Doctrina de Monro-Kellie</h1>
-            <p class="text-lg text-gray-600">Un Viaje Interactivo por la Dinámica de la Presión Intracraneal</p>
+            <p class="text-lg text-gray-600">Evolución de la Dinámica de la Presión Intracraneal</p>
         </header>
 
         <main>
-            <!-- Sección Interactiva -->
+            <!-- Sección del Video -->
             <section class="mb-12 bg-white p-6 rounded-lg shadow-lg">
-                <h2 class="text-2xl font-bold mb-4 text-center">Simulación de la Dinámica Intracraneal</h2>
-                <p class="text-center text-gray-600 mb-6">El cráneo es una caja rígida con un volumen fijo. Los tres componentes (Cerebro, Sangre y LCR) deben mantener un equilibrio. Ajusta el volumen de un componente para ver cómo los otros se adaptan para mantener la presión estable.</p>
+                <h2 class="text-2xl font-bold mb-4 text-center">Umbrales de PIC</h2>
+                <p class="text-center text-gray-600 mb-6">Presión Volumen Monro Kellie.</p>
                 
-                <div class="w-full max-w-4xl mx-auto">
-                    <!-- Contenedor de la simulación (cráneo + manómetro) -->
-                    <div class="flex flex-col md:flex-row items-center justify-center gap-8 mb-6">
-                        <!-- Contenedor del Cráneo -->
-                        <div class="border-4 border-gray-700 rounded-full h-80 w-80 md:h-96 md:w-96 flex-shrink-0 flex flex-col justify-end items-center p-4 bg-gray-200 overflow-hidden relative">
-                            <div id="brain" class="component-bar bg-pink-400 w-full text-center text-white font-bold" style="height: 75%;">Cerebro</div>
-                            <div id="blood" class="component-bar bg-red-500 w-full text-center text-white font-bold" style="height: 15%;">Sangre</div>
-                            <div id="csf" class="component-bar bg-blue-500 w-full text-center text-white font-bold" style="height: 10%;">LCR</div>
-                        </div>
-                        <!-- Manómetro -->
-                        <div id="manometer" class="bg-white p-4 rounded-lg shadow-md border-2 border-gray-300 text-center">
-                            <h4 class="font-bold text-lg mb-2 border-b pb-2">Manómetro PIC</h4>
-                            <p id="pic-value" class="text-3xl font-bold text-green-600 transition-colors duration-500">Estable</p>
-                        </div>
-                    </div>
-
-                    <!-- Controles -->
-                    <div class="grid grid-cols-1 md:grid-cols-3 gap-4 mt-6">
-                        <div>
-                            <label for="lesion-slider" class="block text-sm font-medium text-gray-700">Añadir Lesión (Volumen extra)</label>
-                            <input id="lesion-slider" type="range" min="0" max="25" value="0" class="w-full h-2 bg-gray-200 rounded-lg appearance-none cursor-pointer">
-                            <div class="text-center mt-1">
-                                <span id="lesion-value">0</span>% Volumen Extra
-                            </div>
-                        </div>
-                        <div class="flex items-end justify-center">
-                             <button id="reset-button" class="bg-indigo-600 text-white font-bold py-2 px-4 rounded-lg hover:bg-indigo-700 transition">Reiniciar Simulación</button>
-                        </div>
-                        <div class="text-center p-4 bg-yellow-100 border-l-4 border-yellow-500 text-yellow-700 rounded-lg">
-                            <h4 class="font-bold">Estado del Sistema</h4>
-                            <p id="status-text">Equilibrio perfecto. Los mecanismos de compensación están intactos.</p>
-                        </div>
+                <div class="w-full max-w-3xl mx-auto">
+                    <div class="aspect-w-16 aspect-h-9">
+                        <video class="w-full rounded-lg shadow-md" src="monro-animacion.mp4" controls autoplay loop muted>
+                            Tu navegador no soporta el elemento de video.
+                        </video>
                     </div>
                 </div>
             </section>
@@ -161,100 +128,6 @@
             <p class="text-gray-600">Todos los derechos reservados 2025 Dr. Héctor Castro &copy;</p>
         </footer>
     </div>
-
-    <script>
-        const lesionSlider = document.getElementById('lesion-slider');
-        const lesionValue = document.getElementById('lesion-value');
-        const brainBar = document.getElementById('brain');
-        const bloodBar = document.getElementById('blood');
-        const csfBar = document.getElementById('csf');
-        const picValue = document.getElementById('pic-value');
-        const statusText = document.getElementById('status-text');
-        const resetButton = document.getElementById('reset-button');
-        const skullContainer = document.querySelector('.border-gray-700.rounded-full');
-
-        const initialState = {
-            brain: 75,
-            blood: 15,
-            csf: 10,
-        };
-
-        function updateSimulation() {
-            const lesion = parseInt(lesionSlider.value);
-            lesionValue.textContent = lesion;
-
-            let { brain, blood, csf } = {...initialState};
-            
-            // Mecanismos de compensación
-            let compensatedVolume = 0;
-            let status = '';
-
-            // 1. Desplazamiento de LCR
-            const csfCompensation = Math.min(lesion, csf * 0.8); // Puede compensar hasta el 80% de su volumen
-            let newCsf = csf - csfCompensation;
-            compensatedVolume += csfCompensation;
-
-            // 2. Compresión venosa (sangre)
-            let newBlood = blood;
-            if (lesion > csfCompensation) {
-                const remainingLesion = lesion - csfCompensation;
-                const bloodCompensation = Math.min(remainingLesion, blood * 0.5); // Puede compensar hasta el 50%
-                newBlood = blood - bloodCompensation;
-                compensatedVolume += bloodCompensation;
-            }
-
-            // Actualizar alturas de las barras
-            const totalDisplayVolume = brain + newBlood + newCsf + lesion;
-            brainBar.style.height = `${(brain / totalDisplayVolume) * 100}%`;
-            bloodBar.style.height = `${(newBlood / totalDisplayVolume) * 100}%`;
-            csfBar.style.height = `${(newCsf / totalDisplayVolume) * 100}%`;
-
-            // Añadir la lesión visualmente
-            let lesionBar = document.getElementById('lesion-bar');
-            if (lesion > 0) {
-                if (!lesionBar) {
-                    lesionBar = document.createElement('div');
-                    lesionBar.id = 'lesion-bar';
-                    lesionBar.className = 'component-bar bg-purple-600 w-full text-center text-white font-bold';
-                    lesionBar.textContent = 'Lesión';
-                    skullContainer.appendChild(lesionBar);
-                }
-                lesionBar.style.height = `${(lesion / totalDisplayVolume) * 100}%`;
-            } else if (lesionBar) {
-                lesionBar.remove();
-            }
-
-
-            // Actualizar PIC y estado
-            if (lesion <= compensatedVolume) {
-                picValue.textContent = 'Estable';
-                picValue.className = 'text-3xl font-bold text-green-600 transition-colors duration-500';
-                status = 'Compensado. El LCR y la sangre venosa se desplazan para hacer espacio.';
-            } else if (lesion > compensatedVolume && lesion < 20) {
-                picValue.textContent = 'Elevada';
-                picValue.className = 'text-3xl font-bold text-yellow-600 transition-colors duration-500';
-                status = 'Compensación agotándose. La presión comienza a subir peligrosamente.';
-            } else {
-                picValue.textContent = '¡Crítica!';
-                picValue.className = 'text-3xl font-bold text-red-600 transition-colors duration-500';
-                status = 'Descompensado. Riesgo inminente de herniación. La presión es muy alta.';
-            }
-            statusText.textContent = status;
-        }
-        
-        function resetSimulation() {
-            lesionSlider.value = 0;
-            let lesionBar = document.getElementById('lesion-bar');
-            if(lesionBar) lesionBar.remove();
-            updateSimulation();
-        }
-
-        lesionSlider.addEventListener('input', updateSimulation);
-        resetButton.addEventListener('click', resetSimulation);
-        
-        // Inicializar
-        updateSimulation();
-    </script>
 
 </body>
 </html>
